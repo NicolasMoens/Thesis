@@ -1,21 +1,40 @@
-\section{Introduction}
-fqdkfjqmldjf qojfoqi,oqiqoj oqfcqcmoq oqmi qzmoqmo
+\chapter{Introduction}
 
-\subsection{Scientific Rationale}
-In various systems it is important to take into account a radiation field when considering gas dynamics. Radiation can exert forces on the gass and transport energy. An important concept in these sort of systems is the Eddington factor $\Gamma$, this is the ratio between the radiative and gravitational acceleration.
+In various systems it is important to take into account a radiation field when considering gas dynamics. Radiation can exert forces to, for example, accelerate stellar winds and transport energy like in the non-convective stellar radiation zones. The equations describing gas dynamics with a radiation will evolve on two different timescales, a radiation field generally evolves much faster than gas, so solving them isn't trivial. This thesis describes radiation hydrodynamics (RHD) in two different regimes: CAK-theory in hot stellar winds and flux limited diffusion in stellar atmospheres.\\
+
+The importance of good models for radiation hydrodynamics is clear in a multitude of astrophysical systems, a few are listed below. An important concept in these sort of systems is the Eddington factor $\Gamma$, this is the ratio between the radiative and gravitational acceleration.
 \begin{align}
 	\Gamma = \frac{\kappa F}{c g_{grav}}
 \end{align}
-Where $F$ is the radiation energy flux, $\kappa$ the absorption opacity, $c$ the speed of light in vacuum and $g_{grav}$ the magnitude of the local gravitational acceleration. Systems that ecceed the Eddington limit ($\Gamma > 1$) are called super-Eddington systems. A prime example for such a system is $\eta$ Carinae.\\
+Where $F$ is the radiation energy flux, $\kappa$ the absorption opacity, $c$ the speed of light in vacuum and $g_{grav}$ the magnitude of the local gravitational acceleration. If the Eddington factor describing a system gets bigger, the importance for taking into account radiation grows as wel.
 
-Other astrophysical regimes where radiation plays an important role are for example stellar winds, accretion discs, very massive stars, ...
+\begin{itemize}
+\item \textbf{stellar winds}\\
+Stellar winds can be subdivided in three types: pressure driven for solar type stars, dust driven for cool massive stars and radiation driven for hot massive stars. The driving force behind these radiation driven winds is, as the name sugests, radiation force. Hot massive stars can undergo massloss of $\sim 10^{-6} M_\odot/yr$ due to radiation driven wind, this of course will have an impact on their evolution. \\
+Stars with a luminosity of $10^6 L_\odot$ and a stellar mass of $80 M_\odot$ will have an Eddington factor $\Gamma \sim 50$ near the surface, radiation plays an essential role in their dynamics.
+CAK-theory Is an analytical model describing these winds, and the first half of this thesis was spent on modeling this.\\
 
-\subsection{Hydrodynamics}
+\item \textbf{stellar atmospheres}\\
+
+\item \textbf{accretion disks}\\
+
+\item \textbf{star formation}\\
+
+\item \textbf{very massive stars}\\
+
+\item \textbf{Eruptive variables}\\
+Systems that ecceed the Eddington limit ($\Gamma > 1$) are called super-Eddington systems. A prime example for such a system is $\eta$ Carinae. $\eta$ Carinae is what is known as an eruptive variable. It is a star which underwent an enormous massloss in the middle of the 19th century, losing $10 M_\odot$ over the course of $10$ years. One of the hypothesised drivers of this huge massloss is radiation.
+\end{itemize}
+
+
+
+
+\section{Hydrodynamics}
 The movement of non-isothermal gasses and fluids, in the absence of magnetic fields and radiation, are described by hydrodynamics. The hydrodynamical equations describe conservation of mass, conservation of momentum and conservation of energy in the following equations:
 
 \begin{align}
  \partial_t \left(\rho \right) + \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= S_\rho \\
- \partial_t \left(\rho \vec{v} \right) + \vec{\nabla} \cdot \left( \vec{v} \rho \vec{v} + p \right)    &= S_{\rho \vec{v}} \\
+ \partial_t \left(\rho \vec{v} \right) + \vec{\nabla} \left( \vec{v} \rho \vec{v} + p \right)    &= S_{\rho \vec{v}} \\
  \partial_t \left(e \right) + \vec{\nabla} \cdot \left( \vec{v} e + \vec{v} p \right) &= S_e
 \end{align}
 
@@ -27,23 +46,89 @@ These three partial differential equations are called the continuity equation (d
 
 There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ and $p$. This means that there is need for an additional closure relation:
 \begin{align}
-	p = (\gamma - 1) \left(e - \frac{\rho \vec{v}^2}{2} \right)
+	p = (\gamma - 1) \left(e - \frac{\rho \vec{v}^2}{2} \right) \label{gas_closing}
 \end{align}
 
 The sourceterms in the equations describe adding or substracting to one of the densities: $S_\rho$ describes mass being added or substracted from the system, $S_{\rho \vec{v}}$ describes external forces such as gravity or radiative forces and $S_e$ describes work excerted on the system, this can be for example due to heating of the fluid.\\
 
-Predicting fluid dynamics means solving these forementioned equations simultaniously, this is done using computercodes such as mpi-amrvac CITE HERE. The Evolution of a fluid will depend heavily on both initial and boundary conditions.\\
+Predicting fluid dynamics means solving these forementioned equations simultaniously, this is done using computercodes such as mpi-amrvac CITE HERE. Solving these equations is a tricky buisness, and there are numerous codes and numerical schemes available.
 
 
-\subsection{Radiation Hydrodynamics}
+The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}.\\
+
+
+\section{Radiation Hydrodynamics}
+The last section gave a small recap of hydrodynamics. In this section, a mathematicial framework is set up to combine the hydrodynamics equations with the effects of a time dependent radiation field. At the end of this we will be left with a system of partial differential equations describing the dynamics of both the gas and radiation field.\\ 
 The main governing equation describing the evolution of radiation trough a medium is the radiative transfer equation:
 \begin{align}
-\frac{1}{c} \frac{\partial I_\nu}{\partial t} = j_\nu + \int_\Omega \frac{\kappa_\nu}{4 \pi} I_\nu d\Omega
+\left( \frac{1}{c} \frac{\partial}{\partial t} + \vec{n} \cdot \vec{\nabla} \right) I_\nu = \eta_\nu + \kappa_\nu I_\nu
 \end{align}
-Where $I_\nu$ is the intensity at frequency $\nu$, $j_\nu$ is the mean intensity and $\int_\Omega d\Omega$ is an integration over the total solid angle.
+Where $I_\nu$ is the intensity at frequency $\nu$ along the direction of unit vector $\vec{n}$. $\eta_\nu$ And $\chi_\nu$ are the emissivity and total opacity. This equation describes how the value of the intensity $I_\nu$ Changes when propagating trough a medium with given emissivity and opacity. This form is known as the $0^{th}$ order of the radiative transfer equation. The $1^{st}$  order radiative transfer equations are obtained by integrating over all solid angles and dividing by $4 \pi$, the $2^{nd}$ order one by first multiplying with $\vec{n}$ before doing the integration.\\
+
+\begin{align}
+\frac{1}{c} \frac{\partial J_\nu}{\partial t} + \vec{\nabla} \cdot \vec{H_\nu} &= \frac{1}{4 \pi} \int_\Omega \eta_\nu + \kappa_\nu I_\nu d\Omega \\
+\frac{1}{c} \frac{\partial \vec{H_\nu}}{\partial t} + \vec{\nabla} \cdot K_\nu &= \frac{1}{4 \pi} \int_\Omega \left( \eta_\nu + \kappa_\nu I_\nu\right) \vec{n} d\Omega
+\end{align}
+
+Where $J_\nu$, $\vec{H_\nu}$ and $K_\nu$ are the higher order moments of the intensity. $J_\nu$ is the mean intensity, which is $I_\nu$ averaged over all solid angles and thus a scalar. $\vec{H}_\nu$ Is a vector and $K_\nu$ is a tensor of order 2. The following relations exist between the moments of intensity and some more physical quantities:
+
+\begin{align}
+E_\nu &= \frac{4 \pi}{c} j_\nu \\
+\vec{F_\nu} &= \frac{4 \pi}{c} \vec{H_\nu} \\
+P_\nu &= \frac{4 \pi}{c} K_\nu
+\end{align}
+
+These are the radiative energy $E_\nu$, the radiation flux $\vec{F_\nu}$ and the radiation pressure tensor $P_\nu$. When asuming local thermal equilibrium (LTE), just like with the gass pressure tensor, $P_\nu$ can be written as a scalar times the unit tensor. The fraction of emissivity and total opacity is often written as the sourcefunction $S_\nu = \frac{\eta_\nu}{\chi_\nu}$. \\
+ When doing full radiative transfer, these equations are solved for an enormous amount of frequecies, corresponding to the indices $_\nu$. The situation is simplified when assuming a grey radiation field, by integrating over all frequencies. The LTE, grey radiation energy and radiation flux equations can be written in a conservative form, similar to the hydrodynamics equations:
+
+\begin{align}
+\frac{\partial E}{\partial t} + \vec{\nabla} \cdot \vec{F} &= c \int_\nu \int_\Omega \chi_\nu \left( S_\nu + I_\nu \right) d\nu d\Omega \\
+\frac{\partial \vec{F}}{\partial t} + c^2 \vec{\nabla} P &= \frac{c}{4 \pi} \int_\nu \int_\Omega \chi_\nu \left( S_\nu + I_\nu \right) \vec{n} d\nu d\Omega
+\end{align}
+
+Assuming LTE, the sourcefunction scales with the Planck function $S_\nu = \frac{4\pi}{c} B_\nu(T)$ and both $B_\nu(T)$ and $\chi_\nu$ are independent of solid angle. The relations between flux, energy and the moments of intensity can be used again to replace $I_\nu$ in the sourceterms. Because of symmetry, $S_\nu \vec{n}$ integrated over the total solid angle will return $\vec{0}$ in the sourceterm of the flux equation.\\
+The absorption coefficient is the product of the gas density and the frequency dependent opacity: $\chi_\nu = \rho \kappa_\nu$. To make life easier, an Energy-meaned and Plack opacity can be defined, and in first approximation they are equal to the Rosseland mean opacity: (SOURCE?!?!?!?)
+\begin{align}
+\frac{\int_\nu E_\nu \kappa_\nu d\nu}{\int_\nu E_\nu d\nu} = \frac{\int_\nu B_\nu \kappa_\nu d\nu}{\int_\nu B_\nu d\nu} = \kappa
+\end{align}
+Integration over all frequencies, replacing opacities by the Rosseland mean opacity leads to:
+\begin{align}
+\frac{\partial E}{\partial t} + \vec{\nabla} \cdot \vec{F} &= 4\pi \kappa\rho B(T) - c \kappa \rho E\\
+\frac{\partial \vec{F}}{\partial t} + c^2 \vec{\nabla} P &=  c \kappa \rho \vec{F} 
+\end{align}
+
+These equations are written here in the co-moving frame. Transforming to a static frame, the same frame as used in forementioned hydro equations, an advection term is added to the density flux in  both equations, $\vec{v} E$ and $\vec{v} \cdot \vec{F}$. The two sourceterms in the radiation energy equation are interpreted as energy exchange between the gas and the radiation field, energy leaving the radiation field heats the gas and gas is cooled by energy entering the radiation field. These so called heating and cooling sourceterms, $4\pi \kappa\rho B(T)$ and $ c \kappa \rho E$, must be added to the gas energy equation as well. \\
+The sourceterm in the Flux energy equation has the same units as the gas momentum sourceterm, this is the expression for radiation force. If momentum leaves the radiation flux there is work being done, this must also mean that there is energy leaving the radiation field. This is translated in the photon tiring term $\vec{\nabla} \cdot \vec{v} P$, which must be substracted from the radiation energy sourceterm.
+
+\begin{align}
+ \partial_t \left(\rho \right) + \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= 0 \label{eq: rhd_cont} \\
+ \partial_t \left(\rho \vec{v} \right) + \vec{\nabla} \left( \vec{v} \rho \vec{v} + p \right) 
+ &= \frac{\kappa \rho}{c} \vec{F} \label{eq: rhd_mom} \\
+ \partial_t \left(e \right) + \vec{\nabla} \cdot \left( \vec{v} e + \vec{v} p \right) &= -4\pi \kappa\rho B + c \kappa \rho E \label{eq: rhd_e}\\
+ \partial_t \left(E \right) +  \vec{\nabla} \cdot \left( \vec{v} E + \vec{F} \right) &=  -\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E \label{eq: rhd_e_r} \\
+ \partial_t \left(\frac{\vec{F}}{c^2} \right) +  \vec{\nabla} \left( \frac{\vec{v} \cdot \vec{F}}{c^2} + P \right) &= - \frac{\kappa \rho}{c} \vec{F} \label{eq: rhd_flux}
+\end{align}
 
 
-\subsection{Sobolev and CAK-theory}
 
-\subsection{Flux Limited Diffusion}
-\subsubsection{Elliptic vs Parabolic}
+These are the final radiation hydrodynamics equations. There are only 5 equations for 7 primitive variables: $\rho$, $\vec{v}$, $e$, $p$, $E$, $\vec{F}$ and $P$. Two closing relations are nessecary to close the system. A first closing relation is obtained by re-using equation \eqref{gas_closing}, a second one can be obtained by for example the \emph{Flux limited diffusion} approximation (FLD) described in section \ref{section: introduction Flux Limited Diffusion}.
+
+\section{Sobolev and CAK-theory}
+
+
+\section{Flux Limited Diffusion} \label{section: introduction Flux Limited Diffusion}
+As mentioned before, the full RHD equations leave us with 5 partial differential equations and one HD closure relation for 7 variables. Several methods and approximations exist for closing the system and one of them is flux limited diffusion. (GIVE EXAMPLES, CITE)\\
+
+Consider the steady state solution of the radiation flux equation \eqref{eq: rhd_flux}. In first order $\frac{v}{c^2} << 1$, so the relation between $P$ and $F$ is given by.
+
+\begin{align}
+\vec{\nabla} P = - \frac{\kappa \rho}{c} \vec{F} \label{eq: P=DF}
+\end{align}
+
+In the optically thick limit the eddington approximation gives us $P = \frac{1}{3}E$, so \eqref{eq: P=DF} can be written as $\vec{F} = -\frac{1}{3}\frac{c}{\kappa \rho} \vec{\nabla}E$. However, in the optically thin, free streaming limit, the density goes to zero and thus the radiation flux should go to infinity, this is unphysical. A solution is introducing the flux limiter $\lambda$, which is a factor varrying between $\frac{1}{3}$ in the optically thick regime, and $0$ in the optically thin. The extra nessecary closure relation can now be written as:
+
+\begin{align}
+\vec{F} = -\frac{c\lambda}{\kappa \rho} \vec{\nabla}E
+\end{align}
+
+Different formalisms for expressing $\lambda$ exist, the one used in this work was taken from .......... .
