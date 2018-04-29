@@ -122,7 +122,7 @@ Or in matrix form:
            \cdots & b_{i,j-1} & b_{i,j} & b_{i,j+1} & \cdots
 \end{bmatrix}
 \end{align}
-This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain (grid AND ghostcells), except for the outer layer of ghostcells. The boundary conditions on the radiation energy field are applied after the halved timestep. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of gaussian elimination. \\
+This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain and the innermost layer of ghostcells. The boundary conditions on the radiation energy field are applied after the halved timestep. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a timestep. \\
 
 The second half of the timestep will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
 \begin{align}
@@ -132,9 +132,24 @@ The second half of the timestep will be solved implicit in the $y$-direction and
  &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n+1} - E_{i,j}^{n+1}) \\
  &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n+1} - E_{i,j-1}^{n+1})
 \end{align}
-And this system, of course, has a matrix notation completely similar to the one in the first half of the timestep, which can be solved in a completely similar way.
+And this system, of course, has a matrix notation completely similar to the one in the first half of the timestep, which can be solved in a completely similar way. This time there are $N+2$ matrices of size $(M+2) \times (M+2)$ to be solved.
 
 \subsection{pseudo-timestepping}
 \subsection{Bisection Implicit scheme} \label{subsection: BIS}
-
+Solving for the sourceterms in the gas and radiation energy equations happens with another implicit scheme. 
+\begin{align}
+e^{n+1} - e^n &= \Delta t \left( -4\kappa \sigma \left(\frac{(\gamma - 1)e^{n+1}}{\rho}\right)^4 + c \kappa E^{n+1} \right) \\ 
+E^{n+1} - E^n &= \Delta t \left( +4\kappa \sigma \left(\frac{(\gamma - 1)e^{n+1}}{\rho}\right)^4 - c \kappa E^{n+1} -\nabla \vec{v} P^{n+1} \right)
+\end{align} 
+This can be rewritten as:
+\begin{align}
+e^{n+1} - e^n &= -a_1 \left( e^{n+1}\right)^4 + a_2 E^{n+1}  \\ 
+E^{n+1} - E^n &= a_1 \left( e^{n+1} \right)^4 - a_2 E^{n+1} - a_3 E^{n+1} 
+\end{align}
+where $a_1 = 4\kappa \sigma \left(\frac{(\gamma - 1)}{\rho^{n+1}}\right)^4 \Delta t$, $a_2 = c \kappa \Delta t$ and $a_3 = \frac{\nabla \vec{v} P^{n+1} }{E^{n+1}} \Delta t$. Manipulation of the equations returns:
+\begin{align}
+\left( e^{n+1} \right)^4 &+ \frac{1 + a_2 + a_3}{a_1 + a_3}e^{n+1} -  \frac{(1 + a_2 + a_3)e^n + a_2 E^n}{a_1 + a_3} = 0 \\ \label{eq: Poly}
+E^{n+1} &= \frac{a_1 \left( e^{n+1} \right)^4 + E^n}{1 + a_2 + a_3} %\label{eq: E_src}
+\end{align}
+Equation \eqref{eq: Poly} is a $4^{th}$ degree polynomial in $e^{n+1}$, with a single root between $0$ and $\frac{1 + a_2 + a_3}{a_1 + a_3}$. This is solved for $e^{n+1}$ using the bisection method to calculate the contribution of the radiative heating and cooling to the gas energy. $e^{n+1}$ Is then plugged in equation \eqref{eq: E_src} to find the contribution of the radiative heating and cooling and the photon tiring to the radiation energy.
 \section{visualisation}
