@@ -1,13 +1,140 @@
 \chapter{Methodology}
 
 \section{mpi-amrvac} \label{section: methods amrvac}
+Modeling of the winds and atmospheres in this thesis is done in \emph{mpi-AMRVAC} (Message Passing Interface - Adaptive Mesh Refinement Versatile Advection Code) (\cite{Porth2014}), a multidimensional, adaptive mesh (magneto-)hydrodynamics code. In the code, several explicit solvers can be used to solve the conservative hydrodynamical equations \eqref{hd_rho, hd_mom, hd_e} with sourceterms defined by the user. This code was chosen mainly because it is developed in house at the centre for mathematical plasma astrophysics (cmpa), which made a close colaboration with the developpers possible.\\
+To run the code, several scripts are provided:
+
+\begin{itemize}
+\item \textbf{Sourcecode:} The sourcecode consists of al the algorithms to solve the equations, aply boundary conditions, refine the mesh, read input and write output, etc. Inside the sourcecode reside several physics modules, e.g. a module for graity, dust, radiative cooling and viscosity.\\
+
+\item \textbf{user module:} In the user module, the user defines the initial conditions. Also, this is the place to add additional subroutines for userdefined sourceterm, boundary conditions, timestep-calculations and extra outputvariables among others. The subroutines in this file are automaticly called by the sourcecode.\\
+
+\item \textbf{parameter file:} The parameter file is where the computational parameters are defined: grid size and resolution, simulation time, which numerical schemes to use, what type of boundary conditions and how many output files the user wants are only a few to be named. This file is basicly a bunch of knobs for the user.\\
+\end{itemize}
+
+In the following sections, the integration of CAK-theory and FLD in mpi-AMRVAC will be explained.
+
 
 \section{CAK-theory}
+Moddeling CAK-winds consists of two steps: assuming an isothermal gas and adding the $g_{cak}$ and $g_{grav}$ sourceterms to the momentum equation.
+
+The isothermal gas assumption is made by switching off the solving for the energy equation in the parameter file. The code now neglects equations \eqref{eq: hd_e} and \eqref{eq: gas_closing}, and replaces them with a new closure relation:
+\begin{align}
+ p &= c_{adiabatic} p^\gamma
+\end{align}
+The two free parameters $c_{adiabatic}$ and $\gamma$ are set to .... and .... to match the conditions in a typical CAK wind. CITE HERE\\
+
+The momentum sourceterms are added in the user module.
+
 
 \section{Flux Limited Diffusion}
-\subsection{Elliptic vs Parabolic}
+Solving the Radiation hydrodynamics equations is more complicated. An entirely new equation has to be solved and a bunch of new variables and parameteres have to be defined. Given the complexity of the problem it is solved in a new physics module in the sourcecode. Equation \eqref{eq: rhd_rho} is trivial and \eqref{eq: rhd_mom} only needs a sourceterm which can be computed with the help of the FLD closure relation \eqref{eq: fld_closing}. The sourceterms in the energy equation \eqref{eq: hd_e} evolve on a radiation timescale instead of a hydrodynamical timescale, for this reason they wil be implemented with an implicit scheme, see section \ref{subsection: BIS}. The radiation energy equation is entirely new to the code, and again because of the timescale difference, it will be solved partially implicitly, in an operator split manner. \\
+
+In AMRVAC, the timestep at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel accross cells, thus the timestep should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
+In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the soundspeed. The timestep in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
+\begin{align}
+dt = min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
+\end{align}
+This is the maximum timestep at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorbtion coeficient.
+
+\begin{align}
+\partial_t \left(E \right) + \underbrace{\vec{\nabla} \cdot \left( \vec{v} E \right)}_{1}  &= - \underbrace{\vec{\nabla} \cdot \vec{F}}_{2} - \underbrace{\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E}_{3} \\
+\end{align} 
+
+\begin{itemize}
+\item \textbf{1: The advection term}
+\begin{equation}
+\partial_t E + \vec{\nabla} \cdot \left( \vec{v} E \right) = 0
+\end{equation}
+can be handeled using already exsisting amrvac routines, this part has a similar shape to the conservative form of the hd equations \eqref{eq: conservative}. This advection is the movement of the radiation field with the gas, its a proces evolving on a similar timescale as the advection of other quantities. Implementation is as trivial as defining the riemann fluxes and calling the necesary, already existing, subroutines.\\
+
+\item \textbf{2: The diffusion term}
+\begin{align}
+\partial_t E = - \vec{\nabla} \cdot \vec{F}
+\end{align}
+can, by using the fld closing relation, be written as:
+\begin{align}
+\partial_t E = - \vec{\nabla} \cdot \left( -\frac{\lambda c}{\kappa \rho} \nabla E\right)
+\end{align}
+Trying to solve this equation togheter with the other hydro equations gives rise to two problems. First: the timescale on which the radiation energry $E$ evolves is much shorter than the hydrodynamical timescale on which $\rho$, $\vec{v}$ and $e$ evolve, and second: this is a hyperbolic equation, which makes it hard to solve with the explicit schemes which are used by amrvac to solve the other equations. A way to overcome these problems is solving for the diffusion implicitly. The technique used in developping the new physics module is an Alternative Direction Implicit scheme (ADI), and is based on the Zeus-2D FLD module \cite{Turener12001}.\\
+
+\item \textbf{3: The photon tiring and the radiation heating and cooling sourceterms}
+\begin{align}
+\partial_t E = - \vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E
+\end{align}
+are also evolving on the faster timescale, hence they must be solved implicitly. This is done with a scheme similar to the technique found in \cite{Turner12001}, which will be explained below.
+\end{itemize}
+
+\subsection{Elliptic vs Hyperbolic}
 \subsection{ADI}
+The diffusion part of the radiative energy equation wil be solved using the Alternating Direction Implicit (ADI) scheme. This is a numerical scheme which solves the equation implicitly in the first spatial direction an explicitly in the second for half a time step, and then implicitly in the second spatial direction and explicitly in the first for another half timestep. Lets first simplify the equation by defining the diffusion coefficient $D = \frac{\lambda c}{\kappa \rho}$. 
+\begin{align}
+\partial_t E  = \vec{\nabla} \cdot \left(D \nabla E\right) \label{eq: diffusion}
+\end{align}
+
+Lets now construct a nummerical scheme. First, the left hand side of \eqref{eq: diffusion} is writen in a discrete form. Let $E_{i,j}$ be the radiative energy in cell $(i,j)$ on a grid with $\Delta x$ grid spacing in the $x$-direction and $\Delta y$ grid spacing in the $y$-direction. $D_{i,j}$ is the cell centered diffusion coefficient, whilst $D1_{i,j} = \frac{1}{2} (D_{i+1,j} + D_{i,j})$ and $D2_{i,j} = \frac{1}{2} (D_{i,j+1} + D_{i,j})$ are the cell faced values. To transform from cell center to cell face it is simplest to take the mean of the two surounding cells, taking the mean of the six sourrounding cells is also an option. 
+\begin{align}
+\left( \vec{\nabla} \cdot \left(D \nabla E\right) \right)_{i,j} 
+ &= \frac{D1_{i+1,j} (\nabla E)_{x} - D1_{i,j} (\nabla E)_{x}}{\Delta x} \\
+ &+ \frac{D2_{i,j+1} (\nabla E)_{y} - D2_{i,j} (\nabla E)_{y}}{\Delta y} \\ 
+ &= \frac{D1_{i+1,j} (E_{i+1,j} - E_{i,j}) - D1_{i,j} (E_{i,j} - E_{i-1,j})}{\Delta x^2} \\
+ &+ \frac{D2_{i,j+1} (E_{i,j+j} - E_{i,j}) - D2_{i,j} (E_{i,j} - E_{i,j-1})}{\Delta y^2} \\ 
+\end{align}
+
+For the implicit scheme the diffusion coefficients are chosen at the previous timestep, as they are to be computed from a known radiation energy. Evolving \eqref{eq: diffusion} over a timestep $\Delta t$ from time $n$ to time $n+1$ means solving the following equations:
+\begin{align}
+\frac{E^{n+1} - E^{n}}{\Delta t} = \vec{\nabla} \cdot \left(D^n \nabla E^{n+1}\right) 
+\end{align}
+
+As mentioned before, the ADI scheme first solves half a timestep implicitly in for example the $x$-direction and explicitly in the $y$-direction:
+\begin{align}
+\frac{E_{i,j}^{n+\frac{1}{2}} - E_{i,j}^{n}}{\Delta t}
+ &= \frac{D1_{i+1,j}^{n}}{\Delta x^2} (E_{i+1,j}^{n+\frac{1}{2}} - E_{i,j}^{n+\frac{1}{2}}) \\
+ &- \frac{D1_{i,j}^{n}}{\Delta x^2} (E_{i,j}^{n+\frac{1}{2}} - E_{i-1,j}^{n+\frac{1}{2}}) \\
+ &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n} - E_{i,j}^{n}) \\
+ &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n} - E_{i,j-1}^{n})
+\end{align}
+
+In a more simple form, this can be written as:
+\begin{align}
+\left(1 + \frac{\Delta t D1_{i+1,j}^{n}}{\Delta x^2} + \frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} \right) E_{i,j}^{n+\frac{1}{2}} - \frac{\Delta t D1_{i+1,j}^{n}}{\Delta x^2} E_{i+1,j}^{n+\frac{1}{2}} - \frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} E_{i-1,j}^{n+\frac{1}{2}} = b_{i,j}
+\end{align}
+where $b_{i,j} = \left(1 + \frac{\Delta t D2_{i,j+1}^{n}}{\Delta y^2} + \frac{\Delta t D2_{i,j}^{n}}{\Delta y^2}\right) E_{i,j}^{n} + \frac{\Delta t D2_{i,j+1}^{n}}{\Delta y^2} E_{i,j+1}^{n} + \frac{\Delta t D2_{i,j}^{n}}{\Delta y^2} E_{i,j-1}^{n}$
+Or in matrix form:
+\begin{align}
+&\begin{bmatrix}
+\ddots & \ddots & & &\\
+\ddots & \left(1 + \frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} + \frac{\Delta t D1_{i-1,j}^{n}}{\Delta x^2} \right) & -\frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} & & \\
+& -\frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} & \left(1 + \frac{\Delta t D1_{i+1,j}^{n}}{\Delta x^2} + \frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} \right) & - \frac{\Delta t D1_{i,j}^{n}}{\Delta x^2} & \\
+& & -\frac{\Delta t D1_{i+1,j}^{n}}{\Delta x^2} & \left(1 + \frac{\Delta t D1_{i+2,j}^{n}}{\Delta x^2} + \frac{\Delta t D1_{i+1,j}^{n}}{\Delta x^2} \right) & \ddots \\
+& & & \ddots & \ddots
+\end{bmatrix} \\
+&\times
+\begin{bmatrix}
+           \vdots                    \\
+           E_{i-1,j}^{n+\frac{1}{2}} \\
+           E_{i,j}^{n+\frac{1}{2}}   \\
+           E_{i+1,j}^{n+\frac{1}{2}} \\
+           \vdots
+\end{bmatrix} 
+=
+\begin{bmatrix}
+           \cdots & b_{i,j-1} & b_{i,j} & b_{i,j+1} & \cdots
+\end{bmatrix}
+\end{align}
+This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain (grid AND ghostcells), except for the outer layer of ghostcells. The boundary conditions on the radiation energy field are applied after the halved timestep. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of gaussian elimination. \\
+
+The second half of the timestep will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
+\begin{align}
+\frac{E_{i,j}^{n+1} - E_{i,j}^{n+\frac{1}{2}}}{\Delta t}
+ &= \frac{D1_{i+1,j}^{n}}{\Delta x^2} (E_{i+1,j}^{n+\frac{1}{2}} - E_{i,j}^{n+\frac{1}{2}}) \\
+ &- \frac{D1_{i,j}^{n}}{\Delta x^2} (E_{i,j}^{n+\frac{1}{2}} - E_{i-1,j}^{n+\frac{1}{2}}) \\
+ &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n+1} - E_{i,j}^{n+1}) \\
+ &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n+1} - E_{i,j-1}^{n+1})
+\end{align}
+And this system, of course, has a matrix notation completely similar to the one in the first half of the timestep, which can be solved in a completely similar way.
+
 \subsection{pseudo-timestepping}
-\subsection{Bisection Implicit scheme}
+\subsection{Bisection Implicit scheme} \label{subsection: BIS}
 
 \section{visualisation}

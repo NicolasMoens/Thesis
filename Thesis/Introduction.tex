@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-In various systems it is important to take into account a radiation field when considering gas dynamics. Radiation can exert forces to, for example, accelerate stellar winds and transport energy like in the non-convective stellar radiation zones. The equations describing gas dynamics with a radiation will evolve on two different timescales, a radiation field generally evolves much faster than gas, so solving them isn't trivial. This thesis describes radiation hydrodynamics (RHD) in two different regimes: CAK-theory in hot stellar winds and flux limited diffusion in stellar atmospheres.\\
+In various systems it is important to take into account a radiation field when considering gas dynamics (\cite{Tetsu2016},  ...). Radiation can exert forces to, for example, accelerate stellar winds and transport energy like in the non-convective stellar radiation zones. The equations describing gas dynamics with a radiation will evolve on two different timescales, a radiation field generally evolves much faster than gas, so solving them isn't trivial. This thesis describes radiation hydrodynamics (RHD) in two different regimes: CAK-theory in hot stellar winds and flux limited diffusion in stellar atmospheres.\\
 
 The importance of good models for radiation hydrodynamics is clear in a multitude of astrophysical systems, a few are listed below. An important concept in these sort of systems is the Eddington factor $\Gamma$, this is the ratio between the radiative and gravitational acceleration.
 \begin{align}
@@ -33,15 +33,15 @@ Systems that ecceed the Eddington limit ($\Gamma > 1$) are called super-Eddingto
 The movement of non-isothermal gasses and fluids, in the absence of magnetic fields and radiation, are described by hydrodynamics. The hydrodynamical equations describe conservation of mass, conservation of momentum and conservation of energy in the following equations:
 
 \begin{align}
- \partial_t \left(\rho \right) + \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= S_\rho \\
- \partial_t \left(\rho \vec{v} \right) + \vec{\nabla} \left( \vec{v} \rho \vec{v} + p \right)    &= S_{\rho \vec{v}} \\
- \partial_t \left(e \right) + \vec{\nabla} \cdot \left( \vec{v} e + \vec{v} p \right) &= S_e
+ \partial_t \left(\rho \right) + \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= S_\rho \label{eq: hd_rho}\\
+ \partial_t \left(\rho \vec{v} \right) + \vec{\nabla} \left( \vec{v} \rho \vec{v} + p \right) &= S_{\rho \vec{v}} \label{eq: hd_mom}\\
+ \partial_t \left(e \right) + \vec{\nabla} \cdot \left( \vec{v} e + \vec{v} p \right) &= S_e \label{eq: hd_e}
 \end{align}
 
 These three partial differential equations are called the continuity equation (describing mass density), the momentum equation (describing momentum density) and the energy equation (describing energy density). Above, the equations were written in their conservative form, they al have the same shape:
 
 \begin{align}
-	\partial_t \underbrace{u}_\text{density} + \vec{\nabla} \cdot \overbrace{\vec{F_u}}^\text{density flux} &= \underbrace{S_u}_\text{sourceterm}
+	\partial_t \underbrace{u}_\text{density} + \vec{\nabla} \cdot \overbrace{\vec{F_u}}^\text{density flux} &= \underbrace{S_u}_\text{sourceterm} \label{eq: conservative}
 \end{align}
 
 There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ and $p$. This means that there is need for an additional closure relation:
@@ -51,11 +51,9 @@ There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ 
 
 The sourceterms in the equations describe adding or substracting to one of the densities: $S_\rho$ describes mass being added or substracted from the system, $S_{\rho \vec{v}}$ describes external forces such as gravity or radiative forces and $S_e$ describes work excerted on the system, this can be for example due to heating of the fluid.\\
 
-Predicting fluid dynamics means solving these forementioned equations simultaniously, this is done using computercodes such as mpi-amrvac CITE HERE. Solving these equations is a tricky buisness, and there are numerous codes and numerical schemes available.
+Predicting fluid dynamics means solving these forementioned equations simultaniously, this is done using computercodes such as mpi-amrvac \cite{Porth2014}. Solving these equations is a tricky buisness, and there are numerous codes and numerical schemes available. The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}. \\
 
-
-The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}.\\
-
+In section \ref{section: introduction CAK}, an analytic expression for these sourceterms are calculated to simulate the conditions in line driven stellar winds. This calculation was first done by Castor, Abbot and Klein CITE HERE and carries their initals in its name: CAK-theory.
 
 \section{Radiation Hydrodynamics}
 The last section gave a small recap of hydrodynamics. In this section, a mathematicial framework is set up to combine the hydrodynamics equations with the effects of a time dependent radiation field. At the end of this we will be left with a system of partial differential equations describing the dynamics of both the gas and radiation field.\\ 
@@ -109,8 +107,6 @@ The sourceterm in the Flux energy equation has the same units as the gas momentu
  \partial_t \left(\frac{\vec{F}}{c^2} \right) +  \vec{\nabla} \left( \frac{\vec{v} \cdot \vec{F}}{c^2} + P \right) &= - \frac{\kappa \rho}{c} \vec{F} \label{eq: rhd_flux}
 \end{align}
 
-
-
 These are the final radiation hydrodynamics equations. There are only 5 equations for 7 primitive variables: $\rho$, $\vec{v}$, $e$, $p$, $E$, $\vec{F}$ and $P$. Two closing relations are nessecary to close the system. A first closing relation is obtained by re-using equation \eqref{gas_closing}, a second one can be obtained by for example the \emph{Flux limited diffusion} approximation (FLD) described in section \ref{section: introduction Flux Limited Diffusion}.
 
 \section{Sobolev and CAK-theory}
@@ -128,7 +124,7 @@ Consider the steady state solution of the radiation flux equation \eqref{eq: rhd
 In the optically thick limit the eddington approximation gives us $P = \frac{1}{3}E$, so \eqref{eq: P=DF} can be written as $\vec{F} = -\frac{1}{3}\frac{c}{\kappa \rho} \vec{\nabla}E$. However, in the optically thin, free streaming limit, the density goes to zero and thus the radiation flux should go to infinity, this is unphysical. A solution is introducing the flux limiter $\lambda$, which is a factor varrying between $\frac{1}{3}$ in the optically thick regime, and $0$ in the optically thin. The extra nessecary closure relation can now be written as:
 
 \begin{align}
-\vec{F} = -\frac{c\lambda}{\kappa \rho} \vec{\nabla}E
+\vec{F} = -\frac{c\lambda}{\kappa \rho} \vec{\nabla}E \label{eq: fld_closing}
 \end{align}
 
-Different formalisms for expressing $\lambda$ exist, the one used in this work was taken from .......... .
+Different formalisms for expressing $\lambda$ exist, the one used in this work has been worked out in \cite{Levermore1981}.
