@@ -14,6 +14,7 @@
 \usepackage{helvet}
 \usepackage{amsmath}
 \usepackage{mathtools}
+\usepackage{textcomp}
 %\usepackage{todonotes}
 
 % ------------------------ Page settings -----------------------------
@@ -121,6 +122,19 @@ Academic year 2017-2018
 \vfill
 \newpage
 
+\begin{textblock}{160}(-6,191)
+\textblockcolour{}
+\center
+
+\textcopyright Copyright by KU Leuven
+
+Without written permission of the promotors and the authors it is forbidden to reproduce or adapt in any form or by any means any part of this publication. Requests for obtaining the right to reproduce or utilize parts of this publication should be addressed to KU Leuven, Faculteit Wetenschappen, Geel Huis, Kasteelpark Arenberg 11 bus 2100, 3001 Leuven (Heverlee), Telephone +32 16 32 14 01.
+
+A written permission of the promotor is also required to use the methods, products, schematics and programs described in this work for industrial or commercial use, and for submitting this publication in scientific contests.
+\vfill
+\end{textblock}
+\newpage
+
 % In case you want to integrate the TeX-file for the titlepage
 % with the rest of your thesis, you cab continue below
 % ------------------------- First pages ---------------------------
@@ -141,11 +155,15 @@ Academic year 2017-2018
 \pagenumbering{arabic}
 
 \input{Introduction.tex}
+\newpage
 \input{Methodology.tex}
+\newpage
 \input{Results.tex}
+\newpage
 \input{Conclusions.tex}
+\newpage
 \input{FutureWork.tex}
-
+\newpage
 \bibliographystyle{plain}
 \bibliography{library.bib}
 

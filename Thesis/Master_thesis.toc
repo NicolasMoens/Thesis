@@ -10,19 +10,20 @@
 \contentsline {subsection}{\numberline {2.3.1}Elliptic vs Hyperbolic}{8}
 \contentsline {subsection}{\numberline {2.3.2}ADI}{8}
 \contentsline {subsection}{\numberline {2.3.3}pseudo-timestepping}{11}
-\contentsline {subsection}{\numberline {2.3.4}Bisection Implicit scheme}{11}
-\contentsline {section}{\numberline {2.4}visualisation}{11}
-\contentsline {chapter}{\numberline {3}Results}{12}
-\contentsline {section}{\numberline {3.1}CAK-Theory}{12}
-\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{12}
-\contentsline {subsection}{\numberline {3.2.1}Testcase 1}{12}
-\contentsline {subsection}{\numberline {3.2.2}Testcase 2}{12}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{12}
-\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{12}
-\contentsline {chapter}{\numberline {4}Conclusions}{13}
-\contentsline {chapter}{\numberline {5}Future Work}{14}
-\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{14}
-\contentsline {section}{\numberline {5.2}MPI}{14}
-\contentsline {section}{\numberline {5.3}AMR}{14}
-\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{14}
-\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{14}
+\contentsline {subsection}{\numberline {2.3.4}Bisection Implicit scheme}{12}
+\contentsline {section}{\numberline {2.4}Dimensionless problem}{12}
+\contentsline {section}{\numberline {2.5}visualisation}{13}
+\contentsline {chapter}{\numberline {3}Results}{14}
+\contentsline {section}{\numberline {3.1}CAK-Theory}{14}
+\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{14}
+\contentsline {subsection}{\numberline {3.2.1}Testcase 1}{14}
+\contentsline {subsection}{\numberline {3.2.2}Testcase 2}{14}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{14}
+\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{14}
+\contentsline {chapter}{\numberline {4}Conclusions}{15}
+\contentsline {chapter}{\numberline {5}Future Work}{16}
+\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{16}
+\contentsline {section}{\numberline {5.2}MPI}{16}
+\contentsline {section}{\numberline {5.3}AMR}{16}
+\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{16}
+\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{16}
