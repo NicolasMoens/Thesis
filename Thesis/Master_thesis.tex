@@ -12,9 +12,11 @@
 % -------------------------------------------------------------------
 \usepackage{graphicx,xcolor,textpos}
 \usepackage{helvet}
+\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{textcomp}
+\usepackage{multicol}
 %\usepackage{todonotes}
 
 % ------------------------ Page settings -----------------------------
@@ -68,7 +70,7 @@
 \textblockcolour{}
 \vspace{-\parskip}
 \flushleft
-\fontsize{40}{42}\selectfont \textcolor{bluetitle}{Time Dependent Radiation Hydrodynamics in Stellar Winds and Atmospheres}\\[1.5mm]
+\fontsize{40}{42}\selectfont \textcolor{bluetitle}{Radiation-Hydrodynamics with MPI-AMVRAC: Massive-Star Atmospheres and Winds}\\[1.5mm]
 \fontsize{20}{22}\selectfont mo' code, mo' problems
 \end{textblock}
 %
@@ -145,6 +147,11 @@ A written permission of the promotor is also required to use the methods, produc
 \pagenumbering{roman}
 
 \input{Acknowlegments.tex}
+
+%\thispagestyle{empty}
+\input{SymbolsAbbreviations.tex}
+\listoffigures
+\listoftables
 \tableofcontents
 
 \newpage
