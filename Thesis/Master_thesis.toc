@@ -1,32 +1,32 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
-\contentsline {section}{\numberline {1.1}Numerical modelling}{1}
-\contentsline {section}{\numberline {1.2}Hydrodynamics}{2}
-\contentsline {section}{\numberline {1.3}Radiation Hydrodynamics}{3}
-\contentsline {section}{\numberline {1.4}Sobolev and CAK-theory}{5}
-\contentsline {section}{\numberline {1.5}Flux Limited Diffusion}{5}
+\contentsline {section}{\numberline {1.1}Hydrodynamics}{2}
+\contentsline {section}{\numberline {1.2}Radiation Hydrodynamics}{3}
+\contentsline {section}{\numberline {1.3}Sobolev and CAK-theory}{6}
+\contentsline {section}{\numberline {1.4}Flux Limited Diffusion}{6}
 \contentsline {chapter}{\numberline {2}Methodology}{7}
 \contentsline {section}{\numberline {2.1}mpi-amrvac}{7}
-\contentsline {section}{\numberline {2.2}CAK-theory}{8}
-\contentsline {section}{\numberline {2.3}Flux Limited Diffusion}{8}
-\contentsline {subsection}{\numberline {2.3.1}Elliptic vs Hyperbolic}{9}
-\contentsline {subsection}{\numberline {2.3.2}ADI}{9}
-\contentsline {subsection}{\numberline {2.3.3}pseudo-timestepping}{12}
-\contentsline {subsection}{\numberline {2.3.4}Bisection Implicit scheme}{13}
-\contentsline {section}{\numberline {2.4}Dimensionless problem}{13}
-\contentsline {section}{\numberline {2.5}visualisation}{14}
-\contentsline {chapter}{\numberline {3}Results}{15}
-\contentsline {section}{\numberline {3.1}CAK-Theory}{15}
-\contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{15}
-\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{15}
-\contentsline {subsection}{\numberline {3.2.1}Testcase 1}{15}
-\contentsline {subsection}{\numberline {3.2.2}Testcase 2}{15}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{15}
-\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{15}
-\contentsline {chapter}{\numberline {4}Conclusions}{16}
-\contentsline {chapter}{\numberline {5}Future Work}{17}
-\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{17}
-\contentsline {section}{\numberline {5.2}MPI}{17}
-\contentsline {section}{\numberline {5.3}AMR}{17}
-\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{17}
-\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{17}
+\contentsline {section}{\numberline {2.2}HD in mpi-AMRVAC}{8}
+\contentsline {section}{\numberline {2.3}CAK-theory}{8}
+\contentsline {section}{\numberline {2.4}Flux Limited Diffusion}{9}
+\contentsline {subsection}{\numberline {2.4.1}Elliptic vs Hyperbolic}{10}
+\contentsline {subsection}{\numberline {2.4.2}ADI}{10}
+\contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{13}
+\contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{14}
+\contentsline {section}{\numberline {2.5}Dimensionless problem}{14}
+\contentsline {section}{\numberline {2.6}visualisation}{15}
+\contentsline {chapter}{\numberline {3}Results}{16}
+\contentsline {section}{\numberline {3.1}CAK-Theory}{16}
+\contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{16}
+\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{16}
+\contentsline {subsection}{\numberline {3.2.1}Testcase 1}{16}
+\contentsline {subsection}{\numberline {3.2.2}Testcase 2}{16}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{16}
+\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{16}
+\contentsline {chapter}{\numberline {4}Conclusions}{17}
+\contentsline {chapter}{\numberline {5}Future Work}{18}
+\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{18}
+\contentsline {section}{\numberline {5.2}MPI}{18}
+\contentsline {section}{\numberline {5.3}AMR}{18}
+\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{18}
+\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{18}

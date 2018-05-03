@@ -1,7 +1,8 @@
 \chapter{Methodology}
+The CAK and FLD equations described in the introduction are not to be solved analytically. Instead, they are solved using advanced computer codes. This chapter aims to describe how RHD the equations are being solved in a computercode. The code at hand is \texttt{mpi-AMRVAC} which, except for optically thin radiative cooling, is incompatible with any radiation effects. Additions made during this thesis are a novelty for the code and can be used in the simulations of a multitude of astrophysical processes.
 
 \section{mpi-amrvac} \label{section: methods amrvac}
-Modelling of the winds and atmospheres in this thesis is done in \emph{mpi-AMRVAC} (Message Passing Interface - Adaptive Mesh Refinement Versatile Advection Code) (\cite{Porth2014}), a multidimensional, adaptive mesh (magneto-)hydrodynamics code. In the code, several explicit solvers can be used to solve the conservative hydrodynamical equations \eqref{hd_rho, hd_mom, hd_e} with source terms defined by the user. This code was chosen mainly because it is developed in house at the centre for mathematical plasma astrophysics (cmpa), which made a close collaboration with the developers possible.\\
+Modelling of the winds and atmospheres in this thesis is done in \texttt{mpi-AMRVAC} (Message Passing Interface - Adaptive Mesh Refinement Versatile Advection Code) (\cite{Porth2014}), a multidimensional, adaptive mesh (magneto-)hydrodynamics code. In the code, several explicit solvers can be used to solve the conservative hydrodynamical equations \eqref{hd_rho, hd_mom, hd_e} with source terms defined by the user. This code was chosen mainly because it is developed in house at the centre for mathematical plasma astrophysics (cmpa), which made a close collaboration with the developers possible.\\
 To run the code, several scripts are provided:
 
 \begin{itemize}
@@ -12,8 +13,23 @@ To run the code, several scripts are provided:
 \item \textbf{parameter file:} The parameter file is where the computational parameters are defined: grid size and resolution, simulation time, which numerical schemes to use, what type of boundary conditions and how many output files the user wants are only a few to be named. This file is basically a bunch of knobs for the user.\\
 \end{itemize}
 
-In the following sections, the integration of CAK-theory and FLD in mpi-AMRVAC will be explained. 
+In the following sections the integration of CAK-theory and FLD in mpi-AMRVAC will be explained, but first an introduction to numerical HD.
 
+
+\section{HD in mpi-AMRVAC}
+\texttt{MPI-AMRVAC} Solves systems of hyperbolic PDE's, for example the HD-equations \eqref{eq: hd_rho}, \eqref{eq: hd_mom} and \eqref{eq: hd_e}. To solve them, the code makes use of a finite volume approach. In this section, the basic ideas of this approach are explained. Remember the shape of the HD equations in their conservative form, in one dimension they look like:
+\begin{align}
+\partial_t u + \partial_x f_u &= 0 \label{eq: cons form}
+\end{align}
+where $u$ is the conserved quantity and $F_u$ is its relevant flux. In earlier more primitive methods such as the finite difference methods, this equation would be descretisised by writing down the derivatives in a discrete way at each cell center. A finite volume method on the other hand treats the value of $u$ as an average over a small volume instead as a value at a single point. The flux $F_u$ is a quantity existing at the cell faces. Discretisation for a finite volume method thus begins by taking the average of $u$ in a finite volume cell by means of integration:
+\begin{align} 
+\int_{t^n}^{t^{n+1}} \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \left( \partial_t u + \partial_x f_u \right) dt dx &= 0 
+\end{align}
+Define $U$ as the space averaged value for $u$ and $F$ as the time averaged value for $f_u$, the above equation can be written as:
+\begin{align}
+U^{n+1}_i = U^n_i - \frac{\Delta t}{\Delta x}\left(F^n_{i+\frac{1}{2}} - F^n_{i-\frac{1}{2}} \right) 
+\end{align}
+A good solver will give an accurate yet computationally cheap expression for the time integrated fluxes$F^n_{i+\frac{1}{2}}$ and $F^n_{i-\frac{1}{2}}$, which are not known analytically. Estimating the values of $F$ is done by a \emph{Riemann solver}. \texttt{MPI-AMRVAC} has a few of these riemann solvers, includiding  hll, hllc, roe, tvdlf, etc.. The approximations for $F^n_{i+\frac{1}{2}}$ will depend on $u$ and $f_u$.\\ 
 
 \section{CAK-theory}
 Modelling CAK-winds consists of two steps: assuming an isothermal gas and adding the $g_{cak}$ and $g_{grav}$ sourceterms to the momentum equation.
@@ -31,6 +47,7 @@ The momentum sourceterms are added in the user module.
 Solving the Radiation hydrodynamics equations is more complicated. An entirely new equation has to be solved and a bunch of new variables and parameteres have to be defined. Given the complexity of the problem it is solved in a new physics module in the sourcecode. Equation \eqref{eq: rhd_rho} is trivial and \eqref{eq: rhd_mom} only needs a sourceterm which can be computed with the help of the FLD closure relation \eqref{eq: fld_closing}. The sourceterms in the energy equation \eqref{eq: hd_e} evolve on a radiation timescale instead of a hydrodynamical timescale, for this reason they wil be implemented with an implicit scheme, see section \ref{subsection: BIS}. The radiation energy equation is entirely new to the code, and again because of the timescale difference, it will be solved partially implicitly, in an operator split manner. \\
 
 In AMRVAC, the timestep at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the timestep should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
+
 In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the soundspeed. The timestep in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
 \begin{align}
 dt = \min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
@@ -46,7 +63,7 @@ This is the maximum time step at which the advection can take place. The diffusi
 \begin{equation}
 \partial_t E + \vec{\nabla} \cdot \left( \vec{v} E \right) = 0
 \end{equation}
-can be handled using already existing amrvac routines, this part has a similar shape to the conservative form of the hd equations \eqref{eq: conservative}. This advection is the movement of the radiation field with the gas, it's a process evolving on a similar timescale as the advection of other quantities. Implementation is as trivial as defining the Riemann fluxes and calling the necessary, already existing, subroutines.\\
+can be handled using already existing amrvac routines, this part has a similar shape to the conservative form of the hd equations \eqref{eq: cons form}. This advection is the movement of the radiation field with the gas, it's a process evolving on a similar timescale as the advection of other quantities. Implementation is as trivial as defining the fluxes $f$ and calling the necessary, already existing, subroutines. The code will use the same Riemann solver as used for the other HD variables.\\
 
 \item \textbf{2: The diffusion term}
 \begin{align}

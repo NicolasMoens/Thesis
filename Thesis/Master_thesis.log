@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  2 MAY 2018 18:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  3 MAY 2018 19:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -456,40 +456,46 @@ File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 
 ]) (./SymbolsAbbreviations.tex [3
 
-] [4
-
 ]
-Overfull \hbox (67.39276pt too wide) in paragraph at lines 43--62
+Overfull \hbox (67.39276pt too wide) in paragraph at lines 46--65
 [] 
  []
 
 
-Overfull \hbox (9.27965pt too wide) in paragraph at lines 73--80
+Overfull \hbox (9.27965pt too wide) in paragraph at lines 77--84
 [] 
  []
 
-) [5
+) [4
 
 ] (./Master_thesis.lof)
 \tf@lof=\write3
 \openout3 = `Master_thesis.lof'.
 
- [6
+ [5
 
 ] (./Master_thesis.lot)
 \tf@lot=\write4
 \openout4 = `Master_thesis.lot'.
 
- [7
+ [6
 
 ] (./Master_thesis.toc)
 \tf@toc=\write5
 \openout5 = `Master_thesis.toc'.
 
-[8
+[7
 
 ] (./Introduction.tex
 Chapter 1.
+
+LaTeX Warning: Citation `Abbott1' on page 1 undefined on input line 3.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
 
 LaTeX Warning: Citation `Tetsu2016' on page 1 undefined on input line 6.
 
@@ -499,26 +505,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--19
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
+Underfull \hbox (badness 10000) in paragraph at lines 16--20
 
  []
 
 [1
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 22--23
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--25
-
- []
+LaTeX Warning: Citation `dylan' on page 2 undefined on input line 24.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
@@ -526,191 +525,160 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--27
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
-
- []
-
-
-LaTeX Warning: Citation `Porth2014' on page 2 undefined on input line 57.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
 
  []
 
 [2]
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+LaTeX Warning: Citation `Porth2014' on page 3 undefined on input line 59.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
 
 LaTeX Warning: Reference `section: introduction CAK' on page 3 undefined on inp
-ut line 59.
+ut line 61.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--68
+LaTeX Warning: Citation `â€¢' on page 3 undefined on input line 61.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--70
 
  []
 
 [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 119--120
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
- []
-
-
-Overfull \hbox (129.14291pt too wide) in paragraph at lines 121--122
-[]\OT1/cmr/m/n/12 Consider the steady state so-lu-tion of the ra-di-a-tion flux
- equa-tion [].
- []
-
-
-Overfull \hbox (172.02873pt too wide) in paragraph at lines 127--128
-[]\OT1/cmr/m/n/12 In the op-ti-cally thick limit the ed-ding-ton ap-prox-i-ma-t
-ion gives us $\OML/cmm/m/it/12 P \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 E$\OT1/cm
-r/m/n/12 , so []
  []
 
 [5]
 
-LaTeX Warning: Citation `Levermore1981' on page 6 undefined on input line 133.
+LaTeX Warning: Citation `Levermore1981' on page 6 undefined on input line 135.
 
 ) [6] (./Methodology.tex
 Chapter 2.
 
-LaTeX Warning: Citation `Porth2014' on page 7 undefined on input line 4.
+LaTeX Warning: Citation `Porth2014' on page 7 undefined on input line 5.
 
 
 LaTeX Warning: Reference `hd_rho, hd_mom, hd_e' on page 7 undefined on input li
-ne 4.
+ne 5.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
 [7
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 31--33
 
-LaTeX Warning: Reference `eq: gas_closing' on page 8 undefined on input line 21
+ []
+
+
+LaTeX Warning: Reference `eq: gas_closing' on page 8 undefined on input line 37
 .
 
 
-Overfull \hbox (19.07692pt too wide) in paragraph at lines 21--22
-\OT1/cmr/m/n/12 tion in the pa-ram-e-ter file. The code now ne-glects equa-tion
-s []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--26
+Underfull \hbox (badness 10000) in paragraph at lines 40--42
 
  []
 
 
-LaTeX Warning: Reference `eq: rhd_rho' on page 8 undefined on input line 31.
+LaTeX Warning: Reference `eq: rhd_rho' on page 8 undefined on input line 47.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 48--50
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
 
-LaTeX Warning: Citation `Turener12001' on page 9 undefined on input line 59.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--60
+Underfull \hbox (badness 10000) in paragraph at lines 65--67
 
  []
-
-
-LaTeX Warning: Citation `Turner12001' on page 9 undefined on input line 65.
 
 [9]
-Overfull \hbox (15.5624pt too wide) in paragraph at lines 75--76
-[]\OT1/cmr/m/n/12 Lets now con-struct a nu-mer-i-cal scheme. First, the left ha
-nd side of []
+
+LaTeX Warning: Citation `Turener12001' on page 10 undefined on input line 76.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
+
  []
 
 
-Overfull \hbox (12.36119pt too wide) in paragraph at lines 124--124
+LaTeX Warning: Citation `Turner12001' on page 10 undefined on input line 82.
+
+[10]
+Overfull \hbox (12.36119pt too wide) in paragraph at lines 141--141
 [] 
  []
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 124--126
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 134--136
-
- []
-
 [11]
+Underfull \hbox (badness 10000) in paragraph at lines 141--143
 
-LaTeX Warning: Citation `Turner12001' on page 12 undefined on input line 142.
-
-
-LaTeX Warning: Citation `Turner12001' on page 12 undefined on input line 150.
+ []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--151
+Underfull \hbox (badness 10000) in paragraph at lines 151--153
 
  []
 
 [12]
-Overfull \hbox (54.69316pt too wide) in paragraph at lines 189--190
-\OT1/cmr/m/n/12 The newly cal-cu-lated $\OML/cmm/m/it/12 e[]$ \OT1/cmr/m/n/12 i
-s then plugged in equa-tion []
+
+LaTeX Warning: Citation `Turner12001' on page 13 undefined on input line 159.
+
+
+LaTeX Warning: Citation `Turner12001' on page 13 undefined on input line 167.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--168
+
  []
 
-[13]
-Overfull \hbox (91.63913pt too wide) in paragraph at lines 203--205
-\OT1/cmr/m/n/12 equa-tion [] and the gas en-ergy equa-tion []: 
- []
-
-
-Overfull \hbox (36.0808pt too wide) in paragraph at lines 215--217
-\OT1/cmr/m/n/12 trans-form the RHD eu-qa-tion for ra-di-a-tion en-ergy []
- []
-
-) [14] (./Results.tex
+[13] [14]) [15] (./Results.tex
 Chapter 3.
-Missing character: There is no Ã in font cmr12!
-Missing character: There is no ´ in font cmr12!
-Missing character: There is no Ã in font cmr12!
-Missing character: There is no ¢ in font cmr12!
-Missing character: There is no á in font cmr12!
-Missing character: There is no º in font cmr12!
-Missing character: There is no ‘ in font cmr12!
-) [15
+) [16
 
 ] (./Conclusions.tex
 Chapter 4.
-) [16
+) [17
 
 ] (./FutureWork.tex
 Chapter 5.
-) [17
+) [18
 
-]
-No file Master_thesis.bbl.
+] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 201.
-<sedes.png, id=110, 402.5439pt x 683.6742pt>
+ <sedes.png, id=111, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
- <use sedes.png>
+
+<use sedes.png>
 Package pdftex.def Info: sedes.png used on input line 211.
 (pdftex.def)             Requested size: 27.64043pt x 46.94704pt.
 
@@ -718,22 +686,19 @@ Overfull \hbox (18.18004pt too wide) in paragraph at lines 215--216
 [][][] 
  []
 
-[18 <./sedes.png>] (./Master_thesis.aux)
+[19 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 4510 strings out of 494910
- 65004 string characters out of 6179836
- 144187 words of memory out of 5000000
- 7688 multiletter control sequences out of 15000+600000
- 23321 words of font info for 52 fonts, out of 8000000 for 9000
+ 4509 strings out of 494910
+ 64950 string characters out of 6179836
+ 153348 words of memory out of 5000000
+ 7684 multiletter control sequences out of 15000+600000
+ 23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,35p,909b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,35p,1066b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/nicolas/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>{/usr/s
 hare/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fo
@@ -748,13 +713,14 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
-helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhv
-ro8a.pfb>
-Output written on Master_thesis.pdf (28 pages, 341215 bytes).
+s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
+ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
+fb>
+Output written on Master_thesis.pdf (28 pages, 350580 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
+ 177 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

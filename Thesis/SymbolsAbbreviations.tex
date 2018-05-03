@@ -1,5 +1,6 @@
-\chapter*{List of abbreviations}
+\chapter*{List of abbreviations and symbols}
 \begin{multicols}{2}
+\section*{Abbreviations}
 \begin{tabular}{ll}
 HD     & Hydrodynamics             \\
 RHD    & Radiohydrodynamics        \\
@@ -9,11 +10,11 @@ FLD    & Flux limited diffusion    \\
 MPI    & message passing interface \\
 AMR    & adaptive mesh refinement  \\
 VAC    & versatile advection code  \\
+PDE    & partial differential equations \\
+BH     & black hole \\
+NS     & neutron star \\
+WD 	   & white dwarf \\
 \end{tabular}
-\end{multicols}
-
-\chapter*{List of symbols}
-\begin{multicols}{2}
 
 \section*{General}
 \begin{tabular}{ll}
@@ -36,6 +37,8 @@ $T$		  	   & gas temperature \\
 $\nabla$       & gradient\\
 $\vec{\nabla}$ & divergent\\
 $S_{\rho, \vec{v}, e}$ & sourceterms for HD-equations\\
+$g_{grav}$     & gravitational acceleration \\
+$g_{rad}$	   & radiative acceleration \\
 \end{tabular}
 
 
@@ -62,16 +65,17 @@ $K_\nu$, $K$  & $2^{nd}$ moment of intensity \\
 
 \section*{CAK and FLD}
 \begin{tabular}{ll}
-$l_sob$          & \\
-$g_line$         & \\
-$\lambda$        & \\
-$R$              & \\
-$D$              & \\
+$l_{sob}$          & sobolev length \\
+$g_{line}$         & line acceleration\\
+$\kappa_e$         & electron opacity \\
+$\lambda$          & flux limiter \\
+%$R$                & \\
+$D$                & diffusion coefficient\\
 \end{tabular}
 
 \section*{Numerics}
 \begin{tabular}{ll}
-$\Delta x$        & difference in quantity $x$\\
+$\Delta x$       & difference in quantity $x$\\
 $N,M$            & dimension of grid \\
 $\tilde{x}$      & quantity $x$ in dimensionless units \\
 $x_0$		     & the normalised value of quantity $x$ \\
