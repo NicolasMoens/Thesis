@@ -115,7 +115,7 @@ The sourceterm in the Flux energy equation has the same units as the gas momentu
 These are the final radiation hydrodynamics equations. There are only 5 equations for 7 primitive variables: $\rho$, $\vec{v}$, $e$, $p$, $E$, $\vec{F}$ and $P$. Two closing relations are nessecary to close the system. A first closing relation is obtained by re-using equation \eqref{gas_closing}, a second one can be obtained by for example the \emph{Flux limited diffusion} approximation (FLD) described in section \ref{section: introduction Flux Limited Diffusion}.
 
 \section{Sobolev and CAK-theory}
-CAK-theory is a formalism developped by Castor Abbot and Klein \cite{•} describing the radiative acceleration of gas $g_{rad}$. It is applied in the radiation driven winds of for example hot massive stars  and active galactic nuclei. Let's begin by writing down the acceleration caused by free electron scattering. Consider a star with mass $M_*$ and luminosity $L_*$, if only elecron scattering is assumed, light gets absorbed and re-emitted equally. If $\kappa_e$ is defined as the electron scattering opacity, the radiative acceleration at any radial distance r is given by:
+CAK-theory is a formalism developped by Castor Abbot and Klein \cite{CAK} describing the radiative acceleration of gas $g_{rad}$. It is applied in the radiation driven winds of for example hot massive stars  and active galactic nuclei. Let's begin by writing down the acceleration caused by free electron scattering. Consider a star with mass $M_*$ and luminosity $L_*$, if only elecron scattering is assumed, light gets absorbed and re-emitted equally. If $\kappa_e$ is defined as the electron scattering opacity, the radiative acceleration at any radial distance r is given by:
 \begin{align}
 g_e = \frac{\kappa_e L_*}{4 \pi r^2 c}
 \end{align}
@@ -123,7 +123,31 @@ The gravitational attraction of the gas is given by Newtons gravitation law and 
 \begin{align}
 \Gamma_e = \frac{\kappa_e L_*}{4 \pi G M_* c}
 \end{align}
+Let's now have a look at radiative acceleration of a single absorption line in a line driven wind. Consider a a set of ions absorbing at $\lambda_0$, these ions have very high velocities and the doplershifting of the line becomes important for absorbing photons. The first ions closest to the star wil absorb photons at $\lambda_0$ so the photons further from the star are in the lines' shadow. However, the photons absorbing these photons pick up a velocity $\delta v$ so the can now pick up photons with a slightly higher wavelength. This mechanism leads to a steady state monotoniously increasing velocity as function of distance from the stellar surface $v(r)$. The line profile isn't infinitesimally thin, photons can be absorbed for a frequency range surounding the central wavelenth $\lambda_0$, this is described by the profilefunction. In velocity-space this width is equal to the thermal velocity of the ions. In radius space, an exact wavelength can be absorbed in a part of space with geometrical width $l_sob \def \frac{v_{th}}{dv/dr}$, the Sobolove length. With this Sobolev length comes a Sobolev optical depth $\tau_{sob} = \rho \kappa l_{sob}$. With $q \def \frac{\kappa v_{th}}{\kappa_e c}$ describing the lines' effectivenes scaled to electron scattering opacity, and $t \def  \frac{\rho \kappa_e c}{dv/dr}$ describing the optical depth for a purely electron scattering opacity, $\tau_{sob}$ can be written as:
+\begin{align}
+\tau_{sob} = \frac{\rho \kappa v_{th}}{dv/dr} = qt
+\end{align}
+In the optically thin limit, where the amount of absorption is considered to be insignificant, the line acceleration $g_{line}$ can be related to $g_e$ via $q$. Note however that the luminosity of the star has to be weighted with the frequency at which absorption occurs. 
+\begin{align}
+g_{thin} = w_{\nu,0} q g_e = \frac{\kappa v_{th} \nu_0 L_*}{4 \pi r^2 c^2}
+\end{align}
+Where $w_{\nu,0} = \nu_0 L_\nu / L_*$ is the weight for the frequency at which the line is absorbed. Using solutions for the radiative transfer equation, the total line acceleration can be formulated analytically.
+\begin{align}
+g_{line} = g_{thin} \frac{1 - e^{-qt}}{qt} 
+\end{align}
 
+A radiation driven wind is accelerated by a whole load of lines, so one has to sum over all line-accelerations to come to the total radiative acceleration. The density distribution of lines $N$ as function of their strength $q$ was approximated by Castor Abbott and Klein to be dependent on a few free parameters and the $\Gamma$ fucntion.
+\begin{align} 
+q \frac{dN}{dq} = \frac{1}{\Gamma} \left(\frac{q}{\bar{Q}} \right)^{\alpha - 1}
+\end{align}
+With this continuous function, the sumation over all lines is transformed to an integration over all linestrengths, and the final CAK acceleration can be written down:
+\begin{align}
+g_{CAK} &= g_e \int_0^\infty q \frac{dN}{dq} \frac{1 - e^{-qt}}{qt} dq \\
+        &= \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r^2 c} \left( \frac{dv/dr}{\rho c \bar{Q} \kappa_e} \right)^\alpha \label{g_CAK}
+\end{align}
+
+%Close CAK intro
+CAK-theory is a nice, easy to implement theory. In this thesis, the main application will be simulating the wind of Massive stars. Research performed here is not exactly new, bit it's a great way to introduce radiation forces in amrvac. For me personally it was the first step in learning fortran and getting to know the workings of an advanced (M)HD-code.
 
 
 \section{Flux Limited Diffusion} \label{section: introduction Flux Limited Diffusion}
@@ -142,3 +166,20 @@ In the optically thick limit the eddington approximation gives us $P = \frac{1}{
 \end{align}
 
 Different formalisms for expressing $\lambda$ exist, the one used in this work has been worked out in \cite{Levermore1981}. 
+\begin{align}
+R &= \frac{|\nabla E|}{\rho \kappa E} \\
+\lambda &= \frac{2 + R}{6 + 3R + R^2} 
+\end{align}
+$R$ portraits how thick the medium is locally, it is $\infty$ in the free streaming limit and approaches $0$ when the medium gets optically thick. $\lambda$ And $R$ also relate the radiation pressure $P$ to the radiation energy density $E$ via the eddington tensor $f$, which is approximated as a scalar in this situation.
+\begin{align}
+P &= f E  \label{eq: fld_Pclosing} \\
+f &= \lambda + \lambda^2 R^2
+\end{align}
+This means we have 7 unknowns, 5 PDE's and 3 closure relations. The momentum flux equation can be dropped and the system is selfconsistent within equations \eqref{eq: rhd_cont}, \eqref{eq: rhd_mom}, \eqref{eq: rhd_e}, \eqref{eq: rhd_e_r}, \eqref{gas_closing}, \eqref{eq: fld_closing} and \eqref{eq: fld_Pclosing}. \\
+The radiation flux is eliminated from the radiation gas equation \ref{eq: rhd_e_r}:
+\begin{align}
+ \partial_t \left(E \right) +  \vec{\nabla} \cdot \left( \vec{v} E -\frac{c \lambda}{\kappa \rho} \nabla E \right) &=  -\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E
+\end{align}
+
+%Close FLD intro
+Flux limited diffusion is a useful tool which can be used to probe the 2D or even 3D structure of for example stellar winds and atmospheres. Not only the energy and momentum sourceterms are calculated, but also a direct observabel: the radiation flux. In this thesis, the main application for FLD will lie within simulating instabillities in an isothermal atmosphere of a massive star.

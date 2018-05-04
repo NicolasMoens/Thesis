@@ -38,21 +38,16 @@ The isothermal gas assumption is made by switching off the solving for the energ
 \begin{align}
  p &= c_{adiabatic} p^\gamma
 \end{align}
-The two free parameters $c_{adiabatic}$ and $\gamma$ are set to .... and .... to match the conditions in a typical CAK wind. CITE HERE\\
+The two free parameters $c_{adiab}$ and $\gamma$ are set to .... and .... to match the conditions in a typical CAK wind. CITE HERE\\
 
-The momentum sourceterms are added in the user module.
+The momentum sourceterms are added in the user module. All free parameters are defined, and $dv/dr$ is calculated using a centered finite difference.
+\begin{align}
+S_{\rho \vec{v},i,j} = \rho_{i,j} \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r_{i,j}^2 c} \left( \frac{1}{\rho_{i,j} c \bar{Q} \kappa_e} \right)^\alpha \frac{v_{i+1} - v_{i-1}}{r_{i+1} - r_{i-1}}
+\end{align}
 
 
 \section{Flux Limited Diffusion}
 Solving the Radiation hydrodynamics equations is more complicated. An entirely new equation has to be solved and a bunch of new variables and parameteres have to be defined. Given the complexity of the problem it is solved in a new physics module in the sourcecode. Equation \eqref{eq: rhd_rho} is trivial and \eqref{eq: rhd_mom} only needs a sourceterm which can be computed with the help of the FLD closure relation \eqref{eq: fld_closing}. The sourceterms in the energy equation \eqref{eq: hd_e} evolve on a radiation timescale instead of a hydrodynamical timescale, for this reason they wil be implemented with an implicit scheme, see section \ref{subsection: BIS}. The radiation energy equation is entirely new to the code, and again because of the timescale difference, it will be solved partially implicitly, in an operator split manner. \\
-
-In AMRVAC, the timestep at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the timestep should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
-
-In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the soundspeed. The timestep in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
-\begin{align}
-dt = \min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
-\end{align}
-This is the maximum time step at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorption coeficient.
 
 \begin{align}
 \partial_t \left(E \right) + \underbrace{\vec{\nabla} \cdot \left( \vec{v} E \right)}_{1}  &= - \underbrace{\vec{\nabla} \cdot \vec{F}}_{2} - \underbrace{\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E}_{3} \\
@@ -79,8 +74,16 @@ Trying to solve this equation together with the other hydro equations gives rise
 \begin{align}
 \partial_t E = - \vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E
 \end{align}
-are also evolving on the faster timescale, hence they must be solved implicitly. This is done with a scheme similar to the technique found in \cite{Turner12001}, which will be explained below.
+are also evolving on the faster timescale, hence they must be solved implicitly. This is done with an implicit bisection scheme similar to the technique found in \cite{Turner12001}, which will be explained below.
 \end{itemize}
+
+In AMRVAC, the timestep at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the timestep should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
+
+In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the soundspeed. The timestep in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
+\begin{align}
+dt = \min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
+\end{align}
+This is the maximum time step at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorption coeficient.
 
 \subsection{Elliptic vs Hyperbolic}
 \subsection{ADI}

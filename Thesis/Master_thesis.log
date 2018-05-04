@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  3 MAY 2018 19:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  4 MAY 2018 16:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -444,7 +444,7 @@ Overfull \hbox (24.18004pt too wide) in paragraph at lines 122--123
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./LogoKULeuven.png>]
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 132.
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 133.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
@@ -462,13 +462,13 @@ Overfull \hbox (67.39276pt too wide) in paragraph at lines 46--65
  []
 
 
-Overfull \hbox (9.27965pt too wide) in paragraph at lines 77--84
+Overfull \hbox (9.27965pt too wide) in paragraph at lines 80--87
 [] 
  []
 
-) [4
+[4
 
-] (./Master_thesis.lof)
+]) (./Master_thesis.lof)
 \tf@lof=\write3
 \openout3 = `Master_thesis.lof'.
 
@@ -483,6 +483,7 @@ Overfull \hbox (9.27965pt too wide) in paragraph at lines 77--84
 ] (./Master_thesis.toc)
 \tf@toc=\write5
 \openout5 = `Master_thesis.toc'.
+
 
 [7
 
@@ -555,21 +556,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--70
  []
 
 [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+
+LaTeX Warning: Citation `CAK' on page 5 undefined on input line 118.
+
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
 
  []
 
-[5]
 
-LaTeX Warning: Citation `Levermore1981' on page 6 undefined on input line 135.
+LaTeX Warning: Citation `Levermore1981' on page 7 undefined on input line 168.
 
-) [6] (./Methodology.tex
+[7]) [8] (./Methodology.tex
 Chapter 2.
 
-LaTeX Warning: Citation `Porth2014' on page 7 undefined on input line 5.
+LaTeX Warning: Citation `Porth2014' on page 9 undefined on input line 5.
 
 
-LaTeX Warning: Reference `hd_rho, hd_mom, hd_e' on page 7 undefined on input li
+LaTeX Warning: Reference `hd_rho, hd_mom, hd_e' on page 9 undefined on input li
 ne 5.
 
 
@@ -587,7 +591,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
-[7
+[9
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 31--33
@@ -595,110 +599,111 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--33
  []
 
 
-LaTeX Warning: Reference `eq: gas_closing' on page 8 undefined on input line 37
-.
+LaTeX Warning: Reference `eq: gas_closing' on page 10 undefined on input line 3
+7.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 40--42
 
  []
 
-
-LaTeX Warning: Reference `eq: rhd_rho' on page 8 undefined on input line 47.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 47--48
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 49--50
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 65--67
-
- []
-
-[9]
-
-LaTeX Warning: Citation `Turener12001' on page 10 undefined on input line 76.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
-
- []
-
-
-LaTeX Warning: Citation `Turner12001' on page 10 undefined on input line 82.
-
 [10]
-Overfull \hbox (12.36119pt too wide) in paragraph at lines 141--141
-[] 
+
+LaTeX Warning: Reference `eq: rhd_rho' on page 11 undefined on input line 50.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
+
+ []
+
+
+LaTeX Warning: Citation `Turener12001' on page 11 undefined on input line 71.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--72
+
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
 
- []
+LaTeX Warning: Citation `Turner12001' on page 12 undefined on input line 77.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 151--153
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
  []
 
 [12]
+Overfull \hbox (12.36119pt too wide) in paragraph at lines 144--144
+[] 
+ []
 
-LaTeX Warning: Citation `Turner12001' on page 13 undefined on input line 159.
-
-
-LaTeX Warning: Citation `Turner12001' on page 13 undefined on input line 167.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 166--168
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 144--146
 
  []
 
-[13] [14]) [15] (./Results.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--156
+
+ []
+
+[14]
+
+LaTeX Warning: Citation `Turner12001' on page 15 undefined on input line 162.
+
+
+LaTeX Warning: Citation `Turner12001' on page 15 undefined on input line 170.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 169--171
+
+ []
+
+[15] [16]) [17] (./Results.tex
 Chapter 3.
-) [16
+) [18
 
 ] (./Conclusions.tex
 Chapter 4.
-) [17
+) [19
 
 ] (./FutureWork.tex
 Chapter 5.
-) [18
+) [20
 
 ] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 201.
- <sedes.png, id=111, 402.5439pt x 683.6742pt>
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 202.
+ <sedes.png, id=117, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
 
 <use sedes.png>
-Package pdftex.def Info: sedes.png used on input line 211.
+Package pdftex.def Info: sedes.png used on input line 212.
 (pdftex.def)             Requested size: 27.64043pt x 46.94704pt.
 
-Overfull \hbox (18.18004pt too wide) in paragraph at lines 215--216
+Overfull \hbox (18.18004pt too wide) in paragraph at lines 216--217
 [][][] 
  []
 
-[19 <./sedes.png>] (./Master_thesis.aux)
+[21 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4509 strings out of 494910
- 64950 string characters out of 6179836
- 153348 words of memory out of 5000000
- 7684 multiletter control sequences out of 15000+600000
+ 4512 strings out of 494910
+ 64980 string characters out of 6179836
+ 153371 words of memory out of 5000000
+ 7687 multiletter control sequences out of 15000+600000
  23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,35p,1066b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,35p,1474b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/nicolas/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>{/usr/s
 hare/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fo
@@ -717,10 +722,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
 fb>
-Output written on Master_thesis.pdf (28 pages, 350580 bytes).
+Output written on Master_thesis.pdf (30 pages, 362330 bytes).
 PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 183 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
