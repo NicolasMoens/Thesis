@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  4 MAY 2018 16:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  5 MAY 2018 18:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -437,14 +437,14 @@ LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 89.
 
-Overfull \hbox (24.18004pt too wide) in paragraph at lines 122--123
+Overfull \hbox (24.18004pt too wide) in paragraph at lines 120--121
 [][][] 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./LogoKULeuven.png>]
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 133.
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 131.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
@@ -667,40 +667,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 169--171
 
 [15] [16]) [17] (./Results.tex
 Chapter 3.
-) [18
+[18
 
-] (./Conclusions.tex
+]
+
+LaTeX Warning: Reference `fig: InitCond_test' on page 19 undefined on input lin
+e 24.
+
+
+LaTeX Warning: Reference `fig: res_adv' on page 19 undefined on input line 30.
+
+
+LaTeX Warning: Reference `fig: res_diff' on page 19 undefined on input line 30.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--38
+
+ []
+
+
+LaTeX Warning: Reference `fig: test_sourceterms' on page 19 undefined on input 
+line 43.
+
+) [19] (./Conclusions.tex
 Chapter 4.
-) [19
+) [20
 
 ] (./FutureWork.tex
 Chapter 5.
-) [20
+) [21
 
 ] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 202.
- <sedes.png, id=117, 402.5439pt x 683.6742pt>
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 200.
+ <sedes.png, id=120, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
 
 <use sedes.png>
-Package pdftex.def Info: sedes.png used on input line 212.
+Package pdftex.def Info: sedes.png used on input line 210.
 (pdftex.def)             Requested size: 27.64043pt x 46.94704pt.
 
-Overfull \hbox (18.18004pt too wide) in paragraph at lines 216--217
+Overfull \hbox (18.18004pt too wide) in paragraph at lines 214--215
 [][][] 
  []
 
-[21 <./sedes.png>] (./Master_thesis.aux)
+[22 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4512 strings out of 494910
- 64980 string characters out of 6179836
+ 4516 strings out of 494910
+ 65052 string characters out of 6179836
  153371 words of memory out of 5000000
- 7687 multiletter control sequences out of 15000+600000
+ 7691 multiletter control sequences out of 15000+600000
  23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  38i,17n,35p,1474b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -722,10 +743,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
 fb>
-Output written on Master_thesis.pdf (30 pages, 362330 bytes).
+Output written on Master_thesis.pdf (31 pages, 367813 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
+ 187 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

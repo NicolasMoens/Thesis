@@ -1,11 +1,46 @@
 \chapter{Results}
-The first result is of course a working CAK subroutine and FLD module in mpi-AMRVAC. This is something that didn't exist before and it will open the way toward simulations of new physical regimes where radiation plays a role in the dynamics of the system. Other than writing the software, there are also some results. These will be described in this chapter.
+The first result is of course a working CAK subroutine and FLD module in mpi-AMRVAC. This is something that didn't exist before and it will open the way toward simulations of new physical regimes where radiation plays a role in the dynamics of the system. Other than writing the software, there are also some scientific results. These will be described in this chapter.
 
 \section{CAK-Theory}
 \subsection{Massive star stellar wind}
 
 \section{Flux Limited Diffusion}
-\subsection{Testcase 1}
-\subsection{Testcase 2}
+The diffusion model is first tested against some analytical results, these tests will give us some knowledge on how accurately we can interpret the simulations of physical fenomena. The diffusion term and advection term are both tested seperatly by comparisson to an exact solution and the photon tiring, radiative cooling and radiative heating sourceterms are tested togheter versus a runge-kutta solver of a simplified problem.
+
+\subsection{Testcase 1: Acvection and Diffusion}
+The advection problem and the diffusion problem, solved by the already exsisting Riemann solver and the new ADI solver respectively can be compared to an exact analytical solution. The Riemann solver is nothing new, it's just a matter of checking the correct implementation in mpi-amrvac. The problem is tested on a numerical domain with constant density, a constant velocity, a constant gas energy density and an initial radiation energy density $E_0(x,y,t)$ given by:
+\begin{align}
+E_0(x,y,t) = 2 + \sin(2 \pi x) \sin(2 \pi y)
+\end{align}
+If diffusion and other sourceterms are ignored, the radiation field wil evolve as
+\begin{align}
+E^{adv}(x,y,t) = 2 + \sin(2 \pi (x-v_x t)) \sin(2 \pi (y-v_y t))
+\end{align}
+If diffusion is switched on but the advection is ignored by fixing the velocityfield to $\vec{0}$ every iteration, and the diffusion coefficient is chosen constant at $D = 1$, the field evolves as
+\begin{align}
+E^{diff}(x,y,t) = 2 + \exp(-8 \pi^2 t) \sin(2 \pi x) \sin(2 \pi y)
+\end{align}
+
+Function $E_0(x,y,t)$ descibes a series of dots of more and less radiative energy, see figure \ref{fig: InitCond_test}. The numerical domain is chosen in such a way that there is one region of lower and one region of higher energy in each direction, $-0.5 \leq x \leq 0.5$, $0 \leq y \leq 1$. In time, the diffusion test runs untill the amplitude of the dots diminish by two orders of magnitude $\exp(-8 \pi^2 t)  = 0.01$ and the advection test tuns untill a point has passed the computational domain twice $ \min(v_x, v_y) t = 2 $. Boundary conditions are set periodical. Computational result $\tilde{E}$ can be compared with the analytical results to define the residuals:
+\begin{align}
+RES^{adv} &= \left|\frac{\tilde{E}^{adv} - E^{adv}}{E^{adv}}\right| \\
+RES^{diff} &= \left|\frac{\tilde{E}^{diff} - E^{diff}}{E^{diff}}\right| 
+\end{align}
+
+Which are plotted for different timesteps in figure \ref{fig: res_adv} and \ref{fig: res_diff} togheter with the numerical solutions $\tilde{E}^{adv}$ and $\tilde{E}^{diff}$
+
+\subsection{Testcase 2: Photon Tiring, Heating and Cooling}
+To test the implicit bisection scheme used for adding the photon tiring, radiative heating and radiative cooling sourceterms, we make comparissons with an explicit runge kutta solver. Of course this runge kutta solver is not to be used in the actual code, because the timestep chosen in the runge kutta solver wil be orders of magnitude smaller. The equation at hand is:
+\begin{align}
+\frac{d e}{dt} = c \rho \kappa E - 4 \rho \kappa \sigma T^4
+\end{align}
+Except for the gas energy density, all primitive variables ($\rho = \rho_0$, $\vec{v} = 0$ and $E = E_0$) are kept constant. The computational domain is taken as small as possible and radiative diffusion is switched off. \\
+
+The system would be in radiative equillibrium when $c \rho \kappa E = 4 \rho \kappa \sigma T^4$. Using $T =  \frac{p}{\rho}= \frac{(\gamma - 1)e}{\rho}$, on can compute the equilibrium gas energy.
+\begin{align}
+e_{rad. eq.} = \frac{\rho}{\gamma - 1} \left( \frac{c E}{4 \sigma} \right)^\frac{1}{4}
+\end{align}
+Different initial conditions are chosen for $e_0$ ranging from $100 e_{rad. eq.}$ to $0.01 e_{rad. eq.}$. Comparissons between the bisection method and a simple runge-kutta solver are plotted in figure \ref{fig: test_sourceterms}. Remember that the implicit bisection method uses a timestep wich is several orders of magnitude larger than the explicit runge-kutta method.
+
 \subsection{Isothermal Atmosphere}
 \subsection{Strange mode instabilities}
