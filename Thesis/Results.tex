@@ -43,4 +43,48 @@ e_{rad. eq.} = \frac{\rho}{\gamma - 1} \left( \frac{c E}{4 \sigma} \right)^\frac
 Different initial conditions are chosen for $e_0$ ranging from $100 e_{rad. eq.}$ to $0.01 e_{rad. eq.}$. Comparissons between the bisection method and a simple runge-kutta solver are plotted in figure \ref{fig: test_sourceterms}. Remember that the implicit bisection method uses a timestep wich is several orders of magnitude larger than the explicit runge-kutta method.
 
 \subsection{Isothermal Atmosphere}
+A first practical use for the FLD module is modelling a stellar atmosphere surrounding a massive star. For convenience, the atmosphere will be considered isothermal and plane parallel, so the flux in the initial condition and the gravitational acceleration are constant. Let's also assume the only absorption an emission is done by means of electron scattering, with a constant opacity $\kappa$.\\
+
+The initial conditions are crucial in stabilizing simulations. In an isothermal atmosphere, the density and gas pressure decay exponentially on the lenght of a scale height $H_{eff} = \frac{c_{sound}^2}{g_{eff}}$. Where $g_{eff} = g_{grav}(\Gamma - 1)$ is the sum of radiation and graviational accelerations. 
+\begin{align}
+\rho(y) &= \rho_0 \exp \left( -\frac{y}{H_{eff}} \right) \\
+ p(y)   &= p_0    \exp \left( -\frac{y}{H_{eff}} \right)
+\end{align}
+
+The velocity field is $\vec{0}$ everywhere. Boundary conditions $\rho_0$ and $p_0$ can be computed by defining the optical dept $\tau$. 
+\begin{align}
+\tau(y) = \int^\infty_{y} \kappa \rho dy  \label{eq: opt_depth}
+\end{align}
+
+In a static medium, the gravitational and radiative acceleration of the gas is countered by the gas pressure gradient. Concerning the radiation field, one can make a similar statement . The radiative acceleration is countered by the radiation pressure gradient:
+\begin{align}
+\frac{dp}{dy} = -g_{grav}(1 - \Gamma) \label{eq: p_cond} \\
+\frac{dP}{dy} = -g_{grav} \Gamma \label{eq: P_cond}
+\end{align}
+
+HIER MIST NOG IETS
+Equations \eqref{eq: opt_depth} and \eqref{eq: p_cond} can be solved toward a value for $p$ at a given optical depth. \eqref{eq: P_cond} And \eqref{eq: p_cond} can by divided by one another to get a relation between $dp$ and $dP$.
+
+\begin{align}
+p_0 = g_{eff} \frac{\tau_0}{\kappa} \\
+dP = \frac{\Gamma}{\Gamma-1} dp
+\end{align}
+
+The gas energy density can be set from the gas pressure profile. Because of the plane parallel approximation, $\Gamma$ is constant as well and in the Eddington limit, $E=3P$. Now we have a boundary condition for the radiation energy field as well. The initial conditions are given by:
+\begin{align}
+\rho(y) &= g_{eff} \frac{\tau_0}{\kappa c_{sound}^2} \exp \left( -\frac{y}{H_{eff}} \right) \\
+\rho \vec{v} &= \vec{0} \\
+e &= \frac{\tau_0}{\kappa (\gamma - 1)} \exp \left( -\frac{y}{H_{eff}} \right) \\
+E &= \frac{3 \Gamma}{1-\Gamma} \frac{\tau_0}{\kappa} \exp \left( -\frac{y}{H_{eff}} \right) \\
+\end{align}
+
+The parameters defining the physics of the system are the eddington parameter $\Gamma$, the optical dept at the lower boundary $\tau_0$ and the soundspeed $c_{sound}$. The eddington parameter contains information about the mass, luminosity and radius of the star, it determines wether the atmosphere will be blown away, collapsing in on itself or relax in a steady state. $\tau_0$ Sets the physical lower boundary of the numerical domain. A high value means the model starts at in a high density enviroment near the core, a low value means the model simulates the outermost boundaries of the star. The soundspeed determines the temperature of the atmosphere and the velocity at which waves can travel. \\
+
+Calculations are done on a Cartesian grid, with the y-direction parallel to the radius of the star.The mass of the star is chosen at $M_* = 50 M_\odot$. Using Leavits law, we get a luminosity for a typical $50M_\odot$ star of $L_* = ... L_\odot$ and an eddington parameter $\Gamma = ...$. The calculation domain begins at $\tau_0 = ...$ and resolves about $...$ scaleheights in the y-direction and $...$ in the x-direction. The resolution of the grid is chosen such that there are $...$ cells per scaleheight. The simulation stops after $..$ times the hydrodynamical timescale, this is the time needed for a soundwave to travel across the computational domain. 
+
+\subsubsection{constant flux discrepancy}
+\subsubsection{comparison to mesa structure}
+
 \subsection{Strange mode instabilities}
+
+\subsection{Non-isothermal evolution?}

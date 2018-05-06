@@ -21,12 +21,15 @@
 \contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{18}
 \contentsline {subsection}{\numberline {3.2.1}Testcase 1: Acvection and Diffusion}{18}
 \contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{19}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{19}
-\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{19}
-\contentsline {chapter}{\numberline {4}Conclusions}{20}
-\contentsline {chapter}{\numberline {5}Future Work}{21}
-\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{21}
-\contentsline {section}{\numberline {5.2}MPI}{21}
-\contentsline {section}{\numberline {5.3}AMR}{21}
-\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{21}
-\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{21}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{20}
+\contentsline {subsubsection}{constant flux discrepancy}{21}
+\contentsline {subsubsection}{comparison to mesa structure}{21}
+\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{21}
+\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{21}
+\contentsline {chapter}{\numberline {4}Conclusions}{22}
+\contentsline {chapter}{\numberline {5}Future Work}{23}
+\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{23}
+\contentsline {section}{\numberline {5.2}MPI}{23}
+\contentsline {section}{\numberline {5.3}AMR}{23}
+\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{23}
+\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{23}

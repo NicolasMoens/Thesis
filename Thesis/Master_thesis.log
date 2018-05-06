@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  5 MAY 2018 18:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  6 MAY 2018 17:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -457,35 +457,39 @@ File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 ]) (./SymbolsAbbreviations.tex [3
 
 ]
-Overfull \hbox (67.39276pt too wide) in paragraph at lines 46--65
+Overfull \hbox (67.39276pt too wide) in paragraph at lines 46--69
 [] 
  []
 
 
-Overfull \hbox (9.27965pt too wide) in paragraph at lines 80--87
+Overfull \hbox (9.27965pt too wide) in paragraph at lines 84--91
 [] 
  []
+
+
+Overfull \vbox (25.35225pt too high) has occurred while \output is active []
+
 
 [4
 
-]) (./Master_thesis.lof)
+]) [5] (./Master_thesis.lof)
 \tf@lof=\write3
 \openout3 = `Master_thesis.lof'.
 
- [5
+ [6
 
 ] (./Master_thesis.lot)
 \tf@lot=\write4
 \openout4 = `Master_thesis.lot'.
 
- [6
+ [7
 
-] (./Master_thesis.toc)
+]
+(./Master_thesis.toc)
 \tf@toc=\write5
 \openout5 = `Master_thesis.toc'.
 
-
-[7
+ [8
 
 ] (./Introduction.tex
 Chapter 1.
@@ -690,18 +694,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 36--38
 LaTeX Warning: Reference `fig: test_sourceterms' on page 19 undefined on input 
 line 43.
 
-) [19] (./Conclusions.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
+
+ []
+
+[19] [20]
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
+
+ []
+
+) [21] (./Conclusions.tex
 Chapter 4.
-) [20
+) [22
 
 ] (./FutureWork.tex
 Chapter 5.
-) [21
+) [23
 
 ] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 200.
- <sedes.png, id=120, 402.5439pt x 683.6742pt>
+ <sedes.png, id=130, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
 
 <use sedes.png>
@@ -712,19 +726,19 @@ Overfull \hbox (18.18004pt too wide) in paragraph at lines 214--215
 [][][] 
  []
 
-[22 <./sedes.png>] (./Master_thesis.aux)
+[24 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4516 strings out of 494910
- 65052 string characters out of 6179836
- 153371 words of memory out of 5000000
- 7691 multiletter control sequences out of 15000+600000
+ 4519 strings out of 494910
+ 65091 string characters out of 6179836
+ 154407 words of memory out of 5000000
+ 7694 multiletter control sequences out of 15000+600000
  23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,35p,1474b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,35p,1474b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/nicolas/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>{/usr/s
 hare/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fo
@@ -743,10 +757,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
 fb>
-Output written on Master_thesis.pdf (31 pages, 367813 bytes).
+Output written on Master_thesis.pdf (34 pages, 373831 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 129 compressed objects within 2 object streams
+ 196 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
