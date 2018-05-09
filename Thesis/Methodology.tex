@@ -1,12 +1,12 @@
 \chapter{Methodology}
-The CAK and FLD equations described in the introduction are not to be solved analytically. Instead, they are solved using advanced computer codes. This chapter aims to describe how RHD the equations are being solved in a computercode. The code at hand is \texttt{mpi-AMRVAC} which, except for optically thin radiative cooling, is incompatible with any radiation effects. Additions made during this thesis are a novelty for the code and can be used in the simulations of a multitude of astrophysical processes.
+The CAK and FLD equations described in the introduction are not to be solved analytically. Instead, they are solved using advanced computer codes. This chapter aims to describe how RHD the equations are being solved in a computer code. The code at hand is \texttt{mpi-AMRVAC} which, except for optically thin radiative cooling, is incompatible with any radiation effects. Additions made during this thesis are a novelty for the code and can be used in the simulations of a multitude of astrophysical processes.
 
 \section{mpi-amrvac} \label{section: methods amrvac}
 Modelling of the winds and atmospheres in this thesis is done in \texttt{mpi-AMRVAC} (Message Passing Interface - Adaptive Mesh Refinement Versatile Advection Code) (\cite{Porth2014}), a multidimensional, adaptive mesh (magneto-)hydrodynamics code. In the code, several explicit solvers can be used to solve the conservative hydrodynamical equations \eqref{hd_rho, hd_mom, hd_e} with source terms defined by the user. This code was chosen mainly because it is developed in house at the centre for mathematical plasma astrophysics (cmpa), which made a close collaboration with the developers possible.\\
 To run the code, several scripts are provided:
 
 \begin{itemize}
-\item \textbf{Source code:} The source code consists of al the algorithms to solve the equations, apply boundary conditions, refine the mesh, read input and write output, etc.. Inside the source code reside several physics modules, e.g. a module for gravity, dust, radiative cooling and viscosity.\\
+\item \textbf{Source code:} The source code consists of al the algorithms to solve the equations, apply boundary conditions, refine the mesh, read input and write output, etc... Inside the source code reside several physics modules, e.g. a module for gravity, dust, radiative cooling and viscosity.\\
 
 \item \textbf{user module:} In the user module, the user defines the initial conditions. Also, this is the place to add additional subroutines for user defined source terms, boundary conditions, time-step calculations and extra output variables among others. The subroutines in this file are automatically called by the source code.\\
 
@@ -21,7 +21,7 @@ In the following sections the integration of CAK-theory and FLD in mpi-AMRVAC wi
 \begin{align}
 \partial_t u + \partial_x f_u &= 0 \label{eq: cons form}
 \end{align}
-where $u$ is the conserved quantity and $F_u$ is its relevant flux. In earlier more primitive methods such as the finite difference methods, this equation would be descretisised by writing down the derivatives in a discrete way at each cell center. A finite volume method on the other hand treats the value of $u$ as an average over a small volume instead as a value at a single point. The flux $F_u$ is a quantity existing at the cell faces. Discretisation for a finite volume method thus begins by taking the average of $u$ in a finite volume cell by means of integration:
+where $u$ is the conserved quantity and $F_u$ is its relevant flux. In earlier more primitive methods such as the finite difference methods, this equation would be discretisised by writing down the derivatives in a discrete way at each cell center. A finite volume method on the other hand treats the value of $u$ as an average over a small volume instead as a value at a single point. The flux $F_u$ is a quantity existing at the cell faces. Discretization for a finite volume method thus begins by taking the average of $u$ in a finite volume cell by means of integration:
 \begin{align} 
 \int_{t^n}^{t^{n+1}} \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \left( \partial_t u + \partial_x f_u \right) dt dx &= 0 
 \end{align}
@@ -29,10 +29,10 @@ Define $U$ as the space averaged value for $u$ and $F$ as the time averaged valu
 \begin{align}
 U^{n+1}_i = U^n_i - \frac{\Delta t}{\Delta x}\left(F^n_{i+\frac{1}{2}} - F^n_{i-\frac{1}{2}} \right) 
 \end{align}
-A good solver will give an accurate yet computationally cheap expression for the time integrated fluxes$F^n_{i+\frac{1}{2}}$ and $F^n_{i-\frac{1}{2}}$, which are not known analytically. Estimating the values of $F$ is done by a \emph{Riemann solver}. \texttt{MPI-AMRVAC} has a few of these riemann solvers, includiding  hll, hllc, roe, tvdlf, etc.. The approximations for $F^n_{i+\frac{1}{2}}$ will depend on $u$ and $f_u$.\\ 
+A good solver will give an accurate yet computationally cheap expression for the time integrated fluxes$F^n_{i+\frac{1}{2}}$ and $F^n_{i-\frac{1}{2}}$, which are not known analytically. Estimating the values of $F$ is done by a \emph{Riemann solver}. \texttt{MPI-AMRVAC} has a few of these Riemann solvers, including  hll, hllc, roe, tvdlf, etc.. The approximations for $F^n_{i+\frac{1}{2}}$ will depend on $u$ and $f_u$.\\ 
 
 \section{CAK-theory}
-Modelling CAK-winds consists of two steps: assuming an isothermal gas and adding the $g_{cak}$ and $g_{grav}$ sourceterms to the momentum equation.
+Modelling CAK-winds consists of two steps: assuming an isothermal gas and adding the $g_{cak}$ and $g_{grav}$ source terms to the momentum equation.
 
 The isothermal gas assumption is made by switching off the solving for the energy equation in the parameter file. The code now neglects equations \eqref{eq: hd_e} and \eqref{eq: gas_closing}, and replaces them with a new closure relation:
 \begin{align}
@@ -40,14 +40,14 @@ The isothermal gas assumption is made by switching off the solving for the energ
 \end{align}
 The two free parameters $c_{adiab}$ and $\gamma$ are set to .... and .... to match the conditions in a typical CAK wind. CITE HERE\\
 
-The momentum sourceterms are added in the user module. All free parameters are defined, and $dv/dr$ is calculated using a centered finite difference.
+The momentum source terms are added in the user module. All free parameters are defined, and $dv/dr$ is calculated using a centred finite difference.
 \begin{align}
 S_{\rho \vec{v},i,j} = \rho_{i,j} \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r_{i,j}^2 c} \left( \frac{1}{\rho_{i,j} c \bar{Q} \kappa_e} \right)^\alpha \frac{v_{i+1} - v_{i-1}}{r_{i+1} - r_{i-1}}
 \end{align}
 
 
 \section{Flux Limited Diffusion}
-Solving the Radiation hydrodynamics equations is more complicated. An entirely new equation has to be solved and a bunch of new variables and parameteres have to be defined. Given the complexity of the problem it is solved in a new physics module in the sourcecode. Equation \eqref{eq: rhd_rho} is trivial and \eqref{eq: rhd_mom} only needs a sourceterm which can be computed with the help of the FLD closure relation \eqref{eq: fld_closing}. The sourceterms in the energy equation \eqref{eq: hd_e} evolve on a radiation timescale instead of a hydrodynamical timescale, for this reason they wil be implemented with an implicit scheme, see section \ref{subsection: BIS}. The radiation energy equation is entirely new to the code, and again because of the timescale difference, it will be solved partially implicitly, in an operator split manner. \\
+Solving the Radiation hydrodynamics equations is more complicated. An entirely new equation has to be solved and a bunch of new variables and parameters have to be defined. Given the complexity of the problem it is solved in a new physics module in the source code. Equation \eqref{eq: rhd_rho} is trivial and \eqref{eq: rhd_mom} only needs a source term which can be computed with the help of the FLD closure relation \eqref{eq: fld_closing}. The source terms in the energy equation \eqref{eq: hd_e} evolve on a radiation timescale instead of a hydrodynamical timescale, for this reason they will be implemented with an implicit scheme, see section \ref{subsection: BIS}. The radiation energy equation is entirely new to the code, and again because of the timescale difference, it will be solved partially implicitly, in an operator split manner. \\
 
 \begin{align}
 \partial_t \left(E \right) + \underbrace{\vec{\nabla} \cdot \left( \vec{v} E \right)}_{1}  &= - \underbrace{\vec{\nabla} \cdot \vec{F}}_{2} - \underbrace{\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E}_{3} \\
@@ -77,22 +77,22 @@ Trying to solve this equation together with the other hydro equations gives rise
 are also evolving on the faster timescale, hence they must be solved implicitly. This is done with an implicit bisection scheme similar to the technique found in \cite{Turner12001}, which will be explained below.
 \end{itemize}
 
-In AMRVAC, the timestep at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the timestep should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
+In AMRVAC, the time step at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the time step should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
 
-In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the soundspeed. The timestep in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
+In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the sound speed. The time step in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
 \begin{align}
 dt = \min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
 \end{align}
-This is the maximum time step at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorption coeficient.
+This is the maximum time step at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorption coefficient.
 
 \subsection{Elliptic vs Hyperbolic}
 \subsection{ADI}
-The diffusion part of the radiative energy equation wil be solved using the Alternating Direction Implicit (ADI) scheme. This is a numerical scheme which solves the equation implicitly in the first spatial direction an explicitly in the second for half a time step, and then implicitly in the second spatial direction and explicitly in the first for another half timestep. Lets first simplify the equation by defining the diffusion coefficient $D = \frac{\lambda c}{\kappa \rho}$. 
+The diffusion part of the radiative energy equation will be solved using the Alternating Direction Implicit (ADI) scheme. This is a numerical scheme which solves the equation implicitly in the first spatial direction an explicitly in the second for half a time step, and then implicitly in the second spatial direction and explicitly in the first for another half time step. Lets first simplify the equation by defining the diffusion coefficient $D = \frac{\lambda c}{\kappa \rho}$. 
 \begin{align}
 \partial_t E  = \vec{\nabla} \cdot \left(D \nabla E\right) \label{eq: diffusion}
 \end{align}
 
-Lets now construct a numerical scheme. First, the left hand side of \eqref{eq: diffusion} is written in a discrete form. Let $E_{i,j}$ be the radiative energy in cell $(i,j)$ on a grid with $\Delta x$ grid spacing in the $x$-direction and $\Delta y$ grid spacing in the $y$-direction. $D_{i,j}$ is the cell centered diffusion coefficient, whilst $D1_{i,j} = \frac{1}{2} (D_{i+1,j} + D_{i,j})$ and $D2_{i,j} = \frac{1}{2} (D_{i,j+1} + D_{i,j})$ are the cell faced values. To transform from cell center to cell face it is simplest to take the mean of the two surrounding cells, taking the mean of the six surrounding cells is also an option. 
+Lets now construct a numerical scheme. First, the left hand side of \eqref{eq: diffusion} is written in a discrete form. Let $E_{i,j}$ be the radiative energy in cell $(i,j)$ on a grid with $\Delta x$ grid spacing in the $x$-direction and $\Delta y$ grid spacing in the $y$-direction. $D_{i,j}$ is the cell centred diffusion coefficient, whilst $D1_{i,j} = \frac{1}{2} (D_{i+1,j} + D_{i,j})$ and $D2_{i,j} = \frac{1}{2} (D_{i,j+1} + D_{i,j})$ are the cell faced values. To transform from cell center to cell face it is simplest to take the mean of the two surrounding cells, taking the mean of the six surrounding cells is also an option. 
 \begin{align}
 \left( \vec{\nabla} \cdot \left(D \nabla E\right) \right)_{i,j} 
  &= \frac{D1_{i+1,j} (\nabla E)_{x} - D1_{i,j} (\nabla E)_{x}}{\Delta x} \\
@@ -101,12 +101,12 @@ Lets now construct a numerical scheme. First, the left hand side of \eqref{eq: d
  &+ \frac{D2_{i,j+1} (E_{i,j+j} - E_{i,j}) - D2_{i,j} (E_{i,j} - E_{i,j-1})}{\Delta y^2} \\ 
 \end{align}
 
-For the implicit scheme the diffusion coefficients are chosen at the previous timestep, as they are to be computed from a known radiation energy. Evolving \eqref{eq: diffusion} over a timestep $\Delta t$ from time $n$ to time $n+1$ means solving the following equations:
+For the implicit scheme the diffusion coefficients are chosen at the previous time step, as they are to be computed from a known radiation energy. Evolving \eqref{eq: diffusion} over a time step $\Delta t$ from time $n$ to time $n+1$ means solving the following equations:
 \begin{align}
 \frac{E^{n+1} - E^{n}}{\Delta t} = \vec{\nabla} \cdot \left(D^n \nabla E^{n+1}\right) \label{eq: Error_control}
 \end{align}
 
-As mentioned before, the ADI scheme first solves half a timestep implicitly in for example the $x$-direction and explicitly in the $y$-direction:
+As mentioned before, the ADI scheme first solves half a time step implicitly in for example the $x$-direction and explicitly in the $y$-direction:
 \begin{align}
 \frac{E_{i,j}^{n+\frac{1}{2}} - E_{i,j}^{n}}{\Delta t}
  &= \frac{D1_{i+1,j}^{n}}{\Delta x^2} (E_{i+1,j}^{n+\frac{1}{2}} - E_{i,j}^{n+\frac{1}{2}}) \\
@@ -142,7 +142,7 @@ Or in matrix form:
            \cdots & b_{i,j-1} & b_{i,j} & b_{i,j+1} & \cdots
 \end{bmatrix}
 \end{align}
-This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain and the innermost layer of ghostcells. The boundary conditions on the radiation energy field are applied after the halved timestep. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a timestep. \\
+This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain and the innermost layer of ghost cells. The boundary conditions on the radiation energy field are applied after the halved time step. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of Gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a time step. \\
 
 The second half of the timestep will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
 \begin{align}
@@ -152,14 +152,14 @@ The second half of the timestep will be solved implicit in the $y$-direction and
  &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n+1} - E_{i,j}^{n+1}) \\
  &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n+1} - E_{i,j-1}^{n+1})
 \end{align}
-And this system, of course, has a matrix notation completely similar to the one in the first half of the timestep, which can be solved in a completely similar way. This time there are $N+2$ matrices of size $(M+2) \times (M+2)$ to be solved. \\
+And this system, of course, has a matrix notation completely similar to the one in the first half of the time step, which can be solved in a completely similar way. This time there are $N+2$ matrices of size $(M+2) \times (M+2)$ to be solved. \\
 
-The accuracy of this scheme can be checked by computing and comparing both the left hand side and right had side of equation \eqref{eq: Error_control} after calculating $E^{n+1}$. The error is defined by taking the maximum value of the difference of the LHS and RHS weighted with the ratio of the radiative energy and the hydrodynamical timestep:
+The accuracy of this scheme can be checked by computing and comparing both the left hand side and right had side of equation \eqref{eq: Error_control} after calculating $E^{n+1}$. The error is defined by taking the maximum value of the difference of the LHS and RHS weighted with the ratio of the radiative energy and the hydrodynamical time step:
 \begin{align}
 Error = \max_{i,j} \left(\frac{\frac{E^{n+1} - E^{n}}{\Delta t} -  \vec{\nabla} \cdot \left(D \nabla E\right)}{E^{n}/dt} \right) \label{eq: Error}
 \end{align}
 
- Test calculations show that this error is often rather large, depending on the distribution of the radiation and density field in the simulation space. A solution is given in \cite{Turner12001} by means of pseudo-timestepping. This method will be explained in the next section.
+ Test calculations show that this error is often rather large, depending on the distribution of the radiation and density field in the simulation space. A solution is given in \cite{Turner12001} by means of pseudo-time stepping. This method will be explained in the next section.
  
  
 \subsection{pseudo-timestepping}
@@ -167,7 +167,7 @@ Instead of solving equation \eqref{eq: diffusion} a new variable is introduced, 
 \begin{align}
 \partial_w E = \partial_t E  - \vec{\nabla} \cdot \left(D \nabla E\right)
 \end{align}
-which reduces to \eqref{eq: diffusion} when $\partial_w E = 0$. The pseudotimestep $\Delta w$ can be adjusted independently from the hydrodynamical timestep and is increasing in size to converge toward a $w$-stationary state where $\partial_w E = 0$ \cite{Turner12001}.\\
+which reduces to \eqref{eq: diffusion} when $\partial_w E = 0$. The pseudo-time step $\Delta w$ can be adjusted independently from the hydrodynamical time step and is increasing in size to converge toward a $w$-stationary state where $\partial_w E = 0$ \cite{Turner12001}.\\
 
 The implicit scheme to evolve half a pseudo-timestep from $m$ to $m + \frac{1}{2}$, implicit in the $x$-direction, looks like:
 \begin{align}
@@ -184,10 +184,10 @@ Where, again, the Diffusion coefficient is considered constant throughout the ti
 \Delta w = \Delta w_0 \left(\frac{\Delta w_1}{\Delta w_0} \right)^\frac{m-1}{W-1}
 \end{align}
 
-$\Delta w_0$ And $\Delta w_1$ are one quarter of the size of a gridcell and one quarter of the size of the numerical domain, respectively. The error of this combined ADI-psuedotimestep method is measured after $W$ pseudotimesteps using \eqref{eq: Error}, if it is too large $W$ and $\Delta w_1$ are increased whilst $\Delta w_0$ is decreased. If this still doesn't suffice, the above scheme can be applied twice to half a hydrodynamical timestep, four times to a quarter hydrodynamical timestep, ... 
+$\Delta w_0$ And $\Delta w_1$ are one quarter of the size of a grid cell and one quarter of the size of the numerical domain, respectively. The error of this combined ADI-pseudo-time step method is measured after $W$ pseudo-time steps using \eqref{eq: Error}, if it is too large $W$ and $\Delta w_1$ are increased whilst $\Delta w_0$ is decreased. If this still doesn't suffice, the above scheme can be applied twice to half a hydrodynamical time step, four times to a quarter hydrodynamical time step, ... 
 
 \subsection{Bisection Implicit scheme} \label{subsection: BIS}
-Solving for the sourceterms in the gas and radiation energy equations happens with another implicit scheme. 
+Solving for the source terms in the gas and radiation energy equations happens with another implicit scheme. 
 \begin{align}
 e^{n+1} - e^n &= \Delta t \left( -4\kappa \sigma \left(\frac{(\gamma - 1)e^{n+1}}{\rho}\right)^4 + c \kappa E^{n+1} \right) \\ 
 E^{n+1} - E^n &= \Delta t \left( +4\kappa \sigma \left(\frac{(\gamma - 1)e^{n+1}}{\rho}\right)^4 - c \kappa E^{n+1} -\nabla \vec{v} P^{n+1} \right)
@@ -209,14 +209,14 @@ And
 Equation \eqref{eq: Poly} is a $4^{th}$ degree polynomial in $e^{n+1}$, with a single root between $0$ and $\frac{1 + a_2 + a_3}{a_1 + a_3}$. This is solved for $e^{n+1}$ using the bisection method to calculate the contribution of the radiative heating and cooling to the gas energy. The newly calculated $e^{n+1}$ is then plugged in equation \eqref{eq: E_src} to find the contribution of the radiative heating and cooling, and the photon tiring to the radiation energy.
 
 \section{Dimensionless problem}
-Computationally, floating point values are the most precise around unity. For this reason, it is preferable to rescale physical quantities such as $\rho$, $\vec{v}$, $e$, ... with values typical to the simulation domain. AMRVAC allready does port of this for us, in the user module, one can define either the units for either numberdensity, temperature  and length ($N_0$, $T_0$, $l_0$) or  numberdensity, velocity  and lenth ($N_0$, $v_0$, $l_0$). The other units will be then computed from these quantities using the folowing relations:
+Computationally, floating point values are the most precise around unity. For this reason, it is preferable to rescale physical quantities such as $\rho$, $\vec{v}$, $e$, ... with values typical to the simulation domain. AMRVAC already does port of this for us, in the user module, one can define either the units for either number density, temperature  and length ($N_0$, $T_0$, $l_0$) or  number density, velocity  and length ($N_0$, $v_0$, $l_0$). The other units will be then computed from these quantities using the following relations:
 \begin{align}
 \rho_0 &= \mu m_p N_0 \\
    p_0 &= \gamma N_0 k_b T_0 \\
    v_0 &= \sqrt{\frac{p_0}{\rho_0}} \\
    t_0 &= \frac{l_0}{v_0}
 \end{align}
-Calculations in amrvac are always done with unitless quantities, in HD these are: $\tilde{\rho} = \frac{\rho}{\rho_0}$, $\tilde{\vec{v}} = \frac{\vec{v}}{\vec{v}_0}$, $\tilde{p} = \frac{p}{p_0}$ and $\tilde{e} = \frac{e}{p_0}$. Using this, we can transform the continutity equation \eqref{eq: hd_rho} to dimensionless units:
+Calculations in amrvac are always done with unit less quantities, in HD these are: $\tilde{\rho} = \frac{\rho}{\rho_0}$, $\tilde{\vec{v}} = \frac{\vec{v}}{\vec{v}_0}$, $\tilde{p} = \frac{p}{p_0}$ and $\tilde{e} = \frac{e}{p_0}$. Using this, we can transform the continuity equation \eqref{eq: hd_rho} to dimensionless units:
 \begin{align}
 \frac{t_0}{\rho_0} \frac{\partial}{\partial t} \rho  + \frac{t_0}{\rho_0} \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= \frac{t_0}{\rho_0} S_\rho \\
 \frac{\partial}{\partial \tilde{t}} \tilde{\rho} + \tilde{\nabla} \left( \tilde{\vec{v}} \tilde{\rho} \right) &= \tilde{S}_\rho
@@ -226,15 +226,15 @@ Where $\nabla$ has the units of reciprocal length and $\tilde{S}_\rho \def \frac
 \frac{\partial}{\partial \tilde{t}} \left(\tilde{\rho} \tilde{\vec{v}} \right) + \tilde{\vec{\nabla}} \left(\tilde{\vec{v}} \tilde{\rho}  \tilde{\vec{v}} + \tilde{p} \right) &= \tilde{S}_{\rho \vec{v}} \\
 \frac{\partial}{\partial \tilde{t}} \tilde{e} + \tilde{\vec{\nabla}} \left(\tilde{\vec{v}} \tilde{e} + \tilde{\vec{v}} \tilde{p} \right) &= \tilde{S}_e \\
 \end{align}
-$\tilde{S}_{\rho \vec{v}} = S_{\rho \vec{v}} \frac{t_0}{\rho_0 v_0}$ and $\tilde{S}_e = S_e \frac{t_0}{e_0}$ are the momentum and energy equation sourceterms. For the RHD equations this will rescale the physical constants:
+$\tilde{S}_{\rho \vec{v}} = S_{\rho \vec{v}} \frac{t_0}{\rho_0 v_0}$ and $\tilde{S}_e = S_e \frac{t_0}{e_0}$ are the momentum and energy equation source terms. For the RHD equations this will rescale the physical constants:
 \begin{align}
 	\tilde{S}_{\rho \vec{v}} &=  \frac{\kappa \rho}{c} \vec{F} \frac{t_0}{\rho_0 v_0} \\
 							 &=  \frac{\tilde{\kappa}\tilde{\rho}}{\tilde{c}} \tilde{\vec{F}} \\
 	\tilde{S}_e &= -4\pi \kappa\rho B \frac{t_0}{e_0}  + c \kappa \rho E \frac{t_0}{e_0} \\
 				&= -4 \tilde{\sigma} \tilde{\kappa} \tilde{T}^4 + \tilde{c} \tilde{\rho} \tilde{E}
 \end{align}
-The rescaled Stefan-boltzmanconstante $\tilde{\sigma}$, the rescaled speed of light $\tilde{c}$ and the rescaled opacity $\tilde{\kappa}$ are given by $\tilde{\sigma} = \frac{\sigma T_0^4}{e_0 v_0}$, $\tilde{c} = \frac{c}{v_0}$ and $\tilde{\kappa} = \kappa v_0 t_0$. The unit of the radiation energy density and radiation flux can also be defined: $E_0 = e_0$ and $F_0 = \rho_0 v_0^3$. These are used to transform the RHD euqation for radiation energy \eqref{eq: rhd_e_r} and the fld colsure relation \eqref{eq: fld_closing}. 
+The rescaled Stefan-Boltzmann constant $\tilde{\sigma}$, the rescaled speed of light $\tilde{c}$ and the rescaled opacity $\tilde{\kappa}$ are given by $\tilde{\sigma} = \frac{\sigma T_0^4}{e_0 v_0}$, $\tilde{c} = \frac{c}{v_0}$ and $\tilde{\kappa} = \kappa v_0 t_0$. The unit of the radiation energy density and radiation flux can also be defined: $E_0 = e_0$ and $F_0 = \rho_0 v_0^3$. These are used to transform the RHD euqation for radiation energy \eqref{eq: rhd_e_r} and the fld closure relation \eqref{eq: fld_closing}. 
 
 \section{visualisation}
-AMRVAC output is given in binary .vtu files. Special software such as visit \cite{} and paraview are used to open and analyse the simulation results. The standard output consists of the primitive variables at every simulation cel for a specified number of timesteps. Extra output variables can be defined in the user module.
+AMRVAC output is given in binary .vtu files. Special software such as visit \cite{} and paraview are used to open and analyse the simulation results. The standard output consists of the primitive variables at every simulation cell for a specified number of time steps. Extra output variables can be defined in the user module.
 

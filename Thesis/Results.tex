@@ -5,53 +5,67 @@ The first result is of course a working CAK subroutine and FLD module in mpi-AMR
 \subsection{Massive star stellar wind}
 
 \section{Flux Limited Diffusion}
-The diffusion model is first tested against some analytical results, these tests will give us some knowledge on how accurately we can interpret the simulations of physical fenomena. The diffusion term and advection term are both tested seperatly by comparisson to an exact solution and the photon tiring, radiative cooling and radiative heating sourceterms are tested togheter versus a runge-kutta solver of a simplified problem.
+The diffusion model is first tested against some analytical results, these tests will give us some knowledge on how accurately we can interpret the simulations of physical phenomena. The diffusion term and advection term are both tested separately by comparison to an exact solution and the photon tiring, radiative cooling and radiative heating source terms are tested together versus a Runge-Kutta solver of a simplified problem.
 
-\subsection{Testcase 1: Acvection and Diffusion}
-The advection problem and the diffusion problem, solved by the already exsisting Riemann solver and the new ADI solver respectively can be compared to an exact analytical solution. The Riemann solver is nothing new, it's just a matter of checking the correct implementation in mpi-amrvac. The problem is tested on a numerical domain with constant density, a constant velocity, a constant gas energy density and an initial radiation energy density $E_0(x,y,t)$ given by:
+\subsection{Testcase 1: Advection and Diffusion}
+The advection problem and the diffusion problem, solved by the already existing Riemann solver and the new ADI solver respectively can be compared to an exact analytical solution. The Riemann solver is nothing new, it's just a matter of checking the correct implementation in mpi-amrvac. The problem is tested on a numerical domain with constant density, a constant velocity, a constant gas energy density and an initial radiation energy density $E_0(x,y,t)$ given by:
 \begin{align}
 E_0(x,y,t) = 2 + \sin(2 \pi x) \sin(2 \pi y)
 \end{align}
-If diffusion and other sourceterms are ignored, the radiation field wil evolve as
+If diffusion and other source terms are ignored, the radiation field will evolve as
 \begin{align}
 E^{adv}(x,y,t) = 2 + \sin(2 \pi (x-v_x t)) \sin(2 \pi (y-v_y t))
 \end{align}
-If diffusion is switched on but the advection is ignored by fixing the velocityfield to $\vec{0}$ every iteration, and the diffusion coefficient is chosen constant at $D = 1$, the field evolves as
+If diffusion is switched on but the advection is ignored by fixing the velocity field to $\vec{0}$ every iteration, and the diffusion coefficient is chosen constant at $D = 1$, the field evolves as
 \begin{align}
 E^{diff}(x,y,t) = 2 + \exp(-8 \pi^2 t) \sin(2 \pi x) \sin(2 \pi y)
 \end{align}
 
-Function $E_0(x,y,t)$ descibes a series of dots of more and less radiative energy, see figure \ref{fig: InitCond_test}. The numerical domain is chosen in such a way that there is one region of lower and one region of higher energy in each direction, $-0.5 \leq x \leq 0.5$, $0 \leq y \leq 1$. In time, the diffusion test runs untill the amplitude of the dots diminish by two orders of magnitude $\exp(-8 \pi^2 t)  = 0.01$ and the advection test tuns untill a point has passed the computational domain twice $ \min(v_x, v_y) t = 2 $. Boundary conditions are set periodical. Computational result $\tilde{E}$ can be compared with the analytical results to define the residuals:
+Function $E_0(x,y,t)$ describes a series of dots of more and less radiative energy, see figure \ref{fig: InitCond_test}. The numerical domain is chosen in such a way that there is one region of lower and one region of higher energy in each direction, $-0.5 \leq x \leq 0.5$, $0 \leq y \leq 1$. In time, the diffusion test runs until the amplitude of the dots diminish by two orders of magnitude $\exp(-8 \pi^2 t)  = 0.01$ and the advection test tuns until a point has passed the computational domain twice $ \min(v_x, v_y) t = 2 $. Boundary conditions are set periodical. Computational result $\tilde{E}$ can be compared with the analytical results to define the residuals:
 \begin{align}
 RES^{adv} &= \left|\frac{\tilde{E}^{adv} - E^{adv}}{E^{adv}}\right| \\
 RES^{diff} &= \left|\frac{\tilde{E}^{diff} - E^{diff}}{E^{diff}}\right| 
 \end{align}
 
-Which are plotted for different timesteps in figure \ref{fig: res_adv} and \ref{fig: res_diff} togheter with the numerical solutions $\tilde{E}^{adv}$ and $\tilde{E}^{diff}$
+Which are plotted for different timesteps in figure \ref{fig: res_adv} and \ref{fig: res_diff} together with the numerical solutions $\tilde{E}^{adv}$ and $\tilde{E}^{diff}$
 
 \subsection{Testcase 2: Photon Tiring, Heating and Cooling}
-To test the implicit bisection scheme used for adding the photon tiring, radiative heating and radiative cooling sourceterms, we make comparissons with an explicit runge kutta solver. Of course this runge kutta solver is not to be used in the actual code, because the timestep chosen in the runge kutta solver wil be orders of magnitude smaller. The equation at hand is:
+To test the implicit bisection scheme used for adding the photon tiring, radiative heating and radiative cooling source terms, we make comparisons with an explicit Runge-Kutta solver. Of course this Runge-Kutta solver is not to be used in the actual code, because the time step chosen in the Runge-Kutta solver will be orders of magnitude smaller. The equation at hand is:
 \begin{align}
 \frac{d e}{dt} = c \rho \kappa E - 4 \rho \kappa \sigma T^4
 \end{align}
 Except for the gas energy density, all primitive variables ($\rho = \rho_0$, $\vec{v} = 0$ and $E = E_0$) are kept constant. The computational domain is taken as small as possible and radiative diffusion is switched off. \\
 
-The system would be in radiative equillibrium when $c \rho \kappa E = 4 \rho \kappa \sigma T^4$. Using $T =  \frac{p}{\rho}= \frac{(\gamma - 1)e}{\rho}$, on can compute the equilibrium gas energy.
+The system would be in radiative equilibrium when $c \rho \kappa E = 4 \rho \kappa \sigma T^4$. Using $T =  \frac{p}{\rho}= \frac{(\gamma - 1)e}{\rho}$, on can compute the equilibrium gas energy.
 \begin{align}
 e_{rad. eq.} = \frac{\rho}{\gamma - 1} \left( \frac{c E}{4 \sigma} \right)^\frac{1}{4}
 \end{align}
-Different initial conditions are chosen for $e_0$ ranging from $100 e_{rad. eq.}$ to $0.01 e_{rad. eq.}$. Comparissons between the bisection method and a simple runge-kutta solver are plotted in figure \ref{fig: test_sourceterms}. Remember that the implicit bisection method uses a timestep wich is several orders of magnitude larger than the explicit runge-kutta method.
+Different initial conditions are chosen for $e_0$ ranging from $10^2 e_{rad. eq.}$ to $10^{-10} e_{rad. eq.}$. Comparisons between the bisection method and a simple Runge-Kutta solver are plotted in figure \ref{fig: test_sourceterms}. Remember that the implicit bisection method uses a time step which is several orders of magnitude larger than the explicit Runge-Kutta method.
+
+\begin{figure}
+\includegraphics[width = \textwidth]{test_sourceterms.png}
+\label{fig: test_sourceterms}
+\caption{blahblahblah}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width = \textwidth]{test_sourceterms_dt.png}
+\label{fig: test_sourceterms}
+\caption{blahblahblah}
+\end{figure}
 
 \subsection{Isothermal Atmosphere}
 A first practical use for the FLD module is modelling a stellar atmosphere surrounding a massive star. For convenience, the atmosphere will be considered isothermal and plane parallel, so the flux in the initial condition and the gravitational acceleration are constant. Let's also assume the only absorption an emission is done by means of electron scattering, with a constant opacity $\kappa$.\\
 
-The initial conditions are crucial in stabilizing simulations. In an isothermal atmosphere, the density and gas pressure decay exponentially on the lenght of a scale height $H_{eff} = \frac{c_{sound}^2}{g_{eff}}$. Where $g_{eff} = g_{grav}(\Gamma - 1)$ is the sum of radiation and graviational accelerations. 
+The initial conditions are crucial in stabilizing simulations. In an isothermal atmosphere, the density and gas pressure decay exponentially on the length of a scale height $H_{eff} = \frac{c_{sound}^2}{g_{eff}}$. Where $g_{eff} = g_{grav}(\Gamma - 1)$ is the sum of radiation and gravitational accelerations. 
 \begin{align}
 \rho(y) &= \rho_0 \exp \left( -\frac{y}{H_{eff}} \right) \\
  p(y)   &= p_0    \exp \left( -\frac{y}{H_{eff}} \right)
 \end{align}
 
-The velocity field is $\vec{0}$ everywhere. Boundary conditions $\rho_0$ and $p_0$ can be computed by defining the optical dept $\tau$. 
+WORK OUT MORE
+
+The velocity field is $\vec{0}$ everywhere. Boundary conditions $\rho_0$ and $p_0$ can be computed by defining the optical depth $\tau$. 
 \begin{align}
 \tau(y) = \int^\infty_{y} \kappa \rho dy  \label{eq: opt_depth}
 \end{align}
@@ -78,9 +92,9 @@ e &= \frac{\tau_0}{\kappa (\gamma - 1)} \exp \left( -\frac{y}{H_{eff}} \right) \
 E &= \frac{3 \Gamma}{1-\Gamma} \frac{\tau_0}{\kappa} \exp \left( -\frac{y}{H_{eff}} \right) \\
 \end{align}
 
-The parameters defining the physics of the system are the eddington parameter $\Gamma$, the optical dept at the lower boundary $\tau_0$ and the soundspeed $c_{sound}$. The eddington parameter contains information about the mass, luminosity and radius of the star, it determines wether the atmosphere will be blown away, collapsing in on itself or relax in a steady state. $\tau_0$ Sets the physical lower boundary of the numerical domain. A high value means the model starts at in a high density enviroment near the core, a low value means the model simulates the outermost boundaries of the star. The soundspeed determines the temperature of the atmosphere and the velocity at which waves can travel. \\
+The parameters defining the physics of the system are the Eddington parameter $\Gamma$, the optical depth at the lower boundary $\tau_0$ and the sound speed $c_{sound}$. The Eddington parameter contains information about the mass, luminosity and radius of the star, it determines whether the atmosphere will be blown away, collapsing in on itself or relax in a steady state. $\tau_0$ Sets the physical lower boundary of the numerical domain. A high value means the model starts at in a high density environment near the core, a low value means the model simulates the outermost boundaries of the star. The sound speed determines the temperature of the atmosphere and the velocity at which waves can travel. Together with the Mass which sets the gravitational field, the sound speed also determines the scale height of the gas. \\
 
-Calculations are done on a Cartesian grid, with the y-direction parallel to the radius of the star.The mass of the star is chosen at $M_* = 50 M_\odot$. Using Leavits law, we get a luminosity for a typical $50M_\odot$ star of $L_* = ... L_\odot$ and an eddington parameter $\Gamma = ...$. The calculation domain begins at $\tau_0 = ...$ and resolves about $...$ scaleheights in the y-direction and $...$ in the x-direction. The resolution of the grid is chosen such that there are $...$ cells per scaleheight. The simulation stops after $..$ times the hydrodynamical timescale, this is the time needed for a soundwave to travel across the computational domain. 
+Calculations are done on a Cartesian grid, with the y-direction parallel to the radius of the star.The mass of the star is chosen at $M_* = 50 M_\odot$. Using Leavits' law, we get a luminosity for a typical $50M_\odot$ star of $L_* = ... L_\odot$ and an Eddington parameter $\Gamma = ...$. The calculation domain begins at $\tau_0 = ...$ and resolves about $...$ scale heights in the y-direction and $...$ in the x-direction. The resolution of the grid is chosen such that there are $...$ cells per scale height. The simulation stops after $..$ times the hydrodynamical timescale, this is the time needed for a sound wave to travel across the computational domain. 
 
 \subsubsection{constant flux discrepancy}
 \subsubsection{comparison to mesa structure}

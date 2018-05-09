@@ -1,6 +1,6 @@
 \chapter{Introduction}
 %General situation Astrophysics
-Hight mass stars are the drivers of dynamical and chemical evolutions of galaxies troughout the universe, including our own Milky Way. Massive stars live a short but eciting lives, finally ending in giant supernova explosions. After their death, they leave behind exotic remnants such as black holes (BH) or neutron stars (NS). Wether a massive star ends as either NS or BH depends a lot on the amounts of mass expelled during their lifetime due to stellar winds. Research in stellar winds and atmospheres of massive stars wil give clues about the unexpected BH mass distribution observed by the LIGO collaboration \cite{Abbott1}, to which data is being added as we speak. This thesis focusses on making radiation-hydrodynamical models of the highly structured stellar winds and atmospheres of massive stars. Next to modeling stellar winds and atmospheres, a main result of this thesis are computercodes written to be used with mpi-AMRVAC which will be used in research on radiation dominated processes.\\
+High mass stars are the drivers of dynamical and chemical evolutions of galaxies throughout the universe, including our own Milky Way. Massive stars live a short but exciting lives, finally ending in giant supernova explosions. After their death, they leave behind exotic remnants such as black holes (BH) or neutron stars (NS). Whether a massive star ends as either NS or BH depends a lot on the amounts of mass expelled during their lifetime due to stellar winds. Research in stellar winds and atmospheres of massive stars will give clues about the unexpected BH mass distribution observed by the LIGO collaboration \cite{Abbott1}, to which data is being added as we speak. This thesis focusses on making radiation-hydrodynamical models of the highly structured stellar winds and atmospheres of massive stars. Next to modelling stellar winds and atmospheres, a main result of this thesis are computer codes written to be used with mpi-AMRVAC which will be used in research on radiation dominated processes.\\
 
 %General importance radiative processes
 In various systems it is important to take into account a radiation field when considering gas dynamics (\cite{Tetsu2016},  ...). Radiation can exert forces to, for example, accelerate stellar winds and transport energy like in the non-convective stellar radiation zones. The equations describing gas dynamics with a radiation will evolve on two different timescales, a radiation field generally evolves much faster than gas, so solving them isn't trivial. This thesis describes radiation hydrodynamics (RHD) in two different regimes: CAK-theory in hot stellar winds and flux limited diffusion in stellar atmospheres.\\
@@ -21,14 +21,14 @@ CAK-theory Is an analytical model describing these winds, and the first half of 
 \item \textbf{stellar atmospheres}\\
 
 \item \textbf{accretion disks}\\
-Acretion disks appear in all sorts of objects: young stellar objects, pre-main sequence objects, various types of stars, around BH's, NS's, active galactic nuclei and so on. The gas in these disks is often heated due to internal collisions or acretion on the central object, which gives rise to a radiation field. This radiation field can highly impact the shape and energy distribution within the disk due to ablation and radiative heating \cite{dylan}. In turn, depending on the type of disk, this can have an impact on the end products of star and planetary formation
+Accretion disks appear in all sorts of objects: young stellar objects, pre-main sequence objects, various types of stars, around BH's, NS's, active galactic nuclei and so on. The gas in these disks is often heated due to internal collisions or accretion on the central object, which gives rise to a radiation field. This radiation field can highly impact the shape and energy distribution within the disk due to ablation and radiative heating \cite{dylan}. In turn, depending on the type of disk, this can have an impact on the end products of star and planetary formation
 
 \item \textbf{star formation}\\
 
 \item \textbf{very massive stars}\\
 
 \item \textbf{Eruptive variables}\\
-Systems that ecceed the Eddington limit ($\Gamma > 1$) are called super-Eddington systems. A prime example for such a system is $\eta$ Carinae. $\eta$ Carinae is what is known as an eruptive variable. It is a star which underwent an enormous massloss in the middle of the 19th century, losing $10 M_\odot$ over the course of $10$ years. One of the hypothesised drivers of this huge massloss is radiation.
+Systems that exceed the Eddington limit ($\Gamma > 1$) are called super-Eddington systems. A prime example for such a system is $\eta$ Carinae. $\eta$ Carinae is what is known as an eruptive variable. It is a star which underwent an enormous mass loss in the middle of the 19th century, losing $10 M_\odot$ over the course of $10$ years. One of the hypothesised drivers of this huge mass loss is radiation.
 \end{itemize}
 
 
@@ -54,14 +54,14 @@ There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ 
 	p = (\gamma - 1) \left(e - \frac{\rho \vec{v}^2}{2} \right) \label{gas_closing}
 \end{align}
 
-The sourceterms in the equations describe adding or substracting to one of the densities: $S_\rho$ describes mass being added or substracted from the system, $S_{\rho \vec{v}}$ describes external forces such as gravity or radiative forces and $S_e$ describes work excerted on the system, this can be for example due to heating of the fluid. A good description of radiation hydrodynamics needs to formulate the correct sourceterms for the momentum equation \eqref{eq: hd_mom} and gas energy equation \eqref{eq: hd_e}. These sourceterms can depend on the other primitive variables $\rho$, $\vec{v}$ and $e$ as well as free parameters describing the source of the radiation field such as the luminosity and mass of a central star.\\
+The source terms in the equations describe adding or subtracting to one of the densities: $S_\rho$ describes mass being added or subtracted from the system, $S_{\rho \vec{v}}$ describes external forces such as gravity or radiative forces and $S_e$ describes work exerted on the system, this can be for example due to heating of the fluid. A good description of radiation hydrodynamics needs to formulate the correct source terms for the momentum equation \eqref{eq: hd_mom} and gas energy equation \eqref{eq: hd_e}. These source terms can depend on the other primitive variables $\rho$, $\vec{v}$ and $e$ as well as free parameters describing the source of the radiation field such as the luminosity and mass of a central star.\\
 
-Predicting fluid dynamics means solving these forementioned equations simultaniously, this is done using numerical computercodes such as mpi-amrvac \cite{Porth2014}. Solving these equations is a tricky buisness, and there are numerous codes and numerical schemes available. The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}. \\
+Predicting fluid dynamics means solving these aforementioned equations simultaneously, this is done using numerical computer codes such as mpi-amrvac \cite{Porth2014}. Solving these equations is a tricky business, and there are numerous codes and numerical schemes available. The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}. \\
 
-In section \ref{section: introduction CAK}, an analytic expression for these sourceterms are calculated to simulate the conditions in line driven stellar winds. This calculation was first done by Castor, Abbott and Klein \cite{•} CITE HERE and carries their initals in its name: CAK-theory.
+In section \ref{section: introduction CAK}, an analytic expression for these source terms are calculated to simulate the conditions in line driven stellar winds. This calculation was first done by Castor, Abbott and Klein \cite{•} CITE HERE and carries their initials in its name: CAK-theory.
 
 \section{Radiation Hydrodynamics}
-The last section gave a small recap of hydrodynamics. In this section, a mathematicial framework is set up to combine the hydrodynamics equations with the effects of a time dependent radiation field. At the end of this we will be left with a system of partial differential equations describing the dynamics of both the gas and radiation field.\\ 
+The last section gave a small recap of hydrodynamics. In this section, a mathematical framework is set up to combine the hydrodynamics equations with the effects of a time dependent radiation field. At the end of this we will be left with a system of partial differential equations describing the dynamics of both the gas and radiation field.\\ 
 The main governing equation describing the evolution of radiation trough a medium is the radiative transfer equation:
 \begin{align}
 \left( \frac{1}{c} \frac{\partial}{\partial t} + \vec{n} \cdot \vec{\nabla} \right) I_\nu = \eta_\nu + \kappa_\nu I_\nu
@@ -81,15 +81,15 @@ E_\nu &= \frac{4 \pi}{c} j_\nu \\
 P_\nu &= \frac{4 \pi}{c} K_\nu
 \end{align}
 
-These are the radiative energy $E_\nu$, the radiation flux $\vec{F_\nu}$ and the radiation pressure tensor $P_\nu$. When asuming local thermal equilibrium (LTE), just like with the gass pressure tensor, $P_\nu$ can be written as a scalar times the unit tensor. The fraction of emissivity and total opacity is often written as the sourcefunction $S_\nu = \frac{\eta_\nu}{\chi_\nu}$. \\
- When doing full radiative transfer, these equations are solved for an enormous amount of frequecies, corresponding to the indices $_\nu$. The situation is simplified when assuming a grey radiation field, by integrating over all frequencies. The LTE, grey radiation energy and radiation flux equations can be written in a conservative form, similar to the hydrodynamics equations:
+These are the radiative energy $E_\nu$, the radiation flux $\vec{F_\nu}$ and the radiation pressure tensor $P_\nu$. When assuming local thermal equilibrium (LTE), just like with the gas pressure tensor, $P_\nu$ can be written as a scalar times the unit tensor. The fraction of emissivity and total opacity is often written as the source function $S_\nu = \frac{\eta_\nu}{\chi_\nu}$. \\
+ When doing full radiative transfer, these equations are solved for an enormous amount of frequencies, corresponding to the indices $_\nu$. The situation is simplified when assuming a grey radiation field, by integrating over all frequencies. The LTE, grey radiation energy and radiation flux equations can be written in a conservative form, similar to the hydrodynamics equations:
 
 \begin{align}
 \frac{\partial E}{\partial t} + \vec{\nabla} \cdot \vec{F} &= c \int_\nu \int_\Omega \chi_\nu \left( S_\nu + I_\nu \right) d\nu d\Omega \\
 \frac{\partial \vec{F}}{\partial t} + c^2 \vec{\nabla} P &= \frac{c}{4 \pi} \int_\nu \int_\Omega \chi_\nu \left( S_\nu + I_\nu \right) \vec{n} d\nu d\Omega
 \end{align}
 
-Assuming LTE, the sourcefunction scales with the Planck function $S_\nu = \frac{4\pi}{c} B_\nu(T)$ and both $B_\nu(T)$ and $\chi_\nu$ are independent of solid angle. The relations between flux, energy and the moments of intensity can be used again to replace $I_\nu$ in the sourceterms. Because of symmetry, $S_\nu \vec{n}$ integrated over the total solid angle will return $\vec{0}$ in the sourceterm of the flux equation.\\
+Assuming LTE, the source function scales with the Planck function $S_\nu = \frac{4\pi}{c} B_\nu(T)$ and both $B_\nu(T)$ and $\chi_\nu$ are independent of solid angle. The relations between flux, energy and the moments of intensity can be used again to replace $I_\nu$ in the source terms. Because of symmetry, $S_\nu \vec{n}$ integrated over the total solid angle will return $\vec{0}$ in the source term of the flux equation.\\
 The absorption coefficient is the product of the gas density and the frequency dependent opacity: $\chi_\nu = \rho \kappa_\nu$. To make life easier, an Energy-meaned and Plack opacity can be defined, and in first approximation they are equal to the Rosseland mean opacity: (SOURCE?!?!?!?)
 \begin{align}
 \frac{\int_\nu E_\nu \kappa_\nu d\nu}{\int_\nu E_\nu d\nu} = \frac{\int_\nu B_\nu \kappa_\nu d\nu}{\int_\nu B_\nu d\nu} = \kappa
@@ -100,8 +100,8 @@ Integration over all frequencies, replacing opacities by the Rosseland mean opac
 \frac{\partial \vec{F}}{\partial t} + c^2 \vec{\nabla} P &=  c \kappa \rho \vec{F} 
 \end{align}
 
-These equations are written here in the co-moving frame. Transforming to a static frame, the same frame as used in forementioned hydro equations, an advection term is added to the density flux in  both equations, $\vec{v} E$ and $\vec{v} \cdot \vec{F}$. The two sourceterms in the radiation energy equation are interpreted as energy exchange between the gas and the radiation field, energy leaving the radiation field heats the gas and gas is cooled by energy entering the radiation field. These so called heating and cooling sourceterms, $4\pi \kappa\rho B(T)$ and $ c \kappa \rho E$, must be added to the gas energy equation as well. \\
-The sourceterm in the Flux energy equation has the same units as the gas momentum sourceterm, this is the expression for radiation force. If momentum leaves the radiation flux there is work being done, this must also mean that there is energy leaving the radiation field. This is translated in the photon tiring term $\vec{\nabla} \cdot \vec{v} P$, which must be substracted from the radiation energy sourceterm.
+These equations are written here in the co-moving frame. Transforming to a static frame, the same frame as used in aforementioned hydro equations, an advection term is added to the density flux in  both equations, $\vec{v} E$ and $\vec{v} \cdot \vec{F}$. The two source terms in the radiation energy equation are interpreted as energy exchange between the gas and the radiation field, energy leaving the radiation field heats the gas and gas is cooled by energy entering the radiation field. These so called heating and cooling source terms, $4\pi \kappa\rho B(T)$ and $ c \kappa \rho E$, must be added to the gas energy equation as well. \\
+The source term in the Flux energy equation has the same units as the gas momentum source term, this is the expression for radiation force. If momentum leaves the radiation flux there is work being done, this must also mean that there is energy leaving the radiation field. This is translated in the photon tiring term $\vec{\nabla} \cdot \vec{v} P$, which must be subtracted from the radiation energy source term.
 
 \begin{align}
  \partial_t \left(\rho \right) + \vec{\nabla} \cdot \left( \rho \vec{v}  \right) &= 0 \label{eq: rhd_cont} \\
@@ -112,10 +112,10 @@ The sourceterm in the Flux energy equation has the same units as the gas momentu
  \partial_t \left(\frac{\vec{F}}{c^2} \right) +  \vec{\nabla} \left( \frac{\vec{v} \cdot \vec{F}}{c^2} + P \right) &= - \frac{\kappa \rho}{c} \vec{F} \label{eq: rhd_flux}
 \end{align}
 
-These are the final radiation hydrodynamics equations. There are only 5 equations for 7 primitive variables: $\rho$, $\vec{v}$, $e$, $p$, $E$, $\vec{F}$ and $P$. Two closing relations are nessecary to close the system. A first closing relation is obtained by re-using equation \eqref{gas_closing}, a second one can be obtained by for example the \emph{Flux limited diffusion} approximation (FLD) described in section \ref{section: introduction Flux Limited Diffusion}.
+These are the final radiation hydrodynamics equations. There are only 5 equations for 7 primitive variables: $\rho$, $\vec{v}$, $e$, $p$, $E$, $\vec{F}$ and $P$. Two closing relations are necessary to close the system. A first closing relation is obtained by re-using equation \eqref{gas_closing}, a second one can be obtained by for example the \emph{Flux limited diffusion} approximation (FLD) described in section \ref{section: introduction Flux Limited Diffusion}.
 
 \section{Sobolev and CAK-theory}
-CAK-theory is a formalism developped by Castor Abbot and Klein \cite{CAK} describing the radiative acceleration of gas $g_{rad}$. It is applied in the radiation driven winds of for example hot massive stars  and active galactic nuclei. Let's begin by writing down the acceleration caused by free electron scattering. Consider a star with mass $M_*$ and luminosity $L_*$, if only elecron scattering is assumed, light gets absorbed and re-emitted equally. If $\kappa_e$ is defined as the electron scattering opacity, the radiative acceleration at any radial distance r is given by:
+CAK-theory is a formalism developed by Castor Abbot and Klein \cite{CAK} describing the radiative acceleration of gas $g_{rad}$. It is applied in the radiation driven winds of for example hot massive stars  and active galactic nuclei. Let's begin by writing down the acceleration caused by free electron scattering. Consider a star with mass $M_*$ and luminosity $L_*$, if only electron scattering is assumed, light gets absorbed and re-emitted equally. If $\kappa_e$ is defined as the electron scattering opacity, the radiative acceleration at any radial distance r is given by:
 \begin{align}
 g_e = \frac{\kappa_e L_*}{4 \pi r^2 c}
 \end{align}
@@ -123,7 +123,7 @@ The gravitational attraction of the gas is given by Newtons gravitation law and 
 \begin{align}
 \Gamma_e = \frac{\kappa_e L_*}{4 \pi G M_* c}
 \end{align}
-Let's now have a look at radiative acceleration of a single absorption line in a line driven wind. Consider a a set of ions absorbing at $\lambda_0$, these ions have very high velocities and the doplershifting of the line becomes important for absorbing photons. The first ions closest to the star wil absorb photons at $\lambda_0$ so the photons further from the star are in the lines' shadow. However, the photons absorbing these photons pick up a velocity $\delta v$ so the can now pick up photons with a slightly higher wavelength. This mechanism leads to a steady state monotoniously increasing velocity as function of distance from the stellar surface $v(r)$. The line profile isn't infinitesimally thin, photons can be absorbed for a frequency range surounding the central wavelenth $\lambda_0$, this is described by the profilefunction. In velocity-space this width is equal to the thermal velocity of the ions. In radius space, an exact wavelength can be absorbed in a part of space with geometrical width $l_sob \def \frac{v_{th}}{dv/dr}$, the Sobolove length. With this Sobolev length comes a Sobolev optical depth $\tau_{sob} = \rho \kappa l_{sob}$. With $q \def \frac{\kappa v_{th}}{\kappa_e c}$ describing the lines' effectivenes scaled to electron scattering opacity, and $t \def  \frac{\rho \kappa_e c}{dv/dr}$ describing the optical depth for a purely electron scattering opacity, $\tau_{sob}$ can be written as:
+Let's now have a look at radiative acceleration of a single absorption line in a line driven wind. Consider a a set of ions absorbing at $\lambda_0$, these ions have very high velocities and the doppler shifting of the line becomes important for absorbing photons. The first ions closest to the star will absorb photons at $\lambda_0$ so the photons further from the star are in the lines' shadow. However, the photons absorbing these photons pick up a velocity $\delta v$ so the can now pick up photons with a slightly higher wavelength. This mechanism leads to a steady state monotonously increasing velocity as function of distance from the stellar surface $v(r)$. The line profile isn't infinitesimally thin, photons can be absorbed for a frequency range surrounding the central wavelength $\lambda_0$, this is described by the profile function. In velocity-space this width is equal to the thermal velocity of the ions. In radius space, an exact wavelength can be absorbed in a part of space with geometrical width $l_sob \def \frac{v_{th}}{dv/dr}$, the Sobolove length. With this Sobolev length comes a Sobolev optical depth $\tau_{sob} = \rho \kappa l_{sob}$. With $q \def \frac{\kappa v_{th}}{\kappa_e c}$ describing the lines' effectiveness scaled to electron scattering opacity, and $t \def  \frac{\rho \kappa_e c}{dv/dr}$ describing the optical depth for a purely electron scattering opacity, $\tau_{sob}$ can be written as:
 \begin{align}
 \tau_{sob} = \frac{\rho \kappa v_{th}}{dv/dr} = qt
 \end{align}
@@ -140,7 +140,7 @@ A radiation driven wind is accelerated by a whole load of lines, so one has to s
 \begin{align} 
 q \frac{dN}{dq} = \frac{1}{\Gamma} \left(\frac{q}{\bar{Q}} \right)^{\alpha - 1}
 \end{align}
-With this continuous function, the sumation over all lines is transformed to an integration over all linestrengths, and the final CAK acceleration can be written down:
+With this continuous function, the summation over all lines is transformed to an integration over all line strengths, and the final CAK acceleration can be written down:
 \begin{align}
 g_{CAK} &= g_e \int_0^\infty q \frac{dN}{dq} \frac{1 - e^{-qt}}{qt} dq \\
         &= \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r^2 c} \left( \frac{dv/dr}{\rho c \bar{Q} \kappa_e} \right)^\alpha \label{g_CAK}
@@ -170,16 +170,16 @@ Different formalisms for expressing $\lambda$ exist, the one used in this work h
 R &= \frac{|\nabla E|}{\rho \kappa E} \\
 \lambda &= \frac{2 + R}{6 + 3R + R^2} 
 \end{align}
-$R$ portraits how thick the medium is locally, it is $\infty$ in the free streaming limit and approaches $0$ when the medium gets optically thick. $\lambda$ And $R$ also relate the radiation pressure $P$ to the radiation energy density $E$ via the eddington tensor $f$, which is approximated as a scalar in this situation.
+$R$ portraits how thick the medium is locally, it is $\infty$ in the free streaming limit and approaches $0$ when the medium gets optically thick. $\lambda$ And $R$ also relate the radiation pressure $P$ to the radiation energy density $E$ via the Eddington tensor $f$, which is approximated as a scalar in this situation.
 \begin{align}
 P &= f E  \label{eq: fld_Pclosing} \\
 f &= \lambda + \lambda^2 R^2
 \end{align}
-This means we have 7 unknowns, 5 PDE's and 3 closure relations. The momentum flux equation can be dropped and the system is selfconsistent within equations \eqref{eq: rhd_cont}, \eqref{eq: rhd_mom}, \eqref{eq: rhd_e}, \eqref{eq: rhd_e_r}, \eqref{gas_closing}, \eqref{eq: fld_closing} and \eqref{eq: fld_Pclosing}. \\
+This means we have 7 unknowns, 5 PDE's and 3 closure relations. The momentum flux equation can be dropped and the system is self consistent within equations \eqref{eq: rhd_cont}, \eqref{eq: rhd_mom}, \eqref{eq: rhd_e}, \eqref{eq: rhd_e_r}, \eqref{gas_closing}, \eqref{eq: fld_closing} and \eqref{eq: fld_Pclosing}. \\
 The radiation flux is eliminated from the radiation gas equation \ref{eq: rhd_e_r}:
 \begin{align}
  \partial_t \left(E \right) +  \vec{\nabla} \cdot \left( \vec{v} E -\frac{c \lambda}{\kappa \rho} \nabla E \right) &=  -\vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E
 \end{align}
 
 %Close FLD intro
-Flux limited diffusion is a useful tool which can be used to probe the 2D or even 3D structure of for example stellar winds and atmospheres. Not only the energy and momentum sourceterms are calculated, but also a direct observabel: the radiation flux. In this thesis, the main application for FLD will lie within simulating instabillities in an isothermal atmosphere of a massive star.
+Flux limited diffusion is a useful tool which can be used to probe the 2D or even 3D structure of for example stellar winds and atmospheres. Not only the energy and momentum source terms are calculated, but also a direct observable: the radiation flux. In this thesis, the main application for FLD will lie within simulating instabilities in an isothermal atmosphere of a massive star.
