@@ -1,5 +1,5 @@
 \chapter{Methodology}
-The CAK and FLD equations described in the introduction are not to be solved analytically. Instead, they are solved using advanced computer codes. This chapter aims to describe how RHD the equations are being solved in a computer code. The code at hand is \texttt{mpi-AMRVAC} which, except for optically thin radiative cooling, is incompatible with any radiation effects. Additions made during this thesis are a novelty for the code and can be used in the simulations of a multitude of astrophysical processes.
+The CAK and FLD equations described in the introduction are not to be solved analytically. Instead, they are solved using advanced computer codes. This chapter aims to describe how RHD the equations are being solved in a computer code. The code at hand is \texttt{mpi-AMRVAC} which, except for optically thin radiative cooling, had until now been incompatible with any radiation effects. Additions made during this thesis are a novelty for the code and can be used in the simulations of a multitude of astrophysical processes.
 
 \section{mpi-amrvac} \label{section: methods amrvac}
 Modelling of the winds and atmospheres in this thesis is done in \texttt{mpi-AMRVAC} (Message Passing Interface - Adaptive Mesh Refinement Versatile Advection Code) (\cite{Porth2014}), a multidimensional, adaptive mesh (magneto-)hydrodynamics code. In the code, several explicit solvers can be used to solve the conservative hydrodynamical equations \eqref{hd_rho, hd_mom, hd_e} with source terms defined by the user. This code was chosen mainly because it is developed in house at the centre for mathematical plasma astrophysics (cmpa), which made a close collaboration with the developers possible.\\
@@ -13,7 +13,7 @@ To run the code, several scripts are provided:
 \item \textbf{parameter file:} The parameter file is where the computational parameters are defined: grid size and resolution, simulation time, which numerical schemes to use, what type of boundary conditions and how many output files the user wants are only a few to be named. This file is basically a bunch of knobs for the user.\\
 \end{itemize}
 
-In the following sections the integration of CAK-theory and FLD in mpi-AMRVAC will be explained, but first an introduction to numerical HD.
+In the following sections the integration of CAK-theory and FLD in \texttt{mpi-AMRVAC} will be explained, but first an introduction to numerical HD.
 
 
 \section{HD in mpi-AMRVAC}
@@ -58,7 +58,7 @@ Solving the Radiation hydrodynamics equations is more complicated. An entirely n
 \begin{equation}
 \partial_t E + \vec{\nabla} \cdot \left( \vec{v} E \right) = 0
 \end{equation}
-can be handled using already existing amrvac routines, this part has a similar shape to the conservative form of the hd equations \eqref{eq: cons form}. This advection is the movement of the radiation field with the gas, it's a process evolving on a similar timescale as the advection of other quantities. Implementation is as trivial as defining the fluxes $f$ and calling the necessary, already existing, subroutines. The code will use the same Riemann solver as used for the other HD variables.\\
+can be handled using already existing \texttt{mpi-AMRVAC} routines, this part has a similar shape to the conservative form of the hd equations \eqref{eq: cons form}. This advection is the movement of the radiation field with the gas, it's a process evolving on a similar timescale as the advection of other quantities. Implementation is as trivial as defining the fluxes $f$ and calling the necessary, already existing, subroutines. The code will use the same Riemann solver as used for the other HD variables.\\
 
 \item \textbf{2: The diffusion term}
 \begin{align}
@@ -68,7 +68,7 @@ can, by using the fld closing relation, be written as:
 \begin{align}
 \partial_t E = - \vec{\nabla} \cdot \left( -\frac{\lambda c}{\kappa \rho} \nabla E\right)
 \end{align}
-Trying to solve this equation together with the other hydro equations gives rise to two problems. First: the timescale on which the radiation energy $E$ evolves is much shorter than the hydrodynamical timescale on which $\rho$, $\vec{v}$ and $e$ evolve, and second: this is a hyperbolic equation, which makes it hard to solve with the explicit schemes which are used by amrvac to solve the other equations. A way to overcome these problems is solving for the diffusion implicitly. The technique used in developing the new physics module is an Alternative Direction Implicit scheme (ADI), and is based on the Zeus-2D FLD module \cite{Turener12001}.\\
+Trying to solve this equation together with the other hydro equations gives rise to two problems. First: the timescale on which the radiation energy $E$ evolves is much shorter than the hydrodynamical timescale on which $\rho$, $\vec{v}$ and $e$ evolve, and second: this is a hyperbolic equation, which makes it hard to solve with the explicit schemes which are used by \texttt{mpi-AMRVAC} to solve the other equations. A way to overcome these problems is solving for the diffusion implicitly. The technique used in developing the new physics module is an Alternative Direction Implicit scheme (ADI), and is based on the Zeus-2D FLD module \cite{Turener12001}.\\
 
 \item \textbf{3: The photon tiring and the radiation heating and cooling sourceterms}
 \begin{align}
@@ -77,7 +77,7 @@ Trying to solve this equation together with the other hydro equations gives rise
 are also evolving on the faster timescale, hence they must be solved implicitly. This is done with an implicit bisection scheme similar to the technique found in \cite{Turner12001}, which will be explained below.
 \end{itemize}
 
-In AMRVAC, the time step at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the time step should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
+In \texttt{mpi-AMRVAC}, the time step at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. These eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the time step should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of a cell.\\
 
 In RHD environments there is an extra type of waves, namely radio-acoustic waves which can travel faster than the sound speed. The time step in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
 \begin{align}
@@ -142,9 +142,9 @@ Or in matrix form:
            \cdots & b_{i,j-1} & b_{i,j} & b_{i,j+1} & \cdots
 \end{bmatrix}
 \end{align}
-This is, depending on boundary conditions, a tridiagonal matrix. In amrvac, this matrix system is solved on the entire computational domain and the innermost layer of ghost cells. The boundary conditions on the radiation energy field are applied after the halved time step. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of Gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a time step. \\
+This is, depending on boundary conditions, a tridiagonal matrix. In \texttt{mpi-AMRVAC}, this matrix system is solved on the entire computational domain and the innermost layer of ghost cells. The boundary conditions on the radiation energy field are applied after the halved time step. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of Gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a time step. \\
 
-The second half of the timestep will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
+The second half of the time step will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
 \begin{align}
 \frac{E_{i,j}^{n+1} - E_{i,j}^{n+\frac{1}{2}}}{\Delta t}
  &= \frac{D1_{i+1,j}^{n}}{\Delta x^2} (E_{i+1,j}^{n+\frac{1}{2}} - E_{i,j}^{n+\frac{1}{2}}) \\
@@ -169,7 +169,7 @@ Instead of solving equation \eqref{eq: diffusion} a new variable is introduced, 
 \end{align}
 which reduces to \eqref{eq: diffusion} when $\partial_w E = 0$. The pseudo-time step $\Delta w$ can be adjusted independently from the hydrodynamical time step and is increasing in size to converge toward a $w$-stationary state where $\partial_w E = 0$ \cite{Turner12001}.\\
 
-The implicit scheme to evolve half a pseudo-timestep from $m$ to $m + \frac{1}{2}$, implicit in the $x$-direction, looks like:
+The implicit scheme to evolve half a pseudo-time step from $m$ to $m + \frac{1}{2}$, implicit in the $x$-direction, looks like:
 \begin{align}
 \frac{E_{i,j}^{m+\frac{1}{2}} - E_{i,j}^{m}}{\Delta w} 
  &= \frac{E_{i,j}^{m+\frac{1}{2}} - E_{i,j}^{n}}{\Delta t} \\
@@ -179,7 +179,7 @@ The implicit scheme to evolve half a pseudo-timestep from $m$ to $m + \frac{1}{2
  &+ \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{m} - E_{i,j-1}^{m})
 \end{align}
 
-Where, again, the Diffusion coefficient is considered constant throughout the timestep. This corresponds to a similar tridiagonal matrix equation which has to be solved for every pseudo-timestep. The size of the pseudo-timestep $\Delta w$ is exponentially increasing in size per iteration $m = 1 ... W$ and is given by:
+Where, again, the Diffusion coefficient is considered constant throughout the time step. This corresponds to a similar tridiagonal matrix equation which has to be solved for every pseudo-time step. The size of the pseudo-time step $\Delta w$ is exponentially increasing in size per iteration $m = 1 ... W$ and is given by:
 \begin{align}
 \Delta w = \Delta w_0 \left(\frac{\Delta w_1}{\Delta w_0} \right)^\frac{m-1}{W-1}
 \end{align}
@@ -209,7 +209,7 @@ And
 Equation \eqref{eq: Poly} is a $4^{th}$ degree polynomial in $e^{n+1}$, with a single root between $0$ and $\frac{1 + a_2 + a_3}{a_1 + a_3}$. This is solved for $e^{n+1}$ using the bisection method to calculate the contribution of the radiative heating and cooling to the gas energy. The newly calculated $e^{n+1}$ is then plugged in equation \eqref{eq: E_src} to find the contribution of the radiative heating and cooling, and the photon tiring to the radiation energy.
 
 \section{Dimensionless problem}
-Computationally, floating point values are the most precise around unity. For this reason, it is preferable to rescale physical quantities such as $\rho$, $\vec{v}$, $e$, ... with values typical to the simulation domain. AMRVAC already does port of this for us, in the user module, one can define either the units for either number density, temperature  and length ($N_0$, $T_0$, $l_0$) or  number density, velocity  and length ($N_0$, $v_0$, $l_0$). The other units will be then computed from these quantities using the following relations:
+Computationally, floating point values are the most precise around unity. For this reason, it is preferable to rescale physical quantities such as $\rho$, $\vec{v}$, $e$, ... with values typical to the simulation domain. \texttt{mpi-AMRVAC} already does port of this for us, in the user module, one can define either the units for either number density, temperature  and length ($N_0$, $T_0$, $l_0$) or  number density, velocity  and length ($N_0$, $v_0$, $l_0$). The other units will be then computed from these quantities using the following relations:
 \begin{align}
 \rho_0 &= \mu m_p N_0 \\
    p_0 &= \gamma N_0 k_b T_0 \\
@@ -233,8 +233,8 @@ $\tilde{S}_{\rho \vec{v}} = S_{\rho \vec{v}} \frac{t_0}{\rho_0 v_0}$ and $\tilde
 	\tilde{S}_e &= -4\pi \kappa\rho B \frac{t_0}{e_0}  + c \kappa \rho E \frac{t_0}{e_0} \\
 				&= -4 \tilde{\sigma} \tilde{\kappa} \tilde{T}^4 + \tilde{c} \tilde{\rho} \tilde{E}
 \end{align}
-The rescaled Stefan-Boltzmann constant $\tilde{\sigma}$, the rescaled speed of light $\tilde{c}$ and the rescaled opacity $\tilde{\kappa}$ are given by $\tilde{\sigma} = \frac{\sigma T_0^4}{e_0 v_0}$, $\tilde{c} = \frac{c}{v_0}$ and $\tilde{\kappa} = \kappa v_0 t_0$. The unit of the radiation energy density and radiation flux can also be defined: $E_0 = e_0$ and $F_0 = \rho_0 v_0^3$. These are used to transform the RHD euqation for radiation energy \eqref{eq: rhd_e_r} and the fld closure relation \eqref{eq: fld_closing}. 
+The rescaled Stefan-Boltzmann constant $\tilde{\sigma}$, the rescaled speed of light $\tilde{c}$ and the rescaled opacity $\tilde{\kappa}$ are given by $\tilde{\sigma} = \frac{\sigma T_0^4}{e_0 v_0}$, $\tilde{c} = \frac{c}{v_0}$ and $\tilde{\kappa} = \kappa v_0 t_0$. The unit of the radiation energy density and radiation flux can also be defined: $E_0 = e_0$ and $F_0 = \rho_0 v_0^3$. These are used to transform the RHD equation for radiation energy \eqref{eq: rhd_e_r} and the FLD closure relation \eqref{eq: fld_closing}. 
 
 \section{visualisation}
-AMRVAC output is given in binary .vtu files. Special software such as visit \cite{} and paraview are used to open and analyse the simulation results. The standard output consists of the primitive variables at every simulation cell for a specified number of time steps. Extra output variables can be defined in the user module.
+\texttt{mpi-AMRVAC} output is given in binary .vtu files. Special software such as visit \cite{} and paraview are used to open and analyse the simulation results. The standard output consists of the primitive variables at every simulation cell for a specified number of time steps. Extra output variables can be defined in the user module.
 

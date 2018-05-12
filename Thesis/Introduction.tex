@@ -8,15 +8,15 @@ In various systems it is important to take into account a radiation field when c
 %More examples of radiation dominated processes
 The importance of good models for radiation hydrodynamics is clear in a multitude of astrophysical systems, a few are listed below. An important concept in these sort of systems is the Eddington factor $\Gamma$, this is the ratio between the radiative and gravitational acceleration.
 \begin{align}
-	\Gamma = \frac{\kappa F}{c g_{grav}}
+	\Gamma = \frac{\kappa \vec{F}}{c \vec{g}_{grav}}
 \end{align}
 Where $F$ is the radiation energy flux, $\kappa$ the absorption opacity, $c$ the speed of light in vacuum and $g_{grav}$ the magnitude of the local gravitational acceleration. If the Eddington factor describing a system gets bigger, the importance for taking into account radiation grows as wel.
 
 \begin{itemize}
 \item \textbf{stellar winds}\\
-Stellar winds can be subdivided in three types: pressure driven for solar type stars, dust driven for cool massive stars and radiation driven for hot massive stars. The driving force behind these radiation driven winds is, as the name sugests, radiation force. Hot massive stars can undergo massloss of $\sim 10^{-6} M_\odot/yr$ due to radiation driven wind, this of course will have an impact on their evolution. \\
+Stellar winds can be subdivided in three types: pressure driven for solar type stars, dust driven for cool massive stars and radiation driven for hot massive stars. The driving force behind these radiation driven winds is, as the name suggests, radiation force. Hot massive stars can undergo mass loss of $\sim 10^{-6} M_\odot/yr$ due to radiation driven wind, this of course will have an impact on their evolution. \\
 Stars with a luminosity of $10^6 L_\odot$ and a stellar mass of $80 M_\odot$ will have an Eddington factor $\Gamma \sim 50$ near the surface, radiation plays an essential role in their dynamics.
-CAK-theory Is an analytical model describing these winds, and the first half of this thesis was spent on modeling this.\\
+CAK-theory Is an analytical model describing these winds, and the first half of this thesis was spent on modelling this.\\
 
 \item \textbf{stellar atmospheres}\\
 
@@ -43,20 +43,20 @@ The movement of non-isothermal gasses and fluids, in the absence of magnetic fie
  \partial_t \left(e \right) + \vec{\nabla} \cdot \left( \vec{v} e + \vec{v} p \right) &= S_e \label{eq: hd_e}
 \end{align}
 
-These three partial differential equations are called the continuity equation (describing mass density), the momentum equation (describing momentum density) and the energy equation (describing energy density). Above, the equations were written in their conservative form, they al have the same shape:
+These three partial differential equations are called the continuity equation (describing mass density $\rho$), the momentum equation (describing momentum density $\rho \vec{v}$, where $\vec{v}$ is the velocity field) and the energy equation (describing energy density $e$ and gas pressure given by $p$). Above, the equations were written in their conservative form, they al have the same shape:
 
 \begin{align}
 	\partial_t \underbrace{u}_\text{density} + \vec{\nabla} \cdot \overbrace{\vec{f_u}}^\text{density flux} &= \underbrace{S_u}_\text{sourceterm} \label{eq: conservative}
 \end{align}
 
-There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ and $p$. This means that there is need for an additional closure relation:
+There are only 3 PDE's describing 4 primitive variables: $\rho$, $\vec{v}$, $e$ and $p$. This means that there is need for an additional closure relation, an equation of state like for example the ideal gas law:
 \begin{align}
 	p = (\gamma - 1) \left(e - \frac{\rho \vec{v}^2}{2} \right) \label{gas_closing}
 \end{align}
 
 The source terms in the equations describe adding or subtracting to one of the densities: $S_\rho$ describes mass being added or subtracted from the system, $S_{\rho \vec{v}}$ describes external forces such as gravity or radiative forces and $S_e$ describes work exerted on the system, this can be for example due to heating of the fluid. A good description of radiation hydrodynamics needs to formulate the correct source terms for the momentum equation \eqref{eq: hd_mom} and gas energy equation \eqref{eq: hd_e}. These source terms can depend on the other primitive variables $\rho$, $\vec{v}$ and $e$ as well as free parameters describing the source of the radiation field such as the luminosity and mass of a central star.\\
 
-Predicting fluid dynamics means solving these aforementioned equations simultaneously, this is done using numerical computer codes such as mpi-amrvac \cite{Porth2014}. Solving these equations is a tricky business, and there are numerous codes and numerical schemes available. The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}. \\
+Predicting fluid dynamics means solving these aforementioned equations simultaneously, this is done using numerical computer codes such as \texttt{mpi-AMRVAC} \cite{Porth2014}. Solving these equations is a tricky business, and there are numerous codes and numerical schemes available. The Evolution of a simulation will depend not only on both initial and boundary conditions, but also on which physics taken into consideration (sourceterms) and even a little on which numerical methods are used, more on this in chapter \ref{section: methods amrvac}. \\
 
 In section \ref{section: introduction CAK}, an analytic expression for these source terms are calculated to simulate the conditions in line driven stellar winds. This calculation was first done by Castor, Abbott and Klein \cite{•} CITE HERE and carries their initials in its name: CAK-theory.
 
@@ -123,7 +123,7 @@ The gravitational attraction of the gas is given by Newtons gravitation law and 
 \begin{align}
 \Gamma_e = \frac{\kappa_e L_*}{4 \pi G M_* c}
 \end{align}
-Let's now have a look at radiative acceleration of a single absorption line in a line driven wind. Consider a a set of ions absorbing at $\lambda_0$, these ions have very high velocities and the doppler shifting of the line becomes important for absorbing photons. The first ions closest to the star will absorb photons at $\lambda_0$ so the photons further from the star are in the lines' shadow. However, the photons absorbing these photons pick up a velocity $\delta v$ so the can now pick up photons with a slightly higher wavelength. This mechanism leads to a steady state monotonously increasing velocity as function of distance from the stellar surface $v(r)$. The line profile isn't infinitesimally thin, photons can be absorbed for a frequency range surrounding the central wavelength $\lambda_0$, this is described by the profile function. In velocity-space this width is equal to the thermal velocity of the ions. In radius space, an exact wavelength can be absorbed in a part of space with geometrical width $l_sob \def \frac{v_{th}}{dv/dr}$, the Sobolove length. With this Sobolev length comes a Sobolev optical depth $\tau_{sob} = \rho \kappa l_{sob}$. With $q \def \frac{\kappa v_{th}}{\kappa_e c}$ describing the lines' effectiveness scaled to electron scattering opacity, and $t \def  \frac{\rho \kappa_e c}{dv/dr}$ describing the optical depth for a purely electron scattering opacity, $\tau_{sob}$ can be written as:
+Let's now have a look at radiative acceleration of a single absorption line in a line driven wind. Consider a a set of ions absorbing at $\lambda_0$, these ions have very high velocities and the doppler shifting of the line becomes important for absorbing photons. The first ions closest to the star will absorb photons at $\lambda_0$ so the photons further from the star are in the lines' shadow. However, the photons absorbing these photons pick up a velocity $\delta v$ so the can now pick up photons with a slightly higher wavelength. This mechanism leads to a steady state monotonously increasing velocity as function of distance from the stellar surface $v(r)$. The line profile isn't infinitesimally thin, photons can be absorbed for a frequency range surrounding the central wavelength $\lambda_0$, this is described by the profile function. In velocity-space this width is equal to the thermal velocity of the ions. In radius space, an exact wavelength can be absorbed in a part of space with geometrical width $l_sob \def \frac{v_{th}}{dv/dr}$, the Sobolev length. With this Sobolev length comes a Sobolev optical depth $\tau_{sob} = \rho \kappa l_{sob}$. With $q \def \frac{\kappa v_{th}}{\kappa_e c}$ describing the lines' effectiveness scaled to electron scattering opacity, and $t \def  \frac{\rho \kappa_e c}{dv/dr}$ describing the optical depth for a purely electron scattering opacity, $\tau_{sob}$ can be written as:
 \begin{align}
 \tau_{sob} = \frac{\rho \kappa v_{th}}{dv/dr} = qt
 \end{align}
@@ -147,7 +147,7 @@ g_{CAK} &= g_e \int_0^\infty q \frac{dN}{dq} \frac{1 - e^{-qt}}{qt} dq \\
 \end{align}
 
 %Close CAK intro
-CAK-theory is a nice, easy to implement theory. In this thesis, the main application will be simulating the wind of Massive stars. Research performed here is not exactly new, bit it's a great way to introduce radiation forces in amrvac. For me personally it was the first step in learning fortran and getting to know the workings of an advanced (M)HD-code.
+CAK-theory is a nice, easy to implement theory. In this thesis, the main application will be simulating the wind of Massive stars. Research performed here is not exactly new, bit it's a great way to introduce radiation forces in \texttt{mpi-AMRVAC}. For me personally it was the first step in learning fortran and getting to know the workings of an advanced (M)HD-code.
 
 
 \section{Flux Limited Diffusion} \label{section: introduction Flux Limited Diffusion}
@@ -159,7 +159,7 @@ Consider the steady state solution of the radiation flux equation \eqref{eq: rhd
 \vec{\nabla} P = - \frac{\kappa \rho}{c} \vec{F} \label{eq: P=DF}
 \end{align}
 
-In the optically thick limit the eddington approximation gives us $P = \frac{1}{3}E$, so \eqref{eq: P=DF} can be written as $\vec{F} = -\frac{1}{3}\frac{c}{\kappa \rho} \vec{\nabla}E$. However, in the optically thin, free streaming limit, the density goes to zero and thus the radiation flux should go to infinity, this is unphysical. A solution is introducing the flux limiter $\lambda$, which is a factor varrying between $\frac{1}{3}$ in the optically thick regime, and $0$ in the optically thin. The extra nessecary closure relation can now be written as:
+In the optically thick limit the eddington approximation gives us $P = \frac{1}{3}E$, so \eqref{eq: P=DF} can be written as $\vec{F} = -\frac{1}{3}\frac{c}{\kappa \rho} \vec{\nabla}E$. However, in the optically thin, free streaming limit, the density goes to zero and thus the radiation flux should go to infinity, this is unphysical. A solution is introducing the flux limiter $\lambda$, which is a factor varying between $\frac{1}{3}$ in the optically thick regime, and $0$ in the optically thin. The extra nessecary closure relation can now be written as:
 
 \begin{align}
 \vec{F} = -\frac{c\lambda}{\kappa \rho} \vec{\nabla}E \label{eq: fld_closing}
@@ -170,7 +170,11 @@ Different formalisms for expressing $\lambda$ exist, the one used in this work h
 R &= \frac{|\nabla E|}{\rho \kappa E} \\
 \lambda &= \frac{2 + R}{6 + 3R + R^2} 
 \end{align}
-$R$ portraits how thick the medium is locally, it is $\infty$ in the free streaming limit and approaches $0$ when the medium gets optically thick. $\lambda$ And $R$ also relate the radiation pressure $P$ to the radiation energy density $E$ via the Eddington tensor $f$, which is approximated as a scalar in this situation.
+$R$ Is the ratio between the photon mean free path $l_\gamma = \frac{1}{\kappa \rho}$ and the radiation field scale height $H_{rad} = \frac{E}{\left| \nabla E \right|}$. When the density is high and the medium is optically thick, $l_\gamma$ will approach zero. In a low density, optically thin environment, $l_\gamma$ will approach infinity. A small $l_\gamma$ gives a small $R$ and a large $l_\gamma$ a large $R$.
+\begin{align*}
+R = \frac{\frac{1}{\kappa \rho}}{\frac{E}{\left| \nabla E \right|}}
+\end{align*}
+$\lambda$ And $R$ also relate the radiation pressure $P$ to the radiation energy density $E$ via the Eddington tensor $f$, which is approximated as a scalar in this situation.
 \begin{align}
 P &= f E  \label{eq: fld_Pclosing} \\
 f &= \lambda + \lambda^2 R^2

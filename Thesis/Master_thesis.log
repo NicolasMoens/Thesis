@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  9 MAY 2018 17:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  12 MAY 2018 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -333,7 +333,11 @@ Package: multicol 2015/08/19 v1.8n multicolumn formatting (FMi)
 \colbreak@box=\box54
 \mc@col@check@num=\count114
 )
-(./Master_thesis.aux)
+(./Master_thesis.aux
+
+LaTeX Warning: Label `fig: test_sourceterms' multiply defined.
+
+)
 \openout1 = `Master_thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
@@ -350,8 +354,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
 LaTeX Font Info:    ... okay on input line 45.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
 LaTeX Font Info:    ... okay on input line 45.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count115
 \scratchdimen=\dimen139
@@ -678,53 +681,58 @@ Chapter 3.
 LaTeX Warning: Reference `fig: InitCond_test' on page 19 undefined on input lin
 e 24.
 
+<visit0001.png, id=114, 1026.83624pt x 1026.83624pt>
+File: visit0001.png Graphic file (type png)
+ <use visit0001.png>
+Package pdftex.def Info: visit0001.png used on input line 34.
+(pdftex.def)             Requested size: 455.24408pt x 455.24069pt.
 
-LaTeX Warning: Reference `fig: res_adv' on page 19 undefined on input line 30.
+<visit0002.png, id=115, 1026.83624pt x 1026.83624pt>
+File: visit0002.png Graphic file (type png)
+ <use visit0002.png>
+Package pdftex.def Info: visit0002.png used on input line 40.
+(pdftex.def)             Requested size: 455.24408pt x 455.24069pt.
 
-
-LaTeX Warning: Reference `fig: res_diff' on page 19 undefined on input line 30.
-
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
+Underfull \hbox (badness 10000) in paragraph at lines 51--53
 
  []
 
-<test_sourceterms.png, id=114, 940.2327pt x 513.117pt>
+<test_sourceterms.png, id=116, 940.2327pt x 513.117pt>
 File: test_sourceterms.png Graphic file (type png)
 
 <use test_sourceterms.png>
-Package pdftex.def Info: test_sourceterms.png used on input line 46.
+Package pdftex.def Info: test_sourceterms.png used on input line 61.
 (pdftex.def)             Requested size: 455.24408pt x 248.43864pt.
 
-<test_sourceterms_dt.png, id=115, 940.2327pt x 513.117pt>
+<test_sourceterms_dt.png, id=117, 940.2327pt x 513.117pt>
 File: test_sourceterms_dt.png Graphic file (type png)
 
 <use test_sourceterms_dt.png>
-Package pdftex.def Info: test_sourceterms_dt.png used on input line 52.
+Package pdftex.def Info: test_sourceterms_dt.png used on input line 67.
 (pdftex.def)             Requested size: 455.24408pt x 248.43864pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
-[19] [20 <./test_sourceterms.png> <./test_sourceterms_dt.png>] [21]
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
+[19] [20 <./visit0001.png (PNG copy)>] [21 <./visit0002.png (PNG copy)>]
+[22 <./test_sourceterms.png> <./test_sourceterms_dt.png>] [23]
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
-) [22] (./Conclusions.tex
+) [24] (./Conclusions.tex
 Chapter 4.
-) [23
+) [25
 
 ] (./FutureWork.tex
 Chapter 5.
-) [24
+) [26
 
 ] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 200.
- <sedes.png, id=137, 402.5439pt x 683.6742pt>
+ <sedes.png, id=145, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
 
 <use sedes.png>
@@ -735,22 +743,22 @@ Overfull \hbox (18.18004pt too wide) in paragraph at lines 214--215
 [][][] 
  []
 
-[25 <./sedes.png>] (./Master_thesis.aux)
+[27 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4529 strings out of 494910
- 65344 string characters out of 6179836
- 154420 words of memory out of 5000000
- 7702 multiletter control sequences out of 15000+600000
+ 4539 strings out of 494910
+ 65525 string characters out of 6179836
+ 154485 words of memory out of 5000000
+ 7710 multiletter control sequences out of 15000+600000
  23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,17n,35p,1480b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,35p,1479b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/nicolas/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>{/usr/s
 hare/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fo
@@ -769,10 +777,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
 fb>
-Output written on Master_thesis.pdf (35 pages, 442971 bytes).
+Output written on Master_thesis.pdf (37 pages, 557266 bytes).
 PDF statistics:
- 203 PDF objects out of 1000 (max. 8388607)
- 137 compressed objects within 2 object streams
+ 214 PDF objects out of 1000 (max. 8388607)
+ 144 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
