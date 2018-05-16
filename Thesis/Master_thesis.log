@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  16 MAY 2018 14:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.21)  16 MAY 2018 18:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -580,9 +580,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--78
  []
 
 
-LaTeX Warning: Reference `eq: RTE' on page 4 undefined on input line 79.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 79--80
 
  []
@@ -593,24 +590,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--103
  []
 
 
-LaTeX Warning: Reference `eq: E_si' on page 5 undefined on input line 108.
-
-
 LaTeX Warning: Reference `eq: F_si' on page 5 undefined on input line 108.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
 [5]
-
-LaTeX Warning: Citation `CAK' on page 6 undefined on input line 129.
-
-[6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
 
 
-LaTeX Warning: Citation `Levermore1981' on page 8 undefined on input line 179.
+LaTeX Warning: Citation `CAK' on page 6 undefined on input line 132.
 
-[8]) [9] (./Methodology.tex
+[6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+
+ []
+
+
+LaTeX Warning: Citation `Levermore1981' on page 8 undefined on input line 183.
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 196--198
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+
+ []
+
+) [9] (./Methodology.tex
 Chapter 2.
 
 LaTeX Warning: Citation `Porth2014' on page 10 undefined on input line 5.
@@ -637,93 +650,106 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--14
 [10
 
 ]
+
+LaTeX Warning: Citation `Toth1996' on page 11 undefined on input line 32.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 31--33
 
  []
 
 
-LaTeX Warning: Reference `eq: gas_closing' on page 11 undefined on input line 3
-7.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 40--42
-
- []
+LaTeX Warning: Reference `eq: gas_closing' on page 11 undefined on input line 4
+1.
 
 [11]
-
-LaTeX Warning: Reference `eq: rhd_rho' on page 12 undefined on input line 50.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
+Underfull \hbox (badness 10000) in paragraph at lines 44--46
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--62
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
 
-LaTeX Warning: Citation `Turener12001' on page 12 undefined on input line 71.
+LaTeX Warning: Reference `eq: rhd_rho' on page 12 undefined on input line 51.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--72
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
 [12]
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
 
-LaTeX Warning: Citation `Turner12001' on page 13 undefined on input line 77.
+ []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 88--90
+
+ []
+
+
+LaTeX Warning: Citation `Turener12001' on page 13 undefined on input line 99.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
 
  []
 
 [13]
-Overfull \hbox (12.36119pt too wide) in paragraph at lines 144--144
-[] 
+
+LaTeX Warning: Citation `Turner12001' on page 14 undefined on input line 105.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 144--146
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--156
-
+Overfull \hbox (12.36119pt too wide) in paragraph at lines 172--172
+[] 
  []
 
 [15]
-
-LaTeX Warning: Citation `Turner12001' on page 16 undefined on input line 162.
-
-
-LaTeX Warning: Citation `Turner12001' on page 16 undefined on input line 170.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 169--171
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
 
  []
 
-[16] [17]) [18] (./Results.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--184
+
+ []
+
+[16]
+
+LaTeX Warning: Citation `Turner12001' on page 17 undefined on input line 190.
+
+
+LaTeX Warning: Citation `Turner12001' on page 17 undefined on input line 198.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--199
+
+ []
+
+[17] [18]) [19] (./Results.tex
 Chapter 3.
-[19
+[20
 
 ]
 
-LaTeX Warning: Reference `fig: InitCond_test' on page 20 undefined on input lin
+LaTeX Warning: Reference `fig: InitCond_test' on page 21 undefined on input lin
 e 26.
 
-<visit0001.png, id=117, 1026.83624pt x 1026.83624pt>
+<visit0001.png, id=120, 1026.83624pt x 1026.83624pt>
 File: visit0001.png Graphic file (type png)
  <use visit0001.png>
 Package pdftex.def Info: visit0001.png used on input line 36.
 (pdftex.def)             Requested size: 455.24408pt x 455.24069pt.
 
-<visit0002.png, id=118, 1026.83624pt x 1026.83624pt>
+<visit0002.png, id=121, 1026.83624pt x 1026.83624pt>
 File: visit0002.png Graphic file (type png)
  <use visit0002.png>
 Package pdftex.def Info: visit0002.png used on input line 42.
@@ -733,14 +759,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--55
 
  []
 
-<test_sourceterms.png, id=119, 940.2327pt x 513.117pt>
+<test_sourceterms.png, id=122, 940.2327pt x 513.117pt>
 File: test_sourceterms.png Graphic file (type png)
 
 <use test_sourceterms.png>
 Package pdftex.def Info: test_sourceterms.png used on input line 63.
 (pdftex.def)             Requested size: 455.24408pt x 248.43864pt.
 
-<test_sourceterms_dt.png, id=120, 940.2327pt x 513.117pt>
+<test_sourceterms_dt.png, id=123, 940.2327pt x 513.117pt>
 File: test_sourceterms_dt.png Graphic file (type png)
 
 <use test_sourceterms_dt.png>
@@ -751,24 +777,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
  []
 
-[20] [21 <./visit0001.png (PNG copy)>] [22 <./visit0002.png (PNG copy)>]
-[23 <./test_sourceterms.png> <./test_sourceterms_dt.png>] [24]
+[21] [22 <./visit0001.png (PNG copy)>] [23 <./visit0002.png (PNG copy)>]
+[24 <./test_sourceterms.png> <./test_sourceterms_dt.png>] [25]
 Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-) [25] (./Conclusions.tex
+) [26] (./Conclusions.tex
 Chapter 4.
-) [26
+) [27
 
 ] (./FutureWork.tex
 Chapter 5.
-) [27
+) [28
 
 ] (./Master_thesis.bbl)
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 200.
- <sedes.png, id=149, 402.5439pt x 683.6742pt>
+ <sedes.png, id=152, 402.5439pt x 683.6742pt>
 File: sedes.png Graphic file (type png)
 
 <use sedes.png>
@@ -779,7 +805,7 @@ Overfull \hbox (18.18004pt too wide) in paragraph at lines 214--215
 [][][] 
  []
 
-[28 <./sedes.png>] (./Master_thesis.aux)
+[29 <./sedes.png>] (./Master_thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -788,10 +814,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4549 strings out of 494910
- 65638 string characters out of 6179836
- 154496 words of memory out of 5000000
- 7720 multiletter control sequences out of 15000+600000
+ 4552 strings out of 494910
+ 65688 string characters out of 6179836
+ 154552 words of memory out of 5000000
+ 7723 multiletter control sequences out of 15000+600000
  23490 words of font info for 53 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  38i,17n,35p,1479b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -813,10 +839,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.p
 fb>
-Output written on Master_thesis.pdf (38 pages, 559918 bytes).
+Output written on Master_thesis.pdf (39 pages, 565009 bytes).
 PDF statistics:
- 217 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
+ 220 PDF objects out of 1000 (max. 8388607)
+ 148 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
