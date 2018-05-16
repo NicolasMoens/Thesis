@@ -191,10 +191,12 @@ The second half of the time step will be solved implicit in the $y$-direction an
 \end{align}
 And this system, of course, has a matrix notation completely similar to the one in the first half of the time step, which can be solved in a completely similar way. This time there are $N+2$ matrices of size $(M+2) \times (M+2)$ to be solved. \\
 
-The accuracy of this scheme can be checked by computing and comparing both the left hand side and right had side of equation \eqref{eq: Error_control} after calculating $E^{n+1}$. The error is defined by taking the maximum value of the difference of the LHS and RHS weighted with the ratio of the radiative energy and the hydrodynamical time step:
+The accuracy of this scheme can be checked by computing and comparing both the left hand side and right had side of equation \eqref{eq: Error_control} after calculating $E^{n+1}$. The error is defined by taking the maximum value of the difference of the LHS and RHS weighted with the ratio of the radiative energy and the hydrodynamical time step \cite{Turner12001}:
 \begin{align}
 Error = \max_{i,j} \left(\frac{\frac{E^{n+1} - E^{n}}{\Delta t} -  \vec{\nabla} \cdot \left(D \nabla E\right)}{E^{n}/dt} \right) \label{eq: Error}
 \end{align}
+
+In a completely correct computation, the left hand side would correspond exactly to the right hand side, however due to numerical computations and assumptions this will almost never truly hold.\\
 
  Test calculations show that this error is often rather large, depending on the distribution of the radiation and density field in the simulation space. A solution is given in \cite{Turner12001} by means of pseudo-time stepping. This method will be explained in the next section.
  

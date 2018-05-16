@@ -10,7 +10,7 @@ The CAK source term is used to model the wind of a massive O-type star. The para
 The diffusion model is first tested against some analytical results, these tests will give us some knowledge on how accurately we can interpret the simulations of physical phenomena. The diffusion term and advection term are both tested separately by comparison to an exact solution and the photon tiring, radiative cooling and radiative heating source terms are tested together versus a Runge-Kutta solver of a simplified problem.
 
 \subsection{Testcase 1: Advection and Diffusion}
-The advection problem and the diffusion problem, solved by the already existing Riemann solver and the new ADI solver respectively can be compared to an exact analytical solution. The Riemann solver is nothing new, it's just a matter of checking the correct implementation in mpi-amrvac. The problem is tested on a numerical domain with constant density, a constant velocity, a constant gas energy density and an initial radiation energy density $E_0(x,y,t)$ given by:
+The advection problem and the diffusion problem, solved by the already existing Riemann solver and the new ADI solver respectively can be tested by comparing them to simplified situation where an exact analytical solution can be found. The Riemann solver is nothing new, it's just a matter of checking the correct implementation in \texttt{MPI-AMRVAC}. The problem is tested on a numerical domain with constant density, a constant velocity, a constant gas energy density and an initial radiation energy density $E_0(x,y,t)$ given by:
 \begin{align}
 E_0(x,y,t) = 2 + \sin(2 \pi x) \sin(2 \pi y)
 \end{align}
@@ -51,6 +51,7 @@ To test the implicit bisection scheme used for adding the photon tiring, radiati
 \begin{align}
 \frac{d e}{dt} = c \rho \kappa E - 4 \rho \kappa \sigma T^4
 \end{align}
+Equivalently the test can be ran on the source terms for the radiative energy equation $\frac{dE}{dt} = - \vec{\nabla} \cdot \vec{v} P + 4\pi \kappa\rho B - c \kappa \rho E$ , where the photon tiring term would drop out due to the velocity field being zero.
 Except for the gas energy density, all primitive variables ($\rho = \rho_0$, $\vec{v} = 0$ and $E = E_0$) are kept constant. The computational domain is taken as small as possible and radiative diffusion is switched off. \\
 
 The system would be in radiative equilibrium when $c \rho \kappa E = 4 \rho \kappa \sigma T^4$. Using $T =  \frac{p}{\rho}= \frac{(\gamma - 1)e}{\rho}$, on can compute the equilibrium gas energy.
@@ -72,7 +73,7 @@ Different initial conditions are chosen for $e_0$ ranging from $10^2 e_{eq.}$ to
 \end{figure}
 
 \subsection{Isothermal Atmosphere}
-A first practical use for the FLD module is modelling a stellar atmosphere surrounding a massive star. For convenience, the atmosphere will be considered isothermal and plane parallel, so the flux in the initial condition and the gravitational acceleration are constant. Let's also assume the only absorption an emission is done by means of electron scattering, with a constant opacity $\kappa$.\\
+A first practical use for the FLD module is modelling a stellar atmosphere surrounding a massive star. For convenience, the atmosphere will be considered isothermal and plane parallel, so the flux in the initial condition and the gravitational acceleration are constant. Let's also assume the only absorption an emission is done by means of electron scattering, with a constant opacity $\kappa$. The model is done in 2D.\\
 
 The initial conditions are crucial in stabilizing simulations. In an isothermal atmosphere, the density and gas pressure decay exponentially on the length of a scale height $H_{eff} = \frac{c_{sound}^2}{g_{eff}}$. Where $g_{eff} = g_{grav}(\Gamma - 1)$ is the sum of radiation and gravitational accelerations. 
 \begin{align}
@@ -80,27 +81,30 @@ The initial conditions are crucial in stabilizing simulations. In an isothermal 
  p(y)   &= p_0    \exp \left( -\frac{y}{H_{eff}} \right)
 \end{align}
 
-WORK OUT MORE
-
 The velocity field is $\vec{0}$ everywhere. Boundary conditions $\rho_0$ and $p_0$ can be computed by defining the optical depth $\tau$. 
 \begin{align}
-\tau(y) = \int^\infty_{y} \kappa \rho dy  \label{eq: opt_depth}
+\tau(y) = \int_\infty^{y} \kappa \rho dy  \label{eq: opt_depth}
 \end{align}
+Let $dm = \rho dy$, if this is substituted in \eqref{eq: opt_depth} we get an expression for the column mass in terms of opacity and optical depth:
+\begin{align}
+\frac{\tau}{\kappa} = \int_0^{m'} \rho dm
+\end{align}
+
 
 In a static medium, the gravitational and radiative acceleration of the gas is countered by the gas pressure gradient. Concerning the radiation field, one can make a similar statement . The radiative acceleration is countered by the radiation pressure gradient:
 \begin{align}
-\frac{dp}{dy} = -g_{grav}(1 - \Gamma) \label{eq: p_cond} \\
-\frac{dP}{dy} = -g_{grav} \Gamma \label{eq: P_cond}
+\frac{dp}{dy} \frac{1}{\rho} &= \frac{dp}{dm} = -g_{grav}(1 - \Gamma) \label{eq: p_cond} \\
+\frac{dP}{dy} \frac{1}{\rho} &= \frac{dP}{dm} = -g_{grav} \Gamma \label{eq: P_cond}
 \end{align}
-
-HIER MIST NOG IETS
-Equations \eqref{eq: opt_depth} and \eqref{eq: p_cond} can be solved toward a value for $p$ at a given optical depth. \eqref{eq: P_cond} And \eqref{eq: p_cond} can by divided by one another to get a relation between $dp$ and $dP$.
-
+Manipulating equation \label{eq: p_cond} and substituting the expression for column mass leads to the following relation between optical depth and gas pressure:
+\begin{align}
+\int_0^{p_0} dp &= -g_{grav}(1 - \Gamma) \int_0^{m_0} dm
+\end{align}
+This expression can be integrated towards a value for $p_0$ at a given optical depth $\tau_0$. \eqref{eq: P_cond} And \eqref{eq: p_cond} can by divided by one another to get a relation between $dp$ and $dP$.
 \begin{align}
 p_0 = g_{eff} \frac{\tau_0}{\kappa} \\
 dP = \frac{\Gamma}{\Gamma-1} dp
 \end{align}
-
 The gas energy density can be set from the gas pressure profile. Because of the plane parallel approximation, $\Gamma$ is constant as well and in the Eddington limit, $E=3P$. Now we have a boundary condition for the radiation energy field as well. The initial conditions are given by:
 \begin{align}
 \rho(y) &= g_{eff} \frac{\tau_0}{\kappa c_{sound}^2} \exp \left( -\frac{y}{H_{eff}} \right) \\
@@ -109,9 +113,32 @@ e &= \frac{\tau_0}{\kappa (\gamma - 1)} \exp \left( -\frac{y}{H_{eff}} \right) \
 E &= \frac{3 \Gamma}{1-\Gamma} \frac{\tau_0}{\kappa} \exp \left( -\frac{y}{H_{eff}} \right) \\
 \end{align}
 
+$\rho_0$ And $p_0$ are also used as lower boundary conditions for density and gas energy during the simulations. The  boundary condition for the $x$-component of the velocity is $0$ and the one for the $y$-component is set with the help of the steady state continuity equation $\partial_y(v_y \rho) = 0$. In a discrete form this can be written as:
+\begin{align}
+v_{y,0} = \frac{v_{y,1} \rho_1}{\rho_0}
+\end{align}
+Where the value in the first ghostcell is indicated with index $_0$.\\
+For the radiation energy it is not only important that $E$ has the correct value, even more important is the value for $F_y$. Lets begin by writing down a discrete form of the initial conditions:
+\begin{align}
+E_{i+1} &= \frac{3 \Gamma_{i+1}}{1-\Gamma_{i+1}}_{i+1} \\
+\Gamma_{i+1} &= \frac{1}{1 + \frac{3 p_{i+1}}{i+1}} \label{eq: Gamma1}
+\end{align}
+Using the defenition of the Eddington parameter $\Gamma_{i+1} = \frac{\kappa F_{y,i+1}}{c g_{grav}}$ and a discrete form of the fld closure relation equation \eqref{eq: fld_closing} $F_{i+1} = -\frac{c \lambda_{i+1}}{\kappa \rho_{i+1}} \frac{E_{i+2} + E_{i}}{2 \Delta x}$ one can write down another expression for $\Gamma$:
+\begin{align}
+\Gamma_{i+1} = \frac{\lambda_{i+1}}{g_{grav}\rho_{i+1}}\frac{E_i + E_{i+2}}{2 \Delta x} \label{eq: Gamma2}
+\end{align}
+
+Eliminating the Eddinton parameter in equations \ref{eq: Gamma1} and \eqref{eq: Gamma2} makes it possible to give an elegant expression for $E_i$:
+\begin{align}
+E_i = E_{i+2} + \frac{2 \Delta x}{1 + \frac{3 p_{i+1}}{i+1}}  \frac{g_{grav} \rho_{i+1}}{\lambda_{i+1}}  
+\end{align}
+This expression gives a radiation energy field which leads to a physical flux when calculating it from the closure relation. \\
+On the lower boundary, a "no inflow" condition is used. This means that the gradient of the densities is preserved as long as it is smaller than $0$. STILL HAVE TO CHECK LAST STATEMENT!!!
+
+
 The parameters defining the physics of the system are the Eddington parameter $\Gamma$, the optical depth at the lower boundary $\tau_0$ and the sound speed $c_{sound}$. The Eddington parameter contains information about the mass, luminosity and radius of the star, it determines whether the atmosphere will be blown away, collapsing in on itself or relax in a steady state. $\tau_0$ Sets the physical lower boundary of the numerical domain. A high value means the model starts at in a high density environment near the core, a low value means the model simulates the outermost boundaries of the star. The sound speed determines the temperature of the atmosphere and the velocity at which waves can travel. Together with the Mass which sets the gravitational field, the sound speed also determines the scale height of the gas. \\
 
-Calculations are done on a Cartesian grid, with the y-direction parallel to the radius of the star.The mass of the star is chosen at $M_* = 50 M_\odot$. Using Leavits' law, we get a luminosity for a typical $50M_\odot$ star of $L_* = ... L_\odot$ and an Eddington parameter $\Gamma = ...$. The calculation domain begins at $\tau_0 = ...$ and the grid resolves about $...$ scale heights in the y-direction and $...$ in the x-direction. The resolution of the grid is chosen such that there are $...$ cells per scale height. The simulation stops after $...$ times the hydrodynamical timescale, this is the time needed for a sound wave to travel across the computational domain. 
+Calculations are done on a Cartesian grid, with the y-direction parallel to the radius of the star.The mass of the star is chosen at $M_* = 50 M_\odot$. Using Leavit's law, we get a luminosity for a typical $50M_\odot$ star of $L_* = ... L_\odot$ and an Eddington parameter $\Gamma = ...$. The calculation domain begins at $\tau_0 = ...$ and the grid resolves about $...$ scale heights in the y-direction and $...$ in the x-direction. The resolution of the grid is chosen such that there are $...$ cells per scale height. The simulation stops after $...$ times the hydrodynamical timescale, this is the time needed for a sound wave to travel across the computational domain. 
 
 \subsubsection{constant flux discrepancy}
 
