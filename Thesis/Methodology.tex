@@ -36,6 +36,14 @@ CAK- theory describes a line driving force and thus an acceleration $g_{CAK}$. T
 \begin{align}
 S_{\rho \vec{v},i,j} = \rho_{i,j} \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r_{i,j}^2 c} \left( \frac{1}{\rho_{i,j} c \bar{Q} \kappa_e} \right)^\alpha \frac{v_{i+1} - v_{i-1}}{r_{i+1} - r_{i-1}}
 \end{align}
+Because of the extra source terms, it is critical to adjust the numerical time step. One doesn't want matter to be accelerated over the length of multiple cells in one time step. In the gravity module for \texttt{MPI-AMRVAC}, the timestep is taken to be the minimum of the hydrodynamical time step calculated on the basis of the characteristic speeds (see section \ref{section: m: FLD}) and the time it takes for an gas element to be accelerated the distance of one numerical cel $\Delta x$.
+\begin{align}
+dt = \min\left(dt_{HD},\sqrt{\frac{\Delta x}{g_{grav}}} \right)
+\end{align}
+A reasoning is used in the CAK-routine, only now not only $g_{grav}$ but also $g_e$ and $g_{CAK}$ are taken into account.
+\begin{align}
+dt = \min\left(dt_{HD},\sqrt{\frac{\Delta x}{g_{grav}}},\sqrt{\frac{\Delta x}{g_{e}}},\sqrt{\frac{\Delta x}{g_{CAK}}} \right)
+\end{align}
 
 When modelling stellar winds, it is important to also take into account a gravitational acceleration $g_grav$ in the opposite direction. This term too is calculated in the user module.\\
 In the modelling of stellar winds done in this thesis, the CAK-winds where assumed to be isothermal gas and adding the $g_{cak}$ and $g_{grav}$ source terms to the momentum equation. The isothermal gas assumption is made by switching off the solving for the energy equation in the parameter file. The code now neglects equations \eqref{eq: hd_e} and \eqref{eq: gas_closing}, and replaces them with a new closure relation:
@@ -45,7 +53,7 @@ In the modelling of stellar winds done in this thesis, the CAK-winds where assum
 The two free parameters $a_{adiab}$ and $\gamma$ are set to .... and .... to match the conditions in a typical CAK wind for hot massive stars. CITE HERE\\
 
 
-\section{Flux Limited Diffusion}
+\section{Flux Limited Diffusion} \label{section: m: FLD}
 Solving the Radiation hydrodynamics equations with an FLD approximation is more complicated than only adding the radiation force as in CAK-theory. For CAK, only the continuity and momentum equations where solved in only one dimension and a sourceterm was added to the momentum equation. For FLD, an entirely new equation has to be solved, source terms need to be added to this new equation, source terms need to be added to the momentum and gas energy equations and a bunch of new variables, parameters and subroutines have to be defined. Given the complexity of the problem it is solved in a new physics module in the source code. The module will first be worked out for a Cartesian, 2D-case. Lets have a closer look at the additions to the code \\
 
 Continuity equation \eqref{eq: rhd_rho} is as it is and doesn't need any sourceterms.
@@ -107,15 +115,15 @@ are also evolving on the faster timescale, hence they must be solved implicitly.
 
 In \texttt{MPI-AMRVAC}, the time step at which to evolve the primitive variables is computed based on the characteristic velocities in the system. These are obtained by computing the eigenvalues of the Jacobian flux matrix $A_{i,j} = \frac{\partial F_i}{\partial u_j}$, where $F_i$ and $u_j$ are the fluxes and conserved quantities in the conservative equations \eqref{eq: conservative}. For HD, these eigenvalues are $c_{adiab} + v$, $c_{adiab}$ and $c_{adiab} - v$, where $c_{adiab} = \sqrt{\gamma\frac{p_{gas}}{\rho}}$ is the adiabatic soundspeed. During computations, waves must not travel across cells, thus the time step should be smaller then the time it takes for an acoustic wave with velocity $c_{adiab} + v$ to travel a distance $\Delta x$ which is the width of one numerical cell.\\
 
-In RHD environments there is an extra type of waves, namely radiation acoustic waves \cite{} which can, depending on the ratio between the gas and radiation pressure, travel faster than the sound speed. The time step in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
+In RHD environments there is an extra type of waves, namely radiation acoustic waves \cite{Mihalas1984a} which can, depending on the ratio between the gas and radiation pressure, travel faster than the sound speed. The time step in the RHD calculations will be calculated as a function of $\sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}$ instead of $\sqrt{\gamma\frac{p_{gas}}{\rho}}$.
 \begin{align}
 dt = \min \left(\frac{\Delta x}{v + \sqrt{\gamma\frac{p_{gas} + P_{rad}}{\rho}}} \right)
 \end{align}
-This is the maximum time step at which the advection can take place. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and absorption coefficient.
+This is the maximum time step at which the advection should be calculated to be numerically viable. The diffusion of the radiation energy field on the other hand will generally happen much quicker, depending on the gradient of the $E$-field and diffusion coefficient. This problem is circumvented by using an implicit scheme, described in section \ref{section: m: ADI}
 
 \subsection{Elliptic vs Hyperbolic}
-\subsection{ADI}
-The diffusion part of the radiative energy equation will be solved using the Alternating Direction Implicit (ADI) scheme. This is a numerical scheme which solves the equation implicitly in the first spatial direction an explicitly in the second for half a time step, and then implicitly in the second spatial direction and explicitly in the first for another half time step. Lets first simplify the equation by defining the diffusion coefficient $D = \frac{\lambda c}{\kappa \rho}$. 
+\subsection{ADI} \label{section: m: ADI}
+The diffusion part of the radiative energy equation will be solved using the Alternating Direction Implicit (ADI) scheme. This is a numerical scheme which solves the equation implicitly in the first spatial direction an explicitly in the second for half a time step, and then implicitly in the second spatial direction and explicitly in the first for another half time step.ADI is computationally cheaper than a completely implicit scheme, yet it is possible to converge with very big time steps compared to explicit schemes. Lets first simplify the equation by defining the diffusion coefficient $D = \frac{\lambda c}{\kappa \rho}$. 
 \begin{align}
 \partial_t E  = \vec{\nabla} \cdot \left(D \nabla E\right) \label{eq: diffusion}
 \end{align}
@@ -142,6 +150,7 @@ As mentioned before, the ADI scheme first solves half a time step implicitly in 
  &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n} - E_{i,j}^{n}) \\
  &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n} - E_{i,j-1}^{n})
 \end{align}
+Here it is clear how this step is implicit in the $x$-direction, this expression features the terms $E_{i+1,j}^{n+\frac{1}{2}}$ and $E_{i-1,j}^{n+\frac{1}{2}}$. Yet it is implicit in $y$, there are no $E_{i,j+1}^{n+\frac{1}{2}}$ or $E_{i,j-1}^{n+\frac{1}{2}}$ terms.\\
 
 In a more simple form, this can be written as:
 \begin{align}
@@ -170,7 +179,7 @@ Or in matrix form:
            \cdots & b_{i,j-1} & b_{i,j} & b_{i,j+1} & \cdots
 \end{bmatrix}
 \end{align}
-This is, depending on boundary conditions, a tridiagonal matrix. In \texttt{mpi-AMRVAC}, this matrix system is solved on the entire computational domain and the innermost layer of ghost cells. The boundary conditions on the radiation energy field are applied after the halved time step. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of Gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a time step. \\
+This is, depending on boundary conditions, a tridiagonal matrix. In \texttt{MPI-AMRVAC}, this matrix system is solved on the entire computational domain and the innermost layer of ghost cells. The boundary conditions on the radiation energy field are applied after the halved time step. This way, the matrix can be kept tridiagonal independent of those boundary conditions. The tridiagonal system is then solved using Thomas' algorithm, which is a simplified form of Gaussian elimination. If the computational grid is $N$ cells by $M$ cells this is an $(N+2) \times (N+2)$ system, and there are $M+2$ such systems to be solved to evolve half a time step. \\
 
 The second half of the time step will be solved implicit in the $y$-direction and explicit in $x$-direction. Notice again the diffusion coefficient can only be updated at the end of the cycle:
 \begin{align}

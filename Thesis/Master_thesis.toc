@@ -9,27 +9,27 @@
 \contentsline {section}{\numberline {2.2}HD in mpi-AMRVAC}{11}
 \contentsline {section}{\numberline {2.3}CAK-theory}{11}
 \contentsline {section}{\numberline {2.4}Flux Limited Diffusion}{12}
-\contentsline {subsection}{\numberline {2.4.1}Elliptic vs Hyperbolic}{14}
-\contentsline {subsection}{\numberline {2.4.2}ADI}{14}
+\contentsline {subsection}{\numberline {2.4.1}Elliptic vs Hyperbolic}{15}
+\contentsline {subsection}{\numberline {2.4.2}ADI}{15}
 \contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{17}
 \contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{18}
-\contentsline {section}{\numberline {2.5}Dimensionless problem}{18}
-\contentsline {section}{\numberline {2.6}visualisation}{19}
-\contentsline {chapter}{\numberline {3}Results}{20}
-\contentsline {section}{\numberline {3.1}CAK-Theory}{20}
-\contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{20}
-\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{20}
-\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{20}
-\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{21}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{25}
-\contentsline {subsubsection}{constant flux discrepancy}{26}
-\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{26}
-\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{26}
-\contentsline {subsubsection}{comparison to mesa structure}{26}
-\contentsline {chapter}{\numberline {4}Conclusions}{27}
-\contentsline {chapter}{\numberline {5}Future Work}{28}
-\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{28}
-\contentsline {section}{\numberline {5.2}MPI}{28}
-\contentsline {section}{\numberline {5.3}AMR}{28}
-\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{28}
-\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{28}
+\contentsline {section}{\numberline {2.5}Dimensionless problem}{19}
+\contentsline {section}{\numberline {2.6}visualisation}{20}
+\contentsline {chapter}{\numberline {3}Results}{21}
+\contentsline {section}{\numberline {3.1}CAK-Theory}{21}
+\contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{21}
+\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{21}
+\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{21}
+\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{22}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{26}
+\contentsline {subsubsection}{constant flux discrepancy}{27}
+\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{27}
+\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{27}
+\contentsline {subsubsection}{comparison to mesa structure}{27}
+\contentsline {chapter}{\numberline {4}Conclusions}{28}
+\contentsline {chapter}{\numberline {5}Future Work}{29}
+\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{29}
+\contentsline {section}{\numberline {5.2}MPI}{29}
+\contentsline {section}{\numberline {5.3}AMR}{29}
+\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{29}
+\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{29}
