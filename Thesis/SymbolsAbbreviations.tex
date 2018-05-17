@@ -64,7 +64,7 @@ $K_\nu$, $K$  & $2^{nd}$ moment of intensity \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $H_{eff}$     & scale height \\
 $g_{eff}$ 	  & effective acceleration \\
-$\tau$        & Optical depth \\
+$\tau$        & optical depth \\
 \end{tabular}
 
 \section*{CAK and FLD}
@@ -76,13 +76,15 @@ $q$                &   \\
 $t$                &   \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $\lambda$          & flux limiter \\
-%$R$                & \\
+$l_\gamma$		   & photon mean free path \\
+$R$                & ratio of $l_\gamma$ and radiation scale height\\
 $D$                & diffusion coefficient\\
 \end{tabular}
 
 \section*{Numerics}
 \begin{tabular}{ll}
-$\Delta x$       & difference in quantity $x$\\
+$\Delta x$       & cell width in the $x$-direction\\
+$\Delta t, dt$	 & time step \\
 $N,M$            & dimension of grid \\
 $\tilde{x}$      & quantity $x$ in dimensionless units \\
 $x_0$		     & the normalised value of quantity $x$ \\

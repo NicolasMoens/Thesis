@@ -21,7 +21,7 @@
 \contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{21}
 \contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{21}
 \contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{22}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Atmosphere}{26}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Thomson Atmosphere}{26}
 \contentsline {subsubsection}{constant flux discrepancy}{28}
 \contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{28}
 \contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{28}
