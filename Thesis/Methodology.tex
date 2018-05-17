@@ -150,7 +150,14 @@ As mentioned before, the ADI scheme first solves half a time step implicitly in 
  &+ \frac{D2_{i,j+1}^{n}}{\Delta y^2} (E_{i,j+j}^{n} - E_{i,j}^{n}) \\
  &- \frac{D2_{i,j}^{n}}{\Delta y^2} (E_{i,j}^{n} - E_{i,j-1}^{n})
 \end{align}
-Here it is clear how this step is implicit in the $x$-direction, this expression features the terms $E_{i+1,j}^{n+\frac{1}{2}}$ and $E_{i-1,j}^{n+\frac{1}{2}}$. Yet it is implicit in $y$, there are no $E_{i,j+1}^{n+\frac{1}{2}}$ or $E_{i,j-1}^{n+\frac{1}{2}}$ terms.\\
+Here it is clear how this step is implicit in the $x$-direction, this expression features the terms $E_{i+1,j}^{n+\frac{1}{2}}$ and $E_{i-1,j}^{n+\frac{1}{2}}$. Yet it is implicit in $y$, there are no $E_{i,j+1}^{n+\frac{1}{2}}$ or $E_{i,j-1}^{n+\frac{1}{2}}$ terms. This is portrayed in figure \ref{fig: ADI_stencil}.\\
+\begin{figure}
+\centering	
+\includegraphics[scale=0.5]{ADI-stencil.png}
+\label{fig: ADI_stencil}
+\caption{Courtesy: wikipedia.
+This stencil portraits the working of the ADI scheme, the first half time step from $t=n$ to $t = n +\frac{1}{2}$ depends implicitly on the cells with coordinates $(i+1,j)$, $(i,j)$ and $(i-1,j)$. The second half time step to $t = n+1$ depends implicitly on cells $(i,j+1)$, $(i,j)$ and $(i,j-1)$.}
+\end{figure}
 
 In a more simple form, this can be written as:
 \begin{align}

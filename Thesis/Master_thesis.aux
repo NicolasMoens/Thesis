@@ -35,14 +35,15 @@
 \newlabel{eq: rhd_e_r}{{1.21}{6}}
 \newlabel{eq: rhd_flux}{{1.22}{6}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Sobolev and CAK-theory}{6}}
-\citation{Levermore1981}
+\citation{}
 \newlabel{g_CAK}{{1.30}{8}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.4}Flux Limited Diffusion}{8}}
 \newlabel{section: introduction Flux Limited Diffusion}{{1.4}{8}}
 \newlabel{eq: P=DF}{{1.33}{8}}
-\newlabel{eq: fld_closing}{{1.34}{8}}
+\citation{Levermore1981}
 \citation{Turner12001}
 \citation{Harries2015}
+\newlabel{eq: fld_closing}{{1.34}{9}}
 \newlabel{eq: fld_Pclosing}{{1.37}{9}}
 \newlabel{eq: FLD_E}{{1.39}{9}}
 \citation{Porth2014}
@@ -67,57 +68,62 @@
 \newlabel{section: m: ADI}{{2.4.2}{15}}
 \newlabel{eq: diffusion}{{2.21}{15}}
 \newlabel{eq: Error_control}{{2.27}{15}}
+\newlabel{fig: ADI_stencil}{{2.4.2}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Courtesy: wikipedia. This stencil portraits the working of the ADI scheme, the first half time step from $t=n$ to $t = n +\frac  {1}{2}$ depends implicitly on the cells with coordinates $(i+1,j)$, $(i,j)$ and $(i-1,j)$. The second half time step to $t = n+1$ depends implicitly on cells $(i,j+1)$, $(i,j)$ and $(i,j-1)$.}}{16}}
 \citation{Turner12001}
 \citation{Turner12001}
 \citation{Turner12001}
-\newlabel{eq: Error}{{2.39}{17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{18}}
-\newlabel{subsection: BIS}{{2.4.4}{18}}
-\newlabel{eq: E_src}{{2.51}{18}}
+\newlabel{eq: Error}{{2.39}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{19}}
+\newlabel{subsection: BIS}{{2.4.4}{19}}
+\newlabel{eq: E_src}{{2.51}{19}}
 \newlabel{eq: Poly}{{2.52}{19}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.5}Dimensionless problem}{19}}
 \citation{}
 \@writefile{toc}{\contentsline {section}{\numberline {2.6}visualisation}{20}}
+\citation{}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Results}{21}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}CAK-Theory}{21}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{21}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{21}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{21}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{22}}
-\newlabel{fig: test_diffusion}{{3.2.1}{23}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces top: theoretical solution $E^{diff}$, middle: computed result $\mathaccentV {tilde}07E{E}^{diff}$ and bottom: residual $RES^{diff}$. Left: $0.1 t_0$, middle $0.4 t_0$ and right $0.7 t_0$. The scale goes from $1$ to $2$ for the upper two rows and form 0 to 0.01 for the bottom row.}}{23}}
-\newlabel{fig: test_advection}{{3.2.1}{24}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces top: theoretical solution $E^{adv}$, middle: computed result $\mathaccentV {tilde}07E{E}^{adv}$ and bottom: residual $RES^{adv}$. Left: $0.1 t_0$, middle $0.4 t_0$ and right $0.7 t_0$. The scale goes from $1$ to $2$ for the upper two rows and form 0 to 0.001 for the bottom row.}}{24}}
-\newlabel{fig: test_sourceterms}{{3.2.2}{25}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Comparison between the implicit method (red) and explicit method (black) for computing the radiation heating and cooling sourceterms. The gas energy evolves toward radiative equilibrium (blue) from different initial values. The time step for the implicit method is 3 orders of magnitude larger than the time step for the explicit method.}}{25}}
-\newlabel{fig: test_sourceterms}{{3.2.2}{25}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparison between the implicit method (orange, blue, green) and explicit method (black) for computing the radiation heating and cooling sourceterms. The gas energy evolves toward radiative equilibrium (blue) with different time steps for the implicit method.}}{25}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Isothermal Thomson Atmosphere}{26}}
-\newlabel{section: IsoAtm}{{3.2.3}{26}}
-\newlabel{eq: opt_depth}{{3.10}{26}}
-\newlabel{eq: p_cond}{{3.12}{26}}
-\newlabel{eq: P_cond}{{3.13}{26}}
-\newlabel{eq: p_cond}{{3.2.3}{26}}
-\newlabel{eq: Gamma1}{{3.24}{27}}
-\newlabel{eq: Gamma2}{{3.25}{27}}
-\@writefile{toc}{\contentsline {subsubsection}{constant flux discrepancy}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{28}}
-\@writefile{toc}{\contentsline {subsubsection}{comparison to mesa structure}{28}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Conclusions}{29}}
+\newlabel{eq: CAK_mom}{{3.2}{21}}
+\newlabel{eq: CAK_w}{{3.6}{22}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Isothermal Thomson Atmosphere}{24}}
+\newlabel{section: IsoAtm}{{3.2.3}{24}}
+\newlabel{fig: test_diffusion}{{3.2.1}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces top: theoretical solution $E^{diff}$, middle: computed result $\mathaccentV {tilde}07E{E}^{diff}$ and bottom: residual $RES^{diff}$. Left: $0.1 t_0$, middle $0.4 t_0$ and right $0.7 t_0$. The scale goes from $1$ to $2$ for the upper two rows and form 0 to 0.01 for the bottom row.}}{25}}
+\newlabel{fig: test_advection}{{3.2.1}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces top: theoretical solution $E^{adv}$, middle: computed result $\mathaccentV {tilde}07E{E}^{adv}$ and bottom: residual $RES^{adv}$. Left: $0.1 t_0$, middle $0.4 t_0$ and right $0.7 t_0$. The scale goes from $1$ to $2$ for the upper two rows and form 0 to 0.001 for the bottom row.}}{26}}
+\newlabel{fig: test_sourceterms}{{3.2.2}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Comparison between the implicit method (red) and explicit method (black) for computing the radiation heating and cooling sourceterms. The gas energy evolves toward radiative equilibrium (blue) from different initial values. The time step for the implicit method is 3 orders of magnitude larger than the time step for the explicit method.}}{27}}
+\newlabel{fig: test_sourceterms}{{3.2.2}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparison between the implicit method (orange, blue, green) and explicit method (black) for computing the radiation heating and cooling sourceterms. The gas energy evolves toward radiative equilibrium (blue) with different time steps for the implicit method.}}{27}}
+\newlabel{eq: opt_depth}{{3.23}{28}}
+\newlabel{eq: p_cond}{{3.25}{28}}
+\newlabel{eq: P_cond}{{3.26}{28}}
+\newlabel{eq: p_cond}{{3.2.3}{28}}
+\newlabel{eq: Gamma1}{{3.37}{29}}
+\newlabel{eq: Gamma2}{{3.38}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{constant flux discrepancy}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{comparison to mesa structure}{30}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Conclusions}{31}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Future Work}{30}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Future Work}{32}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{30}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}MPI}{30}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}AMR}{30}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{30}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}MPI}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}AMR}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{32}}
 \bibstyle{plainnat}
 \bibdata{library}
 \bibcite{Abbott1}{{1}{2016}{{Abbott et~al.}}{{Abbott, Abbott, Abbott, Abernathy, Acernese, Ackley, Adams, Adams, Addesso, Adhikari, Adya, Affeldt, Agathos, Agatsuma, Aggarwal, Aguiar, Aiello, Ain, Ajith, Allen, Allocca, Altin, Anderson, Anderson, Arai, Araya, Arceneaux, Areeda, Arnaud, Arun, Ascenzi, Ashton, Ast, Aston, Astone, Aufmuth, Aulbert, Babak, Bacon, {M Bader}, Baker, Baldaccini, Ballardin, Ballmer, Barayoga, Barclay, Barish, Barker, Barone, Barr, Barsotti, Barsuglia, Barta, Bartlett, Bartos, Bassiri, Basti, Batch, Baune, Bavigadda, Bazzan, Behnke, Bejger, Bell, Bell, Berger, Bergman, Bergmann, {L Berry}, Bersanetti, Bertolini, Betzwieser, Bhagwat, Bhandare, Bilenko, Billingsley, Birch, Birney, Biscans, Bisht, Bitossi, Biwer, Bizouard, Blackburn, Blair, Blair, Blair, Bloemen, Bock, Bodiya, Boer, Bogaert, Bogan, Bohe, Bojtos, Bond, Bondu, Bonnand, Boom, Bork, Boschi, Bose, Bouffanais, Bozzi, Bradaschia, Brady, Braginsky, Branchesi, Brau, Briant, Brillet, Brinkmann, Brisson, Brockill, Brooks, Brown, Brown, Brown, Buchanan, Buikema, Bulik, Bulten, Buonanno, Buskulic, Buy, Byer, Cadonati, Cagnoli, Cahillane, {Calder{\'{o}}n Bustillo}, Callister, Calloni, Camp, Cannon, Cao, Capano, Capocasa, Carbognani, Caride, {Casanueva Diaz}, Casentini, Caudill, Cavagli{\`{a}}, Cavalier, Cavalieri, Cella, Cepeda, {Cerboni Baiardi}, Cerretani, Cesarini, Chakraborty, Chalermsongsak, Chamberlin, Chan, Chao, Charlton, Chassande-Mottin, Chen, Chen, Cheng, Chincarini, Chiummo, Cho, Cho, Chow, Christensen, Chu, Chua, Chung, Ciani, Clara, Clark, Cleva, Coccia, Cohadon, Colla, Collette, Cominsky, {Constancio Jr}, Conte, Conti, Cook, Corbitt, Cornish, Corsi, Cortese, Costa, Coughlin, Coughlin, Coulon, Countryman, Couvares, Cowan, Coward, Cowart, Coyne, Coyne, Craig, {E Creighton}, Cripe, Crowder, Cumming, Cunningham, Cuoco, {Dal Canton}, Danilishin, DAntonio, Danzmann, Darman, Dattilo, Dave, Daveloza, Davier, Davies, Daw, Day, De, DeBra, Debreczeni, Degallaix, {De Laurentis}, Del{\'{e}}glise, {Del Pozzo}, Denker, Dent, Dereli, Dergachev, {De Rosa}, DeRosa, DeSalvo, Dhurandhar, D{\'{i}}az, {Di Fiore}, {Di Giovanni}, {Di Lieto}, {Di Pace}, {Di Palma}, {Di Virgilio}, Dojcinoski, Dolique, Donovan, Dooley, Doravari, Douglas, Downes, Drago, {P Drever}, Driggers, Du, Ducrot, Dwyer, Edo, Edwards, Effler, Eggenstein, Ehrens, Eichholz, Eikenberry, Engels, Essick, Etzel, Evans, Evans, Everett, Factourovich, Fafone, Fair, Fairhurst, Fan, Fang, Farinon, Farr, Farr, Favata, Fays, Fehrmann, Fejer, Ferrante, Ferreira, Ferrini, Fidecaro, Fiori, Fiorucci, Fisher, Flaminio, Fletcher, Fong, Fournier, Franco, Frasca, Frasconi, Frei, Freise, Frey, Frey, Fricke, Fritschel, Frolov, Fulda, Fyffe, {G Gabbard}, Gair, Gammaitoni, Gaonkar, Garufi, Gatto, Gaur, Gehrels, Gemme, Gendre, Genin, Gennai, George, Gergely, Germain, Ghosh, Ghosh, Giaime, Giardina, Giazotto, Gill, Glaefke, Goetz, Goetz, Gondan, Gonz{\'{a}}lez, {Gonzalez Castro}, Gopakumar, Gordon, Gorodetsky, Gossan, Gosselin, Gouaty, Graef, Graff, Granata, Grant, Gras, Gray, Greco, Green, Groot, Grote, Grunewald, Guidi, Guo, Gupta, Gupta, Gushwa, Gustafson, Gustafson, Hacker, Hall, Hall, Hammond, Haney, Hanke, Hanks, Hanna, Hannam, Hanson, Hardwick, Harms, Harry, Harry, Hart, Hartman, Haster, Haughian, Heidmann, Heintze, Heitmann, Hello, Hemming, Hendry, Heng, Hennig, Heptonstall, Heurs, Hild, Hoak, Hodge, Hofman, Hollitt, Holt, Holz, Hopkins, Hosken, Hough, Houston, Howell, Hu, Huang, Huerta, Huet, Hughey, Husa, Huttner, Huynh-Dinh, Idrisy, Indik, Ingram, Inta, Isa, Isac, Isi, Islas, Isogai, Iyer, Izumi, Jacqmin, Jang, Jani, Jaranowski, Jawahar, Jim{\'{e}}nez-Forteza, Johnson, Jones, Jones, {G Jonker}, Ju, Kalaghatgi, Kalogera, Kandhasamy, Kang, Kanner, Karki, Kasprzack, Katsavounidis, Katzman, Kaufer, Kaur, Kawabe, Kawazoe, K{\'{e}}f{\'{e}}lian, Kehl, Keitel, Kelley, Kells, Kennedy, Key, Khalaidovski, Khalili, Khan, Khan, Khan, Khazanov, Kijbunchoo, Kim, Kim, Kim, Kim, Kim, Kim, King, King, Kinzel, Kissel, Kleybolte, Klimenko, Koehlenbeck, Kokeyama, Koley, Kondrashov, Kontos, Korobko, Korth, Kowalska, Kozak, Kringel, Krishnan, Kr{\'{o}}lak, Krueger, Kuehn, Kumar, Kuo, Kutynia, Lackey, Landry, Lange, Lantz, Lasky, Lazzarini, Lazzaro, Leaci, Leavey, Lebigot, Lee, Lee, Lee, Lee, Lenon, Leonardi, Leong, Leroy, Letendre, Levin, Levine, {F Li}, Libson, Littenberg, Lockerbie, Logue, Lombardi, Lord, Lorenzini, Loriette, Lormand, Losurdo, Lough, L{\"{u}}ck, Lundgren, Luo, Lynch, Ma, MacDonald, Machenschalk, MacInnis, Macleod, Maga{\~{n}}a-Sandoval, Magee, Mageswaran, Majorana, Maksimovic, Malvezzi, Man, Mandel, Mandic, Mangano, Mansell, Manske, Mantovani, Marchesoni, Marion, M{\'{a}}rka, M{\'{a}}rka, Markosyan, Maros, Martelli, Martellini, Martin, Martin, Martynov, Marx, Mason, Masserot, Massinger, Masso-Reid, Matichard, Matone, Mavalvala, Mazumder, Mazzolo, McCarthy, McClelland, McCormick, McGuire, McIntyre, McIver, McManus, McWilliams, Meacher, Meadors, Meidam, Melatos, Mendell, Mendoza-Gandara, Mercer, Merilh, Merzougui, Meshkov, Messenger, Messick, Meyers, Mezzani, Miao, Michel, Middleton, Mikhailov, Milano, Miller, Millhouse, Minenkov, Ming, Mirshekari, Mishra, Mitra, Mitrofanov, Mitselmakher, Mittleman, Moggi, Mohan, {P Mohapatra}, Montani, Moore, Moore, Moraru, Moreno, Morriss, Mossavi, Mours, Mow-Lowry, Mueller, Mueller, Muir, Mukherjee, Mukherjee, Mukherjee, Mukund, Mullavey, Munch, Murphy, Murray, Mytidis, Nardecchia, Naticchioni, Nayak, Necula, Nedkova, Nelemans, Neri, Neunzert, Newton, Nguyen, Nielsen, Nissanke, Nitz, Nocera, Nolting, Normandin, Nuttall, Oberling, Ochsner, ODell, Oelker, Ogin, Oh, Oh, Ohme, Oliver, Oppermann, Oram, OReilly, OShaughnessy, Ottaway, Ottens, Overmier, Owen, Pai, Pai, Palamos, Palashov, Palomba, Pal-Singh, Pan, Pankow, Pannarale, Pant, Paoletti, Paoli, Papa, Paris, Parker, Pascucci, Pasqualetti, Passaquieti, Passuello, Patricelli, Patrick, Pearlstone, Pedraza, Pedurand, Pekowsky, Pele, Penn, Perreca, Phelps, Piccinni, Pichot, Piergiovanni, Pierro, Pillant, Pinard, Pinto, Pitkin, Poggiani, Popolizio, Porter, Post, Powell, Prasad, Predoi, Premachandra, Prestegard, Price, Prijatelj, Principe, Privitera, Prodi, Prokhorov, Puncken, Punturo, Puppo, P{\"{u}}rrer, Qi, Qin, Quetschke, Quintero, Quitzow-James, Raab, Rabeling, Radkins, Raffai, Raja, Rakhmanov, Rapagnani, Raymond, Razzano, Re, Read, Reed, Regimbau, Rei, Reid, Reitze, Rew, Reyes, Ricci, Riles, Robertson, Robie, Robinet, Rocchi, Rolland, Rollins, Roma, Romano, Romanov, Romie, Rosi{\'{n}}ska, Rowan, R{\"{u}}diger, Ruggi, Ryan, Sachdev, Sadecki, Sadeghian, Salconi, Saleem, Salemi, Samajdar, Sammut, Sampson, Sanchez, Sandberg, Sandeen, Sanders, Sassolas, Sathyaprakash, Saulson, Sauter, Savage, Sawadsky, Schale, Schilling, Schmidt, Schmidt, Schnabel, {S Schofield}, Sch{\"{o}}nbeck, Schreiber, Schuette, Schutz, Scott, Scott, Sellers, Sengupta, Sentenac, Sequino, Sergeev, Serna, Setyawati, Sevigny, Shaddock, Shah, Shahriar, Shaltev, Shao, Shapiro, Shawhan, Sheperd, Shoemaker, Shoemaker, Siellez, Siemens, Sigg, Silva, Simakov, Singer, Singer, Singh, Singh, Singhal, Sintes, {J Slagmolen}, Smith, Smith, {E Smith}, Son, Sorazu, Sorrentino, Souradeep, Srivastava, Staley, Steinke, Steinlechner, Steinlechner, Steinmeyer, Stephens, Stevenson, Stone, Strain, Straniero, Stratta, Strauss, Strigin, Sturani, Stuver, Summerscales, Sun, Sutton, Swinkels, Szczepa{\'{n}}czyk, Tacca, Talukder, Tanner, T{\'{a}}pai, Tarabrin, Taracchini, Taylor, Theeg, Thirugnanasambandam, Thomas, Thomas, Thomas, Thorne, Thorne, Thrane, Tiwari, Tiwari, Tokmakov, Tomlinson, Tonelli, Torres, Torrie, T{\"{o}}yr{\"{a}}, Travasso, Traylor, Trifir{\`{o}}, Tringali, Trozzo, Tse, Turconi, Tuyenbayev, Ugolini, Unnikrishnan, Urban, Usman, Vahlbruch, Vajente, Valdes, Vallisneri, van Bakel, van Beuzekom, {J van den Brand}, {Van Den Broeck}, Vander-Hyde, van~der Schaaf, van Heijningen, van Veggel, Vardaro, Vass, Vas{\'{u}}th, Vaulin, Vecchio, Vedovato, Veitch, Veitch, Venkateswara, Verkindt, Vetrano, Vicer{\'{e}}, Vinciguerra, Vine, Vinet, Vitale, Vo, Vocca, Vorvick, Voss, Vousden, Vyatchanin, Wade, Wade, Wade, Walker, Wallace, Walsh, Wang, Wang, Wang, Wang, Wang, Ward, Warner, Was, Weaver, Wei, Weinert, Weinstein, Weiss, Welborn, Wen, We{\ss }els, Westphal, Wette, Whelan, White, Whiting, Williams, Williamson, Willis, Willke, Wimmer, Winkler, Wipf, Wittel, Woan, Worden, Wright, Wu, Yablon, Yam, Yamamoto, Yancey, Yap, Yu, Yvert, Zadro{\.{z}}ny, Zangrando, Zanolin, Zendri, Zevin, Zhang, Zhang, Zhang, Zhang, Zhao, Zhou, Zhou, Zhu, Zucker, Zuraw, and Zweizig}}}

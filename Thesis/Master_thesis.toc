@@ -11,25 +11,25 @@
 \contentsline {section}{\numberline {2.4}Flux Limited Diffusion}{12}
 \contentsline {subsection}{\numberline {2.4.1}Elliptic vs Hyperbolic}{15}
 \contentsline {subsection}{\numberline {2.4.2}ADI}{15}
-\contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{17}
-\contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{18}
+\contentsline {subsection}{\numberline {2.4.3}pseudo-timestepping}{18}
+\contentsline {subsection}{\numberline {2.4.4}Bisection Implicit scheme}{19}
 \contentsline {section}{\numberline {2.5}Dimensionless problem}{19}
 \contentsline {section}{\numberline {2.6}visualisation}{20}
 \contentsline {chapter}{\numberline {3}Results}{21}
 \contentsline {section}{\numberline {3.1}CAK-Theory}{21}
 \contentsline {subsection}{\numberline {3.1.1}Massive star stellar wind}{21}
-\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{21}
-\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{21}
-\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{22}
-\contentsline {subsection}{\numberline {3.2.3}Isothermal Thomson Atmosphere}{26}
-\contentsline {subsubsection}{constant flux discrepancy}{28}
-\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{28}
-\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{28}
-\contentsline {subsubsection}{comparison to mesa structure}{28}
-\contentsline {chapter}{\numberline {4}Conclusions}{29}
-\contentsline {chapter}{\numberline {5}Future Work}{30}
-\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{30}
-\contentsline {section}{\numberline {5.2}MPI}{30}
-\contentsline {section}{\numberline {5.3}AMR}{30}
-\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{30}
-\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{30}
+\contentsline {section}{\numberline {3.2}Flux Limited Diffusion}{23}
+\contentsline {subsection}{\numberline {3.2.1}Testcase 1: Advection and Diffusion}{23}
+\contentsline {subsection}{\numberline {3.2.2}Testcase 2: Photon Tiring, Heating and Cooling}{24}
+\contentsline {subsection}{\numberline {3.2.3}Isothermal Thomson Atmosphere}{24}
+\contentsline {subsubsection}{constant flux discrepancy}{30}
+\contentsline {subsection}{\numberline {3.2.4}Strange mode instabilities}{30}
+\contentsline {subsection}{\numberline {3.2.5}Non-isothermal evolution?}{30}
+\contentsline {subsubsection}{comparison to mesa structure}{30}
+\contentsline {chapter}{\numberline {4}Conclusions}{31}
+\contentsline {chapter}{\numberline {5}Future Work}{32}
+\contentsline {section}{\numberline {5.1}Alternative Implicit Schemes}{32}
+\contentsline {section}{\numberline {5.2}MPI}{32}
+\contentsline {section}{\numberline {5.3}AMR}{32}
+\contentsline {section}{\numberline {5.4}Non-Isothermal atmospheres}{32}
+\contentsline {section}{\numberline {5.5}Super Eddinton Limit}{32}

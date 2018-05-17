@@ -159,11 +159,12 @@ g_{CAK} &= g_e \int_0^\infty q \frac{dN}{dq} \frac{1 - e^{-qt}}{qt} dq \\
         &= \frac{1}{1-\alpha} \frac{\kappa_e L_* \bar{Q}}{4\pi r^2 c} \left( \frac{dv/dr}{\rho c \bar{Q} \kappa_e} \right)^\alpha \label{g_CAK}
 \end{align}
 
-When applying the CAK-formalism to the winds produced by massive stars, there is one last addition to be made. The acceleration described above assumes the star to be a point source, for material close to the stellar surface this is of course not the case. One can correct for this assumption using the finite disk correction factor $f_{fd}$
+When applying the CAK-formalism to the winds produced by massive stars, there is one last addition to be made. The acceleration described above assumes the star to be a point source, for material close to the stellar surface this is of course not the case. One can correct for this assumption using the finite disk correction factor $f_{fd}$, which depends on the distance to the stellar surface, the velocity field and the velocity gradient.
 \begin{align}
-f_{fd} &=  \\
+f_{fd}(r,v,dv/dr) &= \frac{(1 + \sigma)^{1+\alpha}-(1+\sigma \mu_*^2)^{1+\alpha}}{(1+\alpha)\sigma(1+\sigma)^\alpha(1-\mu_*^2)} \\
 g_{CAK}^{fd} &= f_{fd} g_{CAK}
 \end{align}
+Where $\mu_* = \sqrt{1-\frac{R_*^2}{r^2}}$ and $\sigma = \frac{d \ln(v)}{d\ln(r)}-1$. The derviation of this finite disk correction factor can be found in \citep{}.\\ WHERE? CAN I CITE COURSENOTES?\\
 
 %Close CAK intro
 CAK-theory is a nice, easy to implement theory. In this thesis, the main application will be simulating the wind of Massive stars. Research performed here is not exactly new, bit it's a great way to introduce radiation forces in \texttt{MPI-AMRVAC}. For me personally it was the first step in learning Fortran and getting to know the workings of an advanced (M)HD-code.
